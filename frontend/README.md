@@ -2,9 +2,15 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Setup
 
-In the project directory, you can run:
+Navigate to this directory in your code editor.
+#### `cd frontend`
+
+Install all related dependencies. You will have to do this any time these change.
+#### `npm install`
+
+## Running the frontend
 
 ### `npm start`
 
