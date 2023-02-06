@@ -6,11 +6,11 @@ import java.util.Set;
 public class Node {
     private String nodeName;
     private String nodeType;
-    private Set<Node> dependencies;
+    private Set<String> dependencies;
 
-    private Set<Node> targets;
+    private Set<String> targets;
 
-    public Node(String nodeName, String nodeType, Set<Node> dependencies, Set<Node> targets){
+    public Node(String nodeName, String nodeType, Set<String> dependencies, Set<String> targets){
         this.nodeName = nodeName;
         this.nodeType = nodeType;
         this.dependencies = dependencies;
@@ -33,19 +33,19 @@ public class Node {
         this.nodeType = nodeType;
     }
 
-    public Set<Node> getDependencies() {
+    public Set<String> getDependencies() {
         return dependencies;
     }
 
-    public void setDependencies(Set<Node> dependencies) {
+    public void setDependencies(Set<String> dependencies) {
         this.dependencies = dependencies;
     }
 
-    public Set<Node> getTargets() {
+    public Set<String> getTargets() {
         return targets;
     }
 
-    public void setTargets(Set<Node> targets) {
+    public void setTargets(Set<String> targets) {
         this.targets = targets;
     }
 

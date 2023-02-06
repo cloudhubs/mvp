@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graph {
     private Map<String, Set<String>> depend = new HashMap<>();
@@ -46,7 +47,8 @@ public class Graph {
             }
         }
 
-
+        // Form the graph from all the collected and converted nodes
+        nodesToGraph();
     }
 
     public Set<String> arr2Set(JSONArray arr){
@@ -59,17 +61,33 @@ public class Graph {
     }
 
     public Node jsonToNode(JSONObject obj){
-        Set<Node> dependenciesSet = new HashSet<>();
-        Set<Node> targetsSet = new HashSet<>();
+        Set<String> dependenciesSet = new HashSet<>();
+        Set<String> targetsSet = new HashSet<>();
         JSONArray dependencies = (JSONArray) obj.get("dependencies");
         JSONArray targets = (JSONArray) obj.get("targets");
 
-        for (Object o: dependencies) {
+        dependencies.forEach(o -> {
+            JSONObject jo = (JSONObject) o;
+            dependenciesSet.add((String) jo.get("nodeName"));
+        });
 
-        }
+        targets.forEach(o -> {
+            JSONObject jo = (JSONObject) o;
+            targetsSet.add((String) jo.get("nodeName"));
+        });
 
         return new Node((String) obj.get("nodeName"), (String) obj.get("nodeType"),
-                (Set<Node>) obj.get("dependencies"), (Set<Node>) obj.get("target"));
+                dependenciesSet, targetsSet);
+    }
+
+    public void nodesToGraph(){
+        for (Node n : nodes) {
+            for (String s : n.getTargets()) {
+                //Here the nodeList should only have 1 member
+                List<Node> nodeList = nodes.stream().filter(me -> me.getNodeName() == s).collect(Collectors.toList());
+                nodeGraph.put(n, nodeList.get(0));
+            }
+        }
     }
 
     public Map<String, Set<String>> getDepend() {
