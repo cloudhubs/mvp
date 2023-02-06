@@ -6,13 +6,16 @@ import java.util.Set;
 public class Node {
     private String nodeName;
     private String nodeType;
+
+    private Integer index;
     private Set<String> dependencies;
 
     private Set<String> targets;
 
-    public Node(String nodeName, String nodeType, Set<String> dependencies, Set<String> targets){
+    public Node(String nodeName, String nodeType, Integer index, Set<String> dependencies, Set<String> targets){
         this.nodeName = nodeName;
         this.nodeType = nodeType;
+        this.index = index;
         this.dependencies = dependencies;
         this.targets = targets;
     }
@@ -31,6 +34,10 @@ public class Node {
 
     public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
+    }
+
+    public Integer getIndex() {
+        return index;
     }
 
     public Set<String> getDependencies() {
