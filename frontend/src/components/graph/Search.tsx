@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import myData from '../../data/trainticket.json';
 
-const Search = ({ graphRef }) => {
+type Props = {
+    graphRef: any;
+};
+const Search: React.FC<Props> = ({ graphRef }) => {
     const [search, setSearch] = useState("");
-    const [graphData] = useState({"nodes": [{"id": "id1","name": "name1","val": 1},{"id": "id2","name": "name2","val": 10},],"links": [{"source": "id1","target": "id2"},]});
-    const nodes = graphData.nodes.map((node) => node.id.toLowerCase());
+    const [graphData] = useState<any>(myData);
+    const nodes = graphData.nodes.map((node: any) => node.id.toLowerCase());
 
-    const handleInput = (e) => {
+    const handleInput = (e: any) => {
         setSearch(e.target.value);
         if (nodes.includes(e.target.value.toLowerCase())) {
             const distance = 100;
-            const node = graphData.nodes.find((n) => n.id === e.target.value);
+            const node = graphData.nodes.find((n: any) => n.id === e.target.value);
             if (node) {
                 const distRatio =
                     1 + distance / Math.hypot(node.x, node.y, node.z);
@@ -30,7 +34,7 @@ const Search = ({ graphRef }) => {
 
     return (
         <div className="mx-2 mb-3">
-            <label html="search" className="inline-block mb-2">
+            <label className="inline-block mb-2">
                 Search
             </label>
             <input
@@ -45,7 +49,7 @@ const Search = ({ graphRef }) => {
                 autoComplete="off"
             />
             <datalist id="nodeOptions">
-                {graphData.nodes.map((node) => (
+                {graphData.nodes.map((node: any) => (
                     <option key={node.nodeID}>{node.id}</option>
                 ))}
             </datalist>

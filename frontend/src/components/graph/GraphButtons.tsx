@@ -1,6 +1,11 @@
 import { saveAs } from "file-saver";
 import React, { useState } from "react";
-import { reset } from "../../GraphFunctions";
+import { reset } from "../../utils/GraphFunctions";
+
+type ButtonProps = {
+    onClick: any;
+    children: any;
+};
 
 /**
  * A styled graph button with a function to interface with the graph.
@@ -9,11 +14,11 @@ import { reset } from "../../GraphFunctions";
  * @param {String} props.children text to display
  * @returns {React.Component} A single, functional button for the graph
  */
-const GraphButton = ({ onClick, ...props }) => {
+const GraphButton: React.FC<ButtonProps> = ({ onClick, ...props }) => {
     return (
         <button
             className={`border-2 rounded-lg px-2 py-1 text-center text-sm mx-2 transition
-            hover:bg-cyan-400 bg-slate-900 bg-opacity-40 hover:bg-opacity-40 border-opacity-40 ${props.className}`}
+            hover:bg-cyan-400 bg-slate-900 bg-opacity-40 hover:bg-opacity-40 border-opacity-40`}
             onClick={onClick}
         >
             {props.children}
@@ -28,12 +33,17 @@ const GraphButton = ({ onClick, ...props }) => {
  * @param {React.MutableRefObject<import("react-force-graph-3d").ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {React.Component} The buttons
  */
-const GraphButtonMenu = ({ graphRef }) => {
-    const [numScreenshots, setNumScreenshots] = useState(0);
+
+type Props = {
+    graphRef: any;
+};
+
+const GraphButtonMenu: React.FC<Props> = ({ graphRef }) => {
+    let [numScreenshots, setNumScreenshots] = useState(0);
     const [initCoords] = useState(null);
     const [initRotation] = useState(null);
     const [graphData, setGraphData] = useState(null);
-    const [trackMenu] = useState(null);
+    const [trackMenu] = useState<any>(null);
 
     /** @TODO idk what the track is or how to toggle it */
     function toggleTrack() {
@@ -48,7 +58,7 @@ const GraphButtonMenu = ({ graphRef }) => {
         exportToJsonFile(graphData);
     }
 
-    function replacer(key, value) {
+    function replacer(key: any, value: any) {
         if (key === "__threeObj") return undefined;
         else if (key === "__lineObj") return undefined;
         else if (key === "__arrowObj") return undefined;
@@ -59,7 +69,7 @@ const GraphButtonMenu = ({ graphRef }) => {
         else return value;
     }
 
-    function exportToJsonFile(jsonData) {
+    function exportToJsonFile(jsonData: any) {
         let dataStr = JSON.stringify(
             Object.assign({}, jsonData, graphRef.current.cameraPosition()),
             replacer
@@ -77,7 +87,7 @@ const GraphButtonMenu = ({ graphRef }) => {
         linkElement.setAttribute("download", exportFileDefaultName);
         linkElement.click();
     }
-    function delay(time) {
+    function delay(time: any) {
         return new Promise((resolve) => setTimeout(resolve, time));
     }
 
@@ -85,7 +95,7 @@ const GraphButtonMenu = ({ graphRef }) => {
         let input = document.createElement("input");
         input.type = "file";
 
-        input.onchange = (e) => {
+        input.onchange = (e: any) => {
             let file = e.target.files[0];
 
             // setting up the reader
@@ -93,7 +103,7 @@ const GraphButtonMenu = ({ graphRef }) => {
             reader.readAsText(file, "UTF-8");
 
             // here we tell the reader what to do when it's done reading...
-            reader.onload = (readerEvent) => {
+            reader.onload = (readerEvent: any) => {
                 let content = readerEvent.target.result; // this is the content!
                 let parsedData = JSON.parse(content);
                 setGraphData(parsedData);
@@ -131,7 +141,7 @@ const GraphButtonMenu = ({ graphRef }) => {
         const now = new Date();
         window.requestAnimationFrame(() => {
             window.cancelAnimationFrame(0);
-            graphRef.current.renderer().domElement.toBlob(function (blob) {
+            graphRef.current.renderer().domElement.toBlob(function (blob: any) {
                 saveAs(
                     blob,
                     `3d_Visualizer_${now.toLocaleDateString()}-${numScreenshots}}`

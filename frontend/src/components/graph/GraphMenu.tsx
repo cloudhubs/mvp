@@ -3,6 +3,10 @@ import GraphButtonMenu from "./GraphButtons";
 import Search from "./Search";
 import Slider from "./Slider";
 
+type Props = {
+    graphRef: any;
+};
+
 /**
  * A menu to be able to do all sorts of things with the force graph.
  *
@@ -10,7 +14,7 @@ import Slider from "./Slider";
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The menu for the graph
  */
-const GraphMenu = ({ graphRef }) => {
+const GraphMenu: React.FC<Props> = ({ graphRef }) => {
     return (
         <div className="absolute top-2 right-2 z-50 flex flex-col gap-2 text-sm bg-slate-900 bg-opacity-60 rounded-lg p-4 w-44">
             <Search graphRef={graphRef} />

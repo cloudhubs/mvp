@@ -5,7 +5,7 @@ export const useContextMenu = () => {
     const [show, setShow] = useState(false);
 
     const handleContextMenu = useCallback(
-        (event) => {
+        (event: any) => {
             event.preventDefault();
             setAnchorPoint({ x: event.pageX, y: event.pageY });
             setShow(true);

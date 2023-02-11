@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import { getNeighbors } from "../GraphFunctions";
+import { getNeighbors } from "../utils/GraphFunctions";
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -7,12 +7,12 @@ export const useInfoBox = () => {
     const [name, setName] = useState();
     const [type, setType] = useState();
     const [id, setId] = useState();
-    const [graphData, setGraphData] = useState(null);
+    const [graphData, setGraphData] = useState<any>(null);
     const [depends, setDepends] = useState();
     const [dependencies, setDependencies] = useState();
 
     const handleClick = useCallback(
-        (event) => {
+        (event: any) => {
             setAnchorPoint({ x: event.pageX, y: event.pageY });
             setName(event.detail.node.id);
             setType(event.detail.node.nodeType);
@@ -22,7 +22,7 @@ export const useInfoBox = () => {
                 graphData.links
             ).nodes;
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
-            let dependency = neighbors.map((data) => {
+            let dependency = neighbors.map((data: any) => {
                 if (
                     event.detail.node.dependencies.includes(
                         parseInt(data.nodeID)
@@ -32,7 +32,7 @@ export const useInfoBox = () => {
                     return <li key={data.id}>{data.id}</li>;
                 }
             });
-            neighbors = neighbors.map((data) => {
+            neighbors = neighbors.map((data: any) => {
                 return <li key={data.id}>{data.id}</li>;
             });
             setDependencies(dependency);

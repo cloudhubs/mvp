@@ -1,4 +1,7 @@
-export function getShape(type) {
+import NodeObject from "react-force-graph-3d";
+import {ColorRepresentation} from "three";
+
+function getShape(type: String): number {
     if (type === "service") {
         return 0;
     } else if (
@@ -22,17 +25,17 @@ export function getShape(type) {
 }
 
 // Sets color of node
-export function getColor(
-    node,
-    graphData,
-    threshold,
-    highlightNodes,
-    hoverNode
-) {
+function getColor(
+    node: any,
+    graphData: any,
+    threshold: number,
+    highlightNodes: any,
+    hoverNode: any
+): ColorRepresentation {
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).nodes.length;
 
-    if (highlightNodes && highlightNodes.has(node)) {
+    if (highlightNodes && highlightNodes.includes(node)) {
         if (node === hoverNode) {
             return "rgb(50,50,200)";
         } else {
@@ -51,16 +54,16 @@ export function getColor(
 }
 
 // Find neighbors of a given node
-export function getNeighbors(node, links) {
+function getNeighbors(node: any, links: any) {
     return {
-        nodeLinks: links.filter((link) => {
+        nodeLinks: links.filter((link: any) => {
             return (
                 link.source.nodeID === node.nodeID ||
                 link.target.nodeID === node.nodeID
             );
         }),
         nodes: links.reduce(
-            (neighbors, link) => {
+            (neighbors: any, link: any) => {
                 if (link.target.id === node.id) {
                     neighbors.push(link.source);
                 } else if (link.source.id === node.id) {
@@ -74,12 +77,12 @@ export function getNeighbors(node, links) {
 }
 
 // Refresh visible nodes
-export function reset(graphRef) {
+function reset(graphRef: any) {
     graphRef.current.refresh();
 }
 
 // Set camera back to default view
-export function resetView(graphRef, initCoords) {
+function resetView(graphRef: any, initCoords: any) {
     graphRef.current.cameraPosition(
         initCoords, // new position
         { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
@@ -88,7 +91,7 @@ export function resetView(graphRef, initCoords) {
     reset(graphRef);
 }
 
-export const getNodeOpacity = (node, search) => {
+const getNodeOpacity = (node: any, search: any): number => {
     if (search === "") {
         return 0.75;
     }
@@ -100,9 +103,11 @@ export const getNodeOpacity = (node, search) => {
 };
 
 // Highlight neighbors
-export function getHighlightNeighbors(node, graphData, highlightLinks, highlightNodes) {
+function getHighlightNeighbors(node: any, graphData: any, highlightLinks: any, highlightNodes: any) {
     let { links } = graphData;
     const { nodeLinks, nodes } = getNeighbors(node, links);
-    nodeLinks.forEach((link) => highlightLinks.add(link));
-    nodes.forEach((node) => highlightNodes.add(node));
+    nodeLinks.forEach((link: any) => highlightLinks.add(link));
+    nodes.forEach((node: any) => highlightNodes.add(node));
 }
+
+export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity};

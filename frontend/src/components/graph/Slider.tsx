@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Slider = () => {
     const [value, setValue] = useState(8);
 
-    const handleInput = (e) => {
+    const handleInput = (e: any) => {
         setValue(e.target.value);
     };
     return (
