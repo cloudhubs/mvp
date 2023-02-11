@@ -9,11 +9,13 @@ import myData from '../../data/trainticket.json';
 type Props = {
     width: number;
     height: number;
+    search: string;
+    threshold: number;
 };
 
 const is2d3d = '2d';
 
-const VisualizationOptions: React.FC<Props> = () => {
+const VisualizationOptions: React.FC<Props> = ({width, height, search, threshold}) => {
     const Shared2D3DProps: SharedProps = {
         linkDirectionalArrowColor: () => 'rgba((102,102,153,0.8)',
         linkColor: () => 'rgba(102,102,153,0.8)',
@@ -27,8 +29,8 @@ const VisualizationOptions: React.FC<Props> = () => {
         sharedProps: Shared2D3DProps,
     };
 
-    return <div>{is2d3d !== '2d' ? <Graph2D width={500} height={500} {...GraphProps} /> : <Graph3D width={1710}
-                                                                                                   height={735} {...GraphProps} />}</div>;
+    return <div>{is2d3d !== '2d' ? <Graph2D width={width} height={height} {...GraphProps} /> : <Graph3D width={width}
+                                                                                                   height={height} {...GraphProps} search={search} threshold={threshold}/>}</div>;
 };
 
 export default VisualizationOptions;

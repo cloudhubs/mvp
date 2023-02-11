@@ -17,8 +17,8 @@ type ButtonProps = {
 const GraphButton: React.FC<ButtonProps> = ({ onClick, ...props }) => {
     return (
         <button
-            className={`border-2 rounded-lg px-2 py-1 text-center text-sm mx-2 transition
-            hover:bg-cyan-400 bg-slate-900 bg-opacity-40 hover:bg-opacity-40 border-opacity-40`}
+            className={`border-2 border-slate-500 rounded-lg px-2 py-1 text-center text-sm mx-2 transition
+            hover:bg-slate-500 bg-blue-400 bg-opacity-60 hover:bg-opacity-40 border-opacity-40`}
             onClick={onClick}
         >
             {props.children}

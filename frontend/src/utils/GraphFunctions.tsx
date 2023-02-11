@@ -35,7 +35,7 @@ function getColor(
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).nodes.length;
 
-    if (highlightNodes && highlightNodes.includes(node)) {
+    if (highlightNodes && highlightNodes.has(node)) {
         if (node === hoverNode) {
             return "rgb(50,50,200)";
         } else {
@@ -102,6 +102,18 @@ const getNodeOpacity = (node: any, search: any): number => {
     }
 };
 
+function getSpriteColor(node: any,
+                        search: any,
+                        graphData: any,
+                        threshold: number,
+                        highlightNodes: any,
+                        hoverNode: any){
+    if (!node.id.toLowerCase().includes(search.toLowerCase())) {
+        return 'rgba(255,255,255,0)';
+    }
+    return getColor(node, graphData, threshold, highlightNodes, hoverNode);
+}
+
 // Highlight neighbors
 function getHighlightNeighbors(node: any, graphData: any, highlightLinks: any, highlightNodes: any) {
     let { links } = graphData;
@@ -110,4 +122,20 @@ function getHighlightNeighbors(node: any, graphData: any, highlightLinks: any, h
     nodes.forEach((node: any) => highlightNodes.add(node));
 }
 
-export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity};
+function getLinkOpacity(link: any, search: any) {
+    if (search === "") {
+        return 0.8;
+    }
+    if (link.source.id.toLowerCase().includes(search.toLowerCase()) || link.target.id.toLowerCase().includes(search.toLowerCase())) {
+        return 0.8;
+    } else {
+        return 0.2;
+    }
+}
+
+function getLinkColor(link: any, search: any, hoverNode: any) {
+
+    return `rgba(102,102,153, ${getLinkOpacity(link, search)})`;
+}
+
+export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor};

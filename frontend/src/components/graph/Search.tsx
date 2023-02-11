@@ -3,9 +3,10 @@ import myData from '../../data/trainticket.json';
 
 type Props = {
     graphRef: any;
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
-const Search: React.FC<Props> = ({ graphRef }) => {
-    const [search, setSearch] = useState("");
+const Search: React.FC<Props> = ({ graphRef, search, setSearch }) => {
     const [graphData] = useState<any>(myData);
     const nodes = graphData.nodes.map((node: any) => node.id.toLowerCase());
 
@@ -41,7 +42,7 @@ const Search: React.FC<Props> = ({ graphRef }) => {
                 id="search"
                 type="text"
                 className="block w-full px-3 py-1.5 text-sm font-normal rounded transition ease-in-out m-0
-                 focus:border-cyan-600 focus:outline-none text-gray-300 bg-transparent border-white border-2"
+                 focus:border-cyan-600 focus:outline-none text-slate-500 bg-transparent border-slate-400 border-2"
                 value={search}
                 placeholder="Type query"
                 onInput={handleInput}

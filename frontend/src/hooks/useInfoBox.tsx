@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import { getNeighbors } from "../utils/GraphFunctions";
+import myData from '../data/trainticket.json';
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -7,7 +8,7 @@ export const useInfoBox = () => {
     const [name, setName] = useState();
     const [type, setType] = useState();
     const [id, setId] = useState();
-    const [graphData, setGraphData] = useState<any>(null);
+    const [graphData, setGraphData] = useState<any>(myData);
     const [depends, setDepends] = useState();
     const [dependencies, setDependencies] = useState();
 

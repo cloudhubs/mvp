@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 
-const Slider = () => {
-    const [value, setValue] = useState(8);
+type Props = {
+    value: number;
+    setValue: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Slider: React.FC<Props> = ({ value, setValue }) =>  {
 
     const handleInput = (e: any) => {
         setValue(e.target.value);
     };
     return (
-        <div className="w-full h-fit p-0 my-4 bg-transparent accent-gray-50 border-none active:accent-cyan-300">
+        <div className="w-full h-fit p-0 my-4 bg-transparent accent-gray-50 border-none active:accent-blue-300">
             <label htmlFor="slider" className="h-fit">
                 Threshold
             </label>
