@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 type Props = {
     value: number;
@@ -11,7 +11,7 @@ const Slider: React.FC<Props> = ({ value, setValue }) =>  {
         setValue(e.target.value);
     };
     return (
-        <div className="w-full h-fit p-0 my-4 bg-transparent accent-gray-50 border-none active:accent-blue-300">
+        <div className="w-full h-fit p-0 my-4 bg-transparent accent-blue-300 border-none active:accent-blue-300">
             <label htmlFor="slider" className="h-fit">
                 Threshold
             </label>

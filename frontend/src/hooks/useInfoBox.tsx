@@ -1,13 +1,12 @@
 import { useEffect, useCallback, useState } from "react";
 import { getNeighbors } from "../utils/GraphFunctions";
-import myData from '../data/trainticket.json';
+import myData from '../data/small_v1.json';
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
     const [show, setShow] = useState(false);
     const [name, setName] = useState();
     const [type, setType] = useState();
-    const [id, setId] = useState();
     const [graphData, setGraphData] = useState<any>(myData);
     const [depends, setDepends] = useState();
     const [dependencies, setDependencies] = useState();
@@ -15,9 +14,8 @@ export const useInfoBox = () => {
     const handleClick = useCallback(
         (event: any) => {
             setAnchorPoint({ x: event.pageX, y: event.pageY });
-            setName(event.detail.node.id);
+            setName(event.detail.node.nodeName);
             setType(event.detail.node.nodeType);
-            setId(event.detail.node.nodeID);
             let neighbors = getNeighbors(
                 event.detail.node,
                 graphData.links
@@ -25,16 +23,17 @@ export const useInfoBox = () => {
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
             let dependency = neighbors.map((data: any) => {
                 if (
-                    event.detail.node.dependencies.includes(
-                        parseInt(data.nodeID)
+
+                    event.detail.node.Dependencies.includes(
+                        data.nodeName
                     )
                 ) {
                     neighbors.splice(neighbors.indexOf(data), 1);
-                    return <li key={data.id}>{data.id}</li>;
+                    return <li key={data.nodeName}>{data.nodeName}</li>;
                 }
             });
             neighbors = neighbors.map((data: any) => {
-                return <li key={data.id}>{data.id}</li>;
+                return <li key={data.nodeName}>{data.nodeName}</li>;
             });
             setDependencies(dependency);
             setDepends(neighbors);
@@ -61,7 +60,6 @@ export const useInfoBox = () => {
         name,
         show,
         type,
-        id,
         depends,
         setShow,
         dependencies,

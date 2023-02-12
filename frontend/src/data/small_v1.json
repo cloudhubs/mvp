@@ -1,0 +1,671 @@
+{
+  "nodes": [
+    {
+      "nodeName": "MS-16",
+      "Dependencies": [
+        {
+          "nodeName": "MS-85"
+        },
+        {
+          "nodeName": "MS-3"
+        },
+        {
+          "nodeName": "MS-87"
+        },
+        {
+          "nodeName": "MS-61"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-40"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-19",
+      "Dependencies": [
+        {
+          "nodeName": "MS-29"
+        },
+        {
+          "nodeName": "MS-41"
+        }
+      ],
+      "Dependants": [],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-85",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-16"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-78",
+      "Dependencies": [
+        {
+          "nodeName": "MS-40"
+        },
+        {
+          "nodeName": "MS-3"
+        },
+        {
+          "nodeName": "MS-61"
+        },
+        {
+          "nodeName": "MS-29"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-56"
+        },
+        {
+          "nodeName": "MS-30"
+        },
+        {
+          "nodeName": "MS-89"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-3",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-16"
+        },
+        {
+          "nodeName": "MS-78"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-24",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-41"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-88",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-89"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-61",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-16"
+        },
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-56"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-87",
+      "Dependencies": [],
+      "Dependants": [
+        {
+          "nodeName": "MS-29"
+        },
+        {
+          "nodeName": "MS-30"
+        },
+        {
+          "nodeName": "MS-16"
+        },
+        {
+          "nodeName": "MS-56"
+        },
+        {
+          "nodeName": "MS-89"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-30",
+      "Dependencies": [
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-56"
+        },
+        {
+          "nodeName": "MS-87"
+        },
+        {
+          "nodeName": "MS-40"
+        }
+      ],
+      "Dependants": [],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-38",
+      "Dependencies": [
+        {
+          "nodeName": "MS-29"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-89"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-41",
+      "Dependencies": [
+        {
+          "nodeName": "MS-24"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-19"
+        },
+        {
+          "nodeName": "MS-89"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-40",
+      "Dependencies": [
+        {
+          "nodeName": "MS-16"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-89"
+        },
+        {
+          "nodeName": "MS-30"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-56",
+      "Dependencies": [
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-61"
+        },
+        {
+          "nodeName": "MS-87"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-30"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-29",
+      "Dependencies": [
+        {
+          "nodeName": "MS-87"
+        }
+      ],
+      "Dependants": [
+        {
+          "nodeName": "MS-19"
+        },
+        {
+          "nodeName": "MS-89"
+        },
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-38"
+        }
+      ],
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "MS-89",
+      "Dependencies": [
+        {
+          "nodeName": "MS-40"
+        },
+        {
+          "nodeName": "MS-78"
+        },
+        {
+          "nodeName": "MS-29"
+        },
+        {
+          "nodeName": "MS-88"
+        },
+        {
+          "nodeName": "MS-87"
+        },
+        {
+          "nodeName": "MS-38"
+        },
+        {
+          "nodeName": "MS-41"
+        }
+      ],
+      "Dependants": [],
+      "nodeType": "service"
+    }
+  ],
+  "links": [
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody Travel info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.BasicController.queryForTravel"
+        },
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String stationName, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.BasicController.queryForStationId"
+        }
+      ],
+      "source": "MS-16",
+      "target": "MS-40"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String routeId, @PathVariable String trainType, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: price.controller.PriceController.query"
+        }
+      ],
+      "source": "MS-85",
+      "target": "MS-16"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody ArrayList<String> routeIds, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: travel.controller.TravelController.getTripsByRouteId"
+        },
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody TripInfo info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: travel.controller.TravelController.queryInfo"
+        }
+      ],
+      "source": "MS-78",
+      "target": "MS-56"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody TripInfo info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: travel.controller.TravelController.queryInfo"
+        }
+      ],
+      "source": "MS-78",
+      "target": "MS-30"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody TripAllDetailInfo gtdi, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: travel.controller.TravelController.getTripAllDetailInfo"
+        }
+      ],
+      "source": "MS-78",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String id, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: train.controller.TrainController.retrieve"
+        }
+      ],
+      "source": "MS-3",
+      "target": "MS-16"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String id, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: train.controller.TrainController.retrieve"
+        }
+      ],
+      "source": "MS-3",
+      "target": "MS-78"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody AuthDto authDto]",
+          "returnData": "Return: HttpEntity<Response>",
+          "endPointName": "Endpoint function: auth.controller.AuthController.createDefaultUser"
+        }
+      ],
+      "source": "MS-24",
+      "target": "MS-41"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String id, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: HttpEntity",
+          "endPointName": "Endpoint function: contacts.controller.ContactsController.getContactsByContactsId"
+        }
+      ],
+      "source": "MS-88",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String routeId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: route.controller.RouteController.queryById"
+        }
+      ],
+      "source": "MS-61",
+      "target": "MS-16"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String routeId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: route.controller.RouteController.queryById"
+        }
+      ],
+      "source": "MS-61",
+      "target": "MS-78"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String routeId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: route.controller.RouteController.queryById"
+        },
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String startId, @PathVariable String terminalId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: route.controller.RouteController.queryByStartAndTerminal"
+        }
+      ],
+      "source": "MS-61",
+      "target": "MS-56"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.StationController.queryForNameBatch"
+        }
+      ],
+      "source": "MS-87",
+      "target": "MS-29"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.StationController.queryForNameBatch"
+        }
+      ],
+      "source": "MS-87",
+      "target": "MS-30"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.StationController.queryForStationId"
+        }
+      ],
+      "source": "MS-87",
+      "target": "MS-16"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.StationController.queryForStationId"
+        }
+      ],
+      "source": "MS-87",
+      "target": "MS-56"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: fdse.microservice.controller.StationController.queryForStationId"
+        }
+      ],
+      "source": "MS-87",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String accountId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: security.controller.SecurityController.check"
+        }
+      ],
+      "source": "MS-38",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String userId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: ResponseEntity<Response>",
+          "endPointName": "Endpoint function: user.controller.UserController.getUserByUserId"
+        }
+      ],
+      "source": "MS-41",
+      "target": "MS-19"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String userId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: ResponseEntity<Response>",
+          "endPointName": "Endpoint function: user.controller.UserController.getUserByUserId"
+        }
+      ],
+      "source": "MS-41",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody Travel info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: ticketinfo.controller.TicketInfoController.queryForTravel"
+        },
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String name, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: ticketinfo.controller.TicketInfoController.queryForStationId"
+        }
+      ],
+      "source": "MS-40",
+      "target": "MS-78"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody Travel info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: ticketinfo.controller.TicketInfoController.queryForTravel"
+        }
+      ],
+      "source": "MS-40",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String name, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: ticketinfo.controller.TicketInfoController.queryForStationId"
+        }
+      ],
+      "source": "MS-40",
+      "target": "MS-30"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody RoutePlanInfo info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: plan.controller.RoutePlanController.getMinStopStations"
+        },
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody RoutePlanInfo info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: plan.controller.RoutePlanController.getQuickestRoutes"
+        },
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody RoutePlanInfo info, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: plan.controller.RoutePlanController.getCheapestRoutes"
+        }
+      ],
+      "source": "MS-56",
+      "target": "MS-30"
+    },
+    {
+      "requests": [
+        {
+          "type": "PUT",
+          "arguments": "Arguments: [@RequestBody Order orderInfo, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: order.controller.OrderController.saveOrderInfo"
+        },
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable String orderId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: order.controller.OrderController.getOrderById"
+        }
+      ],
+      "source": "MS-29",
+      "target": "MS-19"
+    },
+    {
+      "requests": [
+        {
+          "type": "POST",
+          "arguments": "Arguments: [@RequestBody Order createOrder, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: order.controller.OrderController.createNewOrder"
+        }
+      ],
+      "source": "MS-29",
+      "target": "MS-89"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable Date travelDate, @PathVariable String trainNumber, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: order.controller.OrderController.calculateSoldTicket"
+        }
+      ],
+      "source": "MS-29",
+      "target": "MS-78"
+    },
+    {
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "Arguments: [@PathVariable Date checkDate, @PathVariable String accountId, @RequestHeader HttpHeaders headers]",
+          "returnData": "Return: org.springframework.http.HttpEntity",
+          "endPointName": "Endpoint function: order.controller.OrderController.securityInfoCheck"
+        }
+      ],
+      "source": "MS-29",
+      "target": "MS-38"
+    }
+  ]
+}

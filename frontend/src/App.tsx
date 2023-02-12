@@ -3,17 +3,23 @@ import GraphWrapper from "./components/graph/GraphWrapper";
 import GraphMenu from "./components/graph/GraphMenu";
 import Menu from "./components/graph/Menu";
 import {InfoBox} from "./components/graph/InfoBox";
+import myData from './data/small_v1.json';
 
 function App() {
     const graphRef = useRef();
     const [search, setSearch] = useState("");
     const [value, setValue] = useState(8);
+    const [initCoords, setInitCoords] = useState(null);
+    const [initRotation, setInitRotation] = useState(null);
+    const [graphData, setGraphData] = useState(myData);
+    const [highCoupling, setHighCoupling] = useState(false);
+    const [is3d, setIs3d] = useState(true);
   return (
       <div className="bg-white">
           <>
               <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-                  <GraphMenu graphRef={graphRef} search={search} setSearch={setSearch} value={value} setValue={setValue} />
-                  <GraphWrapper  height={735}  width={1710} search={search} threshold={value}/>;
+                  <GraphMenu graphRef={graphRef} search={search} setSearch={setSearch} value={value} setValue={setValue} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} highCoupling={highCoupling} setHighCoupling={setHighCoupling} is3d={is3d} setIs3d={setIs3d}/>
+                  <GraphWrapper  height={735}  width={1710} search={search} threshold={value} graphRef={graphRef} graphData={graphData} setInitCoords={setInitCoords} setInitRotation={setInitRotation} highCoupling={highCoupling} is3d={is3d}/>;
                   <Menu />
                   <InfoBox />
               </div>

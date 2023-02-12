@@ -1,4 +1,3 @@
-import NodeObject from "react-force-graph-3d";
 import {ColorRepresentation} from "three";
 
 function getShape(type: String): number {
@@ -30,7 +29,77 @@ function getColor(
     graphData: any,
     threshold: number,
     highlightNodes: any,
-    hoverNode: any
+    hoverNode: any,
+    defNodeColor: any,
+    setDefNodeColor: any,
+    highCoupling: any
+): ColorRepresentation {
+    if(highCoupling){
+        return getColorCoupling(node, graphData, threshold, highlightNodes, hoverNode);
+    }
+    return getColorVisual(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor);
+}
+
+function getColorVisual(
+    node: any,
+    graphData: any,
+    threshold: number,
+    highlightNodes: any,
+    hoverNode: any,
+    defNodeColor: any,
+    setDefNodeColor: any
+): ColorRepresentation {
+    let { nodes, links } = graphData;
+    if(highlightNodes.has(node)){
+        if(node === hoverNode){
+            return 'rgb(50,50,200)';
+        }
+    }
+
+    if (!defNodeColor) {
+        nodes.map((n: any) => {
+            n.color = "-1";
+        })
+        setDefNodeColor(true);
+    }
+
+    if (node.color === "-1") {
+
+        const colors = ["rgb(250, 93, 57)", "rgb(255, 167, 0)", "rgb(245, 239, 71)",
+            "rgb(51, 241, 255)", "rgb(204, 51, 255)", "rgb(255, 51, 112)", "rgb(173, 255, 51)",
+            "rgb(194, 151, 252)"];
+
+        let neighbors: any = getNeighbors(node, links);
+
+        let offLimits: any = [];
+        let newColors: any = [];
+
+        neighbors.nodes.map((neighbor: any) => {
+            if (neighbor.color !== "-1") {
+                offLimits.push(neighbor.color);
+            }
+        })
+
+        colors.map((color) => {
+            if (offLimits.indexOf(color) === -1) {
+                newColors.push(color);
+            }
+        })
+
+        let randIndex = Math.floor(Math.random() * newColors.length);
+
+        node.color = newColors[randIndex];
+    }
+
+    return node.color;
+}
+
+function getColorCoupling(
+    node: any,
+    graphData: any,
+    threshold: number,
+    highlightNodes: any,
+    hoverNode: any,
 ): ColorRepresentation {
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).nodes.length;
@@ -58,15 +127,15 @@ function getNeighbors(node: any, links: any) {
     return {
         nodeLinks: links.filter((link: any) => {
             return (
-                link.source.nodeID === node.nodeID ||
-                link.target.nodeID === node.nodeID
+                link.source.nodeName === node.nodeName ||
+                link.target.nodeName === node.nodeName
             );
         }),
         nodes: links.reduce(
             (neighbors: any, link: any) => {
-                if (link.target.id === node.id) {
+                if (link.target.nodeName === node.nodeName) {
                     neighbors.push(link.source);
-                } else if (link.source.id === node.id) {
+                } else if (link.source.nodeName === node.nodeName) {
                     neighbors.push(link.target);
                 }
                 return neighbors;
@@ -95,7 +164,7 @@ const getNodeOpacity = (node: any, search: any): number => {
     if (search === "") {
         return 0.75;
     }
-    if (node.id.toLowerCase().includes(search.toLowerCase())) {
+    if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 0.8;
     } else {
         return 0.1;
@@ -107,11 +176,14 @@ function getSpriteColor(node: any,
                         graphData: any,
                         threshold: number,
                         highlightNodes: any,
-                        hoverNode: any){
-    if (!node.id.toLowerCase().includes(search.toLowerCase())) {
+                        hoverNode: any,
+                        defNodeColor: any,
+                        setDefNodeColor: any,
+                        highCoupling: any){
+    if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 'rgba(255,255,255,0)';
     }
-    return getColor(node, graphData, threshold, highlightNodes, hoverNode);
+    return getColor(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor, highCoupling);
 }
 
 // Highlight neighbors
@@ -126,16 +198,44 @@ function getLinkOpacity(link: any, search: any) {
     if (search === "") {
         return 0.8;
     }
-    if (link.source.id.toLowerCase().includes(search.toLowerCase()) || link.target.id.toLowerCase().includes(search.toLowerCase())) {
+    if (link.source.nodeName.toLowerCase().includes(search.toLowerCase()) || link.target.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 0.8;
     } else {
         return 0.2;
     }
 }
 
-function getLinkColor(link: any, search: any, hoverNode: any) {
+function getLinkColor(link: any, search: any, hoverNode: any, highCoupling: any) {
+    if(highCoupling){
+        return linkColorCoupling(link, search);
+    }
+    return linkColorVisual(link, search, hoverNode);
+}
 
+function linkColorVisual(link: any, search: any, hoverNode: any) {
+    if (link.source === hoverNode) {
+        return `rgba(50,50,200, ${getLinkOpacity(link, search)})`;
+    }
+    let color = link.source.color;
+    if(color){
+        color = color.replace(`)`, `, ${getLinkOpacity(link, search)})`).replace('rgb', 'rgba');
+    }
+    return color;
+}
+
+function linkColorCoupling(link: any, search: any) {
     return `rgba(102,102,153, ${getLinkOpacity(link, search)})`;
 }
 
-export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor};
+function getLinkWidth(link: any, search: any) {
+    if (search === "") {
+        return link.requests.length * 6;
+    }
+    if (link.source.nodeName.toLowerCase().includes(search.toLowerCase()) || link.target.nodeName.toLowerCase().includes(search.toLowerCase())) {
+        return link.requests.length * 6;
+    } else {
+        return 0;
+    }
+}
+
+export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor, getLinkWidth};

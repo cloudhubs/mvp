@@ -17,8 +17,8 @@ type ButtonProps = {
 const GraphButton: React.FC<ButtonProps> = ({ onClick, ...props }) => {
     return (
         <button
-            className={`border-2 border-slate-500 rounded-lg px-2 py-1 text-center text-sm mx-2 transition
-            hover:bg-slate-500 bg-blue-400 bg-opacity-60 hover:bg-opacity-40 border-opacity-40`}
+            className={`border-2 border-slate-500 rounded-lg px-2 py-1 text-center text-sm text-gray-700 mx-2 transition
+             bg-white hover:bg-opacity-50 border-opacity-40`}
             onClick={onClick}
         >
             {props.children}
@@ -36,13 +36,14 @@ const GraphButton: React.FC<ButtonProps> = ({ onClick, ...props }) => {
 
 type Props = {
     graphRef: any;
+    graphData: any;
+    setGraphData: any;
+    initCoords: any;
+    initRotation: any;
 };
 
-const GraphButtonMenu: React.FC<Props> = ({ graphRef }) => {
+const GraphButtonMenu: React.FC<Props> = ({ graphRef, graphData, setGraphData, initCoords, initRotation }) => {
     let [numScreenshots, setNumScreenshots] = useState(0);
-    const [initCoords] = useState(null);
-    const [initRotation] = useState(null);
-    const [graphData, setGraphData] = useState(null);
     const [trackMenu] = useState<any>(null);
 
     /** @TODO idk what the track is or how to toggle it */

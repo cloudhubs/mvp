@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import myData from '../../data/trainticket.json';
+import React from "react";
 
 type Props = {
     graphRef: any;
     search: string;
     setSearch: React.Dispatch<React.SetStateAction<string>>;
+    graphData: any;
 };
-const Search: React.FC<Props> = ({ graphRef, search, setSearch }) => {
-    const [graphData] = useState<any>(myData);
-    const nodes = graphData.nodes.map((node: any) => node.id.toLowerCase());
+const Search: React.FC<Props> = ({ graphRef, search, setSearch, graphData }) => {
+    const nodes = graphData.nodes.map((node: any) => node.nodeName.toLowerCase());
 
     const handleInput = (e: any) => {
         setSearch(e.target.value);
         if (nodes.includes(e.target.value.toLowerCase())) {
             const distance = 100;
-            const node = graphData.nodes.find((n: any) => n.id === e.target.value);
+            const node = graphData.nodes.find((n: any) => n.nodeName === e.target.value);
             if (node) {
                 const distRatio =
                     1 + distance / Math.hypot(node.x, node.y, node.z);
@@ -34,15 +33,13 @@ const Search: React.FC<Props> = ({ graphRef, search, setSearch }) => {
     };
 
     return (
-        <div className="mx-2 mb-3">
-            <label className="inline-block mb-2">
-                Search
-            </label>
+        <div className="mb-3 flex flex-row w-full items-center justify-center">
+
             <input
                 id="search"
                 type="text"
                 className="block w-full px-3 py-1.5 text-sm font-normal rounded transition ease-in-out m-0
-                 focus:border-cyan-600 focus:outline-none text-slate-500 bg-transparent border-slate-400 border-2"
+                 focus:border-cyan-600 focus:outline-none focus:bg-opacity-70 text-slate-500 bg-white border-slate-400 border-2"
                 value={search}
                 placeholder="Type query"
                 onInput={handleInput}
@@ -51,7 +48,7 @@ const Search: React.FC<Props> = ({ graphRef, search, setSearch }) => {
             />
             <datalist id="nodeOptions">
                 {graphData.nodes.map((node: any) => (
-                    <option key={node.nodeID}>{node.id}</option>
+                    <option key={node.nodeName}>{node.nodeName}</option>
                 ))}
             </datalist>
         </div>

@@ -1,0 +1,196 @@
+{
+  "nodes": [
+    {
+      "nodeName": "A",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "B",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "C",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "D",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "E",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "F",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "G",
+      "nodeType": "service"
+    }
+  ],
+  "links": [
+    {
+      "source": "A",
+      "target": "B",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "B.foo"
+        }
+      ]
+    },
+    {
+      "source": "A",
+      "target": "C",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "C.foo"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "C.foo2"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "C.foo3"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "C.foo4"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "C.foo5"
+        }
+      ]
+    },
+    {
+      "source": "B",
+      "target": "D",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "D.foo"
+        }
+      ]
+    },
+    {
+      "source": "B",
+      "target": "E",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "E.foo"
+        }
+      ]
+    },
+    {
+      "source": "C",
+      "target": "F",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "F.foo"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "F.foo2"
+        }
+      ]
+    },
+    {
+      "source": "C",
+      "target": "G",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "G.foo"
+        }
+      ]
+    },
+    {
+      "source": "D",
+      "target": "E",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "E.foo"
+        }
+      ]
+    },
+    {
+      "source": "E",
+      "target": "D",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "D.foo"
+        }
+      ]
+    },
+    {
+      "source": "F",
+      "target": "G",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "G.foo"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "G.foo2"
+        },
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "G.foo3"
+        }
+      ]
+    },
+    {
+      "source": "G",
+      "target": "F",
+      "requests": [
+        {
+          "type": "GET",
+          "arguments": "SomeArgument",
+          "returnData": "SomeValue",
+          "endPointName": "F.foo"
+        }
+      ]
+    }
+  ]
+}
