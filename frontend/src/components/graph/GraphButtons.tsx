@@ -42,7 +42,13 @@ type Props = {
     initRotation: any;
 };
 
-const GraphButtonMenu: React.FC<Props> = ({ graphRef, graphData, setGraphData, initCoords, initRotation }) => {
+const GraphButtonMenu: React.FC<Props> = ({
+    graphRef,
+    graphData,
+    setGraphData,
+    initCoords,
+    initRotation,
+}) => {
     let [numScreenshots, setNumScreenshots] = useState(0);
     const [trackMenu] = useState<any>(null);
 

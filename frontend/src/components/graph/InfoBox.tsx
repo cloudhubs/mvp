@@ -1,15 +1,8 @@
 import { useInfoBox } from "../../hooks/useInfoBox";
 
 export const InfoBox = () => {
-    const {
-        anchorPoint,
-        show,
-        name,
-        type,
-        depends,
-        setShow,
-        dependencies,
-    } = useInfoBox();
+    const { anchorPoint, show, name, type, depends, setShow, dependencies } =
+        useInfoBox();
 
     if (show) {
         return (

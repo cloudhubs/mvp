@@ -6,14 +6,23 @@ type Props = {
     setSearch: React.Dispatch<React.SetStateAction<string>>;
     graphData: any;
 };
-const Search: React.FC<Props> = ({ graphRef, search, setSearch, graphData }) => {
-    const nodes = graphData.nodes.map((node: any) => node.nodeName.toLowerCase());
+const Search: React.FC<Props> = ({
+    graphRef,
+    search,
+    setSearch,
+    graphData,
+}) => {
+    const nodes = graphData.nodes.map((node: any) =>
+        node.nodeName.toLowerCase()
+    );
 
     const handleInput = (e: any) => {
         setSearch(e.target.value);
         if (nodes.includes(e.target.value.toLowerCase())) {
             const distance = 100;
-            const node = graphData.nodes.find((n: any) => n.nodeName === e.target.value);
+            const node = graphData.nodes.find(
+                (n: any) => n.nodeName === e.target.value
+            );
             if (node) {
                 const distRatio =
                     1 + distance / Math.hypot(node.x, node.y, node.z);
@@ -34,7 +43,6 @@ const Search: React.FC<Props> = ({ graphRef, search, setSearch, graphData }) => 
 
     return (
         <div className="mb-3 flex flex-row w-full items-center justify-center">
-
             <input
                 id="search"
                 type="text"

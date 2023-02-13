@@ -1,8 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import ForceGraph3D from 'react-force-graph-3d';
-import { ForceGraphProps as SharedProps } from 'react-force-graph-2d';
-import {getColor, getLinkColor, getLinkWidth, getNodeOpacity, getSpriteColor} from "../../utils/GraphFunctions";
-import * as THREE from 'three';
+import React, { useCallback, useEffect, useState } from "react";
+import ForceGraph3D from "react-force-graph-3d";
+import { ForceGraphProps as SharedProps } from "react-force-graph-2d";
+import {
+    getColor,
+    getLinkColor,
+    getLinkWidth,
+    getNodeOpacity,
+    getSpriteColor,
+} from "../../utils/GraphFunctions";
+import * as THREE from "three";
 import SpriteText from "three-spritetext";
 
 type Props = {
@@ -17,7 +23,17 @@ type Props = {
     highCoupling: any;
 };
 
-const Graph: React.FC<Props> = ({ width, height, sharedProps, search, threshold, graphRef, setInitCoords, setInitRotation, highCoupling }) => {
+const Graph: React.FC<Props> = ({
+    width,
+    height,
+    sharedProps,
+    search,
+    threshold,
+    graphRef,
+    setInitCoords,
+    setInitRotation,
+    highCoupling,
+}) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
     const [hoverNode, setHoverNode] = useState(null);
@@ -25,7 +41,6 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, threshold,
     const [defNodeColor, setDefNodeColor] = useState(false);
 
     const handleNodeHover = (node: any) => {
-
         highlightNodes.clear();
         highlightLinks.clear();
 
@@ -107,9 +122,9 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, threshold,
                             setDefNodeColor,
                             highCoupling
                         ),
-                        opacity: getNodeOpacity(node, search)
+                        opacity: getNodeOpacity(node, search),
                     })
-                )
+                );
                 // @ts-ignore
                 const sprite = new SpriteText(node.nodeName);
                 sprite.material.depthWrite = false; // make sprite background transparent
@@ -125,32 +140,40 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, threshold,
                     highCoupling
                 ) as string;
                 sprite.textHeight = 8;
-                sprite.position.set(0,10,0);
+                sprite.position.set(0, 10, 0);
 
                 nodes.add(sprite);
                 return nodes;
             }}
             nodeThreeObjectExtend={false}
-            linkCurvature = {(link => {
+            linkCurvature={(link) => {
                 let test = false;
                 sharedProps.graphData?.links.forEach((link2: any) => {
-                    if((link2.target === link.source) && (link2.source === link.target)){
+                    if (
+                        link2.target === link.source &&
+                        link2.source === link.target
+                    ) {
                         test = true;
                     }
-                })
-                if(test){
+                });
+                if (test) {
                     return 0.4;
-                }
-                else{
+                } else {
                     return 0;
                 }
-            })}
+            }}
             linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
-            linkDirectionalArrowColor={(link) => getLinkColor(link, search, hoverNode, highCoupling)}
-            linkDirectionalParticles={link => highlightLinks.has(link) ? 2 : 0}
-            linkDirectionalParticleWidth={link => getLinkWidth(link, search)}
-            linkColor={(link) => getLinkColor(link, search, hoverNode, highCoupling)}
+            linkDirectionalArrowColor={(link) =>
+                getLinkColor(link, search, hoverNode, highCoupling)
+            }
+            linkDirectionalParticles={(link) =>
+                highlightLinks.has(link) ? 2 : 0
+            }
+            linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
+            linkColor={(link) =>
+                getLinkColor(link, search, hoverNode, highCoupling)
+            }
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {
                     node.fx = node.x;

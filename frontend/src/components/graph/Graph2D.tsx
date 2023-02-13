@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
-import ForceGraph2D, { ForceGraphProps } from 'react-force-graph-2d';
-import {getLinkColor, getLinkWidth} from "../../utils/GraphFunctions";
+import React, { useCallback, useState } from "react";
+import ForceGraph2D, { ForceGraphProps } from "react-force-graph-2d";
+import { getLinkColor, getLinkWidth } from "../../utils/GraphFunctions";
 
 type Props = {
     width: number;
@@ -13,7 +13,16 @@ type Props = {
     highCoupling: any;
 };
 
-const Graph: React.FC<Props> = ({ width, height, sharedProps, search, graphRef, setInitCoords, setInitRotation, highCoupling }) => {
+const Graph: React.FC<Props> = ({
+    width,
+    height,
+    sharedProps,
+    search,
+    graphRef,
+    setInitCoords,
+    setInitRotation,
+    highCoupling,
+}) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
     const [hoverNode, setHoverNode] = useState(null);
@@ -21,7 +30,6 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, graphRef, 
     const [defNodeColor, setDefNodeColor] = useState(false);
 
     const handleNodeHover = (node: any) => {
-
         highlightNodes.clear();
         highlightLinks.clear();
 
@@ -52,7 +60,9 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, graphRef, 
         (node: any) => {
             if (node != null) {
                 if (graphRef.current) {
-                    graphRef.current.zoomToFit(1500, 300, (node2: any) => {return node.nodeName === node2.nodeName});
+                    graphRef.current.zoomToFit(1500, 300, (node2: any) => {
+                        return node.nodeName === node2.nodeName;
+                    });
                 }
                 const event = new CustomEvent("nodeClick", {
                     detail: { node: node },
@@ -63,25 +73,35 @@ const Graph: React.FC<Props> = ({ width, height, sharedProps, search, graphRef, 
         [graphRef]
     );
 
-
-    return <ForceGraph2D {...sharedProps} ref={graphRef} width={width} height={height} warmupTicks={100}
-                         onNodeDragEnd={(node) => {
-                             if (node.x && node.y) {
-                                 node.fx = node.x;
-                                 node.fy = node.y;
-                             }
-                         }}
-                         linkWidth={(link) => getLinkWidth(link, search)}
-                         linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
-                         linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
-                         linkDirectionalArrowColor={(link) => getLinkColor(link, search, hoverNode, highCoupling)}
-                         linkDirectionalParticles={link => highlightLinks.has(link) ? 2 : 0}
-                         linkDirectionalParticleWidth={link => getLinkWidth(link, search)}
-                         onNodeClick={handleNodeClick}
-                         onNodeHover={handleNodeHover}
-                         onLinkHover={handleLinkHover}
-                         nodeId={"nodeName"}
-    />;
+    return (
+        <ForceGraph2D
+            {...sharedProps}
+            ref={graphRef}
+            width={width}
+            height={height}
+            warmupTicks={100}
+            onNodeDragEnd={(node) => {
+                if (node.x && node.y) {
+                    node.fx = node.x;
+                    node.fy = node.y;
+                }
+            }}
+            linkWidth={(link) => getLinkWidth(link, search)}
+            linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
+            linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
+            linkDirectionalArrowColor={(link) =>
+                getLinkColor(link, search, hoverNode, highCoupling)
+            }
+            linkDirectionalParticles={(link) =>
+                highlightLinks.has(link) ? 2 : 0
+            }
+            linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
+            onNodeClick={handleNodeClick}
+            onNodeHover={handleNodeHover}
+            onLinkHover={handleLinkHover}
+            nodeId={"nodeName"}
+        />
+    );
 };
 
 export default Graph;

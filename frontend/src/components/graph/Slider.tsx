@@ -5,8 +5,7 @@ type Props = {
     setValue: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Slider: React.FC<Props> = ({ value, setValue }) =>  {
-
+const Slider: React.FC<Props> = ({ value, setValue }) => {
     const handleInput = (e: any) => {
         setValue(e.target.value);
     };
