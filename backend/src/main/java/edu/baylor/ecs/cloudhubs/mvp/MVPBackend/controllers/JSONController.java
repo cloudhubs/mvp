@@ -12,11 +12,9 @@ import java.nio.file.Paths;
 
 @Log4j2
 @RestController
-@CrossOrigin(origins={"http://localhost:3000"},
-        maxAge = 3600)
+@CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600)
 @RequestMapping(value = "language")
 public class JSONController {
-
     @GetMapping("/JSON")
     public String getLanguage() throws IOException {
         return new String(Files.readAllBytes(Paths.get("src/main/java/edu/baylor/ecs/cloudhubs/" +

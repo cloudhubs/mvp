@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
-@CrossOrigin(origins={"http://localhost:3000"},
-        maxAge = 3600)
-@RequestMapping(value = "language")
+@CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600)
+@RequestMapping(value = "anti-pattern")
 public class AntiPatternController {
     @GetMapping("/cyclic")
     public String getCyclic() throws Exception{
