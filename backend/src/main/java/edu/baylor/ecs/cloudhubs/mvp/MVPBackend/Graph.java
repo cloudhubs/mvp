@@ -9,14 +9,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Graph {
-    private Map<String, Set<String>> depend = new HashMap<>();
-    private Map<String, Set<String>> target = new HashMap<>();
-
     private Map<Node, LinkedList<Node>> adjacencyMap = new HashMap<>();
-
     private Map<Integer, Node> indexMap = new HashMap<>();
-
-
 
     /*
         Graph constructor
@@ -25,7 +19,8 @@ public class Graph {
      */
     public Graph() throws Exception {
         Object obj = new JSONParser().parse(new
-                FileReader(""));
+                FileReader("src/main/java/edu/baylor/ecs/cloudhubs/" +
+                "mvp/MVPBackend/example-redhat.json"));
         JSONObject data = (JSONObject) obj;
 
         JSONArray jsonNodes = ((JSONArray) data.get("nodes"));
@@ -35,32 +30,13 @@ public class Graph {
         for (Object node : jsonNodes) {
             JSONObject n = (JSONObject) node;
             Node newNode = jsonToNode(n, count);
-            JSONArray deps = ((JSONArray) n.get("dependencies"));
-            JSONArray tars = ((JSONArray) n.get("targets"));
             indexMap.put(count, newNode);
-            System.out.println(newNode);
-
-            if(deps != null) {
-                depend.put((String) n.get("nodeName"), arr2Set(deps));
-            }
-            if(tars != null) {
-                target.put((String) n.get("nodeName"), arr2Set(tars));
-            }
 
             count++;
         }
 
         // Form the graph from all the collected and converted nodes
         nodesToGraph();
-    }
-
-    public Set<String> arr2Set(JSONArray arr){
-        Set<String> ret = new HashSet<>();
-        for (Object o : arr) {
-            JSONObject jo = (JSONObject) o;
-            ret.add((String)jo.get("nodeName"));
-        }
-        return ret;
     }
 
     public Node jsonToNode(JSONObject obj, Integer index){
@@ -94,7 +70,8 @@ public class Graph {
             }
             for (String s : n.getTargets()) {
                 //Here the nodeList should only have 1 member
-                List<Node> nodeList = indexMap.values().stream().filter(me -> me.getNodeName() == s).collect(Collectors.toList());
+                List<Node> nodeList = indexMap.values().stream().filter(me ->
+                        Objects.equals(me.getNodeName(), s)).toList();
                 adjacencyMap.get(n).add(nodeList.get(0));
             }
         }
@@ -114,5 +91,9 @@ public class Graph {
 
     public void setIndexMap(Map<Integer, Node> indexMap) {
         this.indexMap = indexMap;
+    }
+
+    public int getSize(){
+        return indexMap.size();
     }
 }
