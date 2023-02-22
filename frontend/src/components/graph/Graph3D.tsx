@@ -46,6 +46,7 @@ const Graph: React.FC<Props> = ({
 
         if (node) {
             highlightNodes.add(node);
+            setHoverNode(node);
         }
         updateHighlight();
     };
@@ -98,6 +99,8 @@ const Graph: React.FC<Props> = ({
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
+        graphRef.current.d3Force('charge').strength((node: any) => {return -220;})
+        graphRef.current.d3Force('link').distance((link: any) => {return 60;});
     }, []);
 
     return (
@@ -165,14 +168,14 @@ const Graph: React.FC<Props> = ({
             linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling)
+                getLinkColor(link, search, hoverNode, highCoupling, true)
             }
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 2 : 0
             }
             linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             linkColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling)
+                getLinkColor(link, search, hoverNode, highCoupling, true)
             }
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {

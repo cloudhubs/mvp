@@ -59,25 +59,8 @@ const GraphMenu: React.FC<Props> = ({
                     3D
                 </span>
             </label>
-            <Search
-                graphRef={graphRef}
-                search={search}
-                setSearch={setSearch}
-                graphData={graphData}
-            />
-            <GraphButtonMenu
-                graphRef={graphRef}
-                graphData={graphData}
-                setGraphData={setGraphData}
-                initCoords={initCoords}
-                initRotation={initRotation}
-            />
-            <GraphMode
-                value={value}
-                setValue={setValue}
-                highCoupling={highCoupling}
-                setHighCoupling={setHighCoupling}
-            />
+            <Search graphRef={graphRef} search={search} setSearch={setSearch} graphData={graphData}/>
+            <GraphButtonMenu graphRef={graphRef} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} />
         </div>
     );
 };

@@ -30,11 +30,7 @@ const VisualizationOptions: React.FC<Props> = ({
     is3d,
 }) => {
     const Shared2D3DProps: SharedProps = {
-        linkDirectionalArrowColor: () => "rgba((102,102,153,0.8)",
-        linkColor: () => "rgba(102,102,153,0.8)",
-        linkDirectionalArrowLength: 4,
         linkDirectionalArrowRelPos: 1,
-        nodeAutoColorBy: "nodeName",
         graphData: graphData,
     };
 
@@ -51,6 +47,7 @@ const VisualizationOptions: React.FC<Props> = ({
                     {...GraphProps}
                     search={search}
                     graphRef={graphRef}
+                    threshold={threshold}
                     setInitCoords={setInitCoords}
                     setInitRotation={setInitRotation}
                     highCoupling={highCoupling}

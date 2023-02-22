@@ -33,7 +33,7 @@ function getColor(
     defNodeColor: any,
     setDefNodeColor: any,
     highCoupling: any
-): ColorRepresentation {
+): any{
     if(highCoupling){
         return getColorCoupling(node, graphData, threshold, highlightNodes, hoverNode);
     }
@@ -55,6 +55,9 @@ function getColorVisual(
             return 'rgb(50,50,200)';
         }
     }
+    let neighbors: any = getNeighbors(node, links);
+    if(neighbors.nodes.includes(hoverNode))
+        return 'rgb(0,150,150)';
 
     if (!defNodeColor) {
         nodes.map((n: any) => {
@@ -69,7 +72,7 @@ function getColorVisual(
             "rgb(51, 241, 255)", "rgb(204, 51, 255)", "rgb(255, 51, 112)", "rgb(173, 255, 51)",
             "rgb(194, 151, 252)"];
 
-        let neighbors: any = getNeighbors(node, links);
+        //let neighbors: any = getNeighbors(node, links);
 
         let offLimits: any = [];
         let newColors: any = [];
@@ -194,37 +197,46 @@ function getHighlightNeighbors(node: any, graphData: any, highlightLinks: any, h
     nodes.forEach((node: any) => highlightNodes.add(node));
 }
 
-function getLinkOpacity(link: any, search: any) {
+function getLinkOpacity(link: any, search: any, threed: any) {
     if (search === "") {
-        return 0.8;
+        if(threed)
+        {
+            return 0.7;
+        }
+        return 0.3;
     }
     if (link.source.nodeName.toLowerCase().includes(search.toLowerCase()) || link.target.nodeName.toLowerCase().includes(search.toLowerCase())) {
-        return 0.8;
+        if(threed) {
+            return 0.7;
+        }
     } else {
-        return 0.2;
+        if(threed) {
+            return 0.2;
+        }
+        return 0.1;
     }
 }
 
-function getLinkColor(link: any, search: any, hoverNode: any, highCoupling: any) {
+function getLinkColor(link: any, search: any, hoverNode: any, highCoupling: any, threed: any) {
     if(highCoupling){
-        return linkColorCoupling(link, search);
+        return linkColorCoupling(link, search, threed);
     }
-    return linkColorVisual(link, search, hoverNode);
+    return linkColorVisual(link, search, hoverNode, threed);
 }
 
-function linkColorVisual(link: any, search: any, hoverNode: any) {
+function linkColorVisual(link: any, search: any, hoverNode: any, threed: any) {
     if (link.source === hoverNode) {
-        return `rgba(50,50,200, ${getLinkOpacity(link, search)})`;
+        return `rgba(50,50,200, ${getLinkOpacity(link, search, threed)})`;
     }
     let color = link.source.color;
     if(color){
-        color = color.replace(`)`, `, ${getLinkOpacity(link, search)})`).replace('rgb', 'rgba');
+        color = color.replace(`)`, `, ${getLinkOpacity(link, search, threed)})`).replace('rgb', 'rgba');
     }
     return color;
 }
 
-function linkColorCoupling(link: any, search: any) {
-    return `rgba(102,102,153, ${getLinkOpacity(link, search)})`;
+function linkColorCoupling(link: any, search: any, threed: any) {
+    return `rgba(102,102,153, ${getLinkOpacity(link, search, threed)})`;
 }
 
 function getLinkWidth(link: any, search: any) {
