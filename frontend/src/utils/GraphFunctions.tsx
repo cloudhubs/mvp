@@ -229,7 +229,7 @@ function linkColorVisual(link: any, search: any, hoverNode: any, threed: any) {
         return `rgba(50,50,200, ${getLinkOpacity(link, search, threed)})`;
     }
     let color = link.source.color;
-    if(color){
+    if(color && color !+ -1){
         color = color.replace(`)`, `, ${getLinkOpacity(link, search, threed)})`).replace('rgb', 'rgba');
     }
     return color;
@@ -240,14 +240,15 @@ function linkColorCoupling(link: any, search: any, threed: any) {
 }
 
 function getLinkWidth(link: any, search: any) {
-    if (search === "") {
+    return link.requests.length * 6;
+    /*if (search === "") {
         return link.requests.length * 6;
     }
     if (link.source.nodeName.toLowerCase().includes(search.toLowerCase()) || link.target.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return link.requests.length * 6;
     } else {
         return 0;
-    }
+    }*/
 }
 
 export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor, getLinkWidth};

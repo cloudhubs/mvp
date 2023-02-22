@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import ForceGraph2D, { ForceGraphProps } from "react-force-graph-2d";
-import {getColor, getLinkColor, getLinkWidth} from "../../utils/GraphFunctions";
+import {getColor, getLinkColor, getLinkOpacity, getLinkWidth, getNodeOpacity} from "../../utils/GraphFunctions";
 
 type Props = {
     width: number;
@@ -119,7 +119,7 @@ const Graph: React.FC<Props> = ({
                 defNodeColor,
                 setDefNodeColor,
                 highCoupling
-            )}
+            ).replace(`)`, `, ${getNodeOpacity(node, search)})`).replace('rgb', 'rgba')}
             nodeCanvasObject={((node: any, ctx: any) => {
                 let fontSize = 10;
                 ctx.font = `${fontSize}px "Orbitron,sans-serif"`;
