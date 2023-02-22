@@ -15,13 +15,14 @@ function App() {
     const [graphData, setGraphData] = useState(myData);
     const [highCoupling, setHighCoupling] = useState(false);
     const [is3d, setIs3d] = useState(true);
+    const [antiPattern, setAntiPattern] = useState(false);
   return (
       <div className="bg-white">
           <>
               <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-                  <GraphMode value={value} setValue={setValue} highCoupling={highCoupling} setHighCoupling={setHighCoupling}/>
+                  <GraphMode value={value} setValue={setValue} highCoupling={highCoupling} setHighCoupling={setHighCoupling} antiPattern={antiPattern} setAntiPattern={setAntiPattern}/>
                   <GraphMenu graphRef={graphRef} search={search} setSearch={setSearch} value={value} setValue={setValue} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} highCoupling={highCoupling} setHighCoupling={setHighCoupling} is3d={is3d} setIs3d={setIs3d}/>
-                  <GraphWrapper  height={735}  width={1710} search={search} threshold={value} graphRef={graphRef} graphData={graphData} setInitCoords={setInitCoords} setInitRotation={setInitRotation} highCoupling={highCoupling} is3d={is3d}/>;
+                  <GraphWrapper  height={735}  width={1710} search={search} threshold={value} graphRef={graphRef} graphData={graphData} setInitCoords={setInitCoords} setInitRotation={setInitRotation} highCoupling={highCoupling} is3d={is3d} antiPattern={antiPattern}/>;
                   <Menu />
                   <InfoBox />
               </div>
