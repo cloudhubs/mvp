@@ -6,15 +6,18 @@ type Props = {
     setValue: React.Dispatch<React.SetStateAction<number>>;
     highCoupling: any;
     setHighCoupling: any;
+    antiPattern: any;
+    setAntiPattern: any;
 };
 const GraphMode: React.FC<Props> = ({
     value,
     setValue,
     highCoupling,
     setHighCoupling,
+    antiPattern,
+    setAntiPattern
 }) => {
     const [open, setOpen] = useState(false);
-    const [antiPattern, setAntiPattern] = useState(false);
 
     const handleClick = (e: any) => {
         setOpen(!open);

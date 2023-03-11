@@ -21,6 +21,7 @@ type Props = {
     setInitCoords: any;
     setInitRotation: any;
     highCoupling: any;
+    antiPattern: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -33,6 +34,7 @@ const Graph: React.FC<Props> = ({
     setInitCoords,
     setInitRotation,
     highCoupling,
+    antiPattern
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -131,7 +133,8 @@ const Graph: React.FC<Props> = ({
                             hoverNode,
                             defNodeColor,
                             setDefNodeColor,
-                            highCoupling
+                            highCoupling,
+                            antiPattern
                         ),
                         opacity: getNodeOpacity(node, search),
                     })
@@ -148,7 +151,8 @@ const Graph: React.FC<Props> = ({
                     hoverNode,
                     defNodeColor,
                     setDefNodeColor,
-                    highCoupling
+                    highCoupling,
+                    antiPattern
                 ) as string;
                 sprite.textHeight = 8;
                 sprite.position.set(0, 10, 0);
@@ -176,14 +180,14 @@ const Graph: React.FC<Props> = ({
             linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling, true)
+                getLinkColor(link, search, hoverNode, antiPattern, true)
             }
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 2 : 0
             }
             linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             linkColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling, true)
+                getLinkColor(link, search, hoverNode, antiPattern, true)
             }
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {

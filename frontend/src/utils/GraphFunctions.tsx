@@ -48,10 +48,14 @@ function getColor(
     hoverNode: any,
     defNodeColor: any,
     setDefNodeColor: any,
-    highCoupling: any
+    highCoupling: any,
+    antipattern: any
 ): any{
-    if(highCoupling){
-        return getColorCoupling(node, graphData, threshold, highlightNodes, hoverNode);
+    if(antipattern) {
+        if (highCoupling) {
+            return getColorCoupling(node, graphData, threshold, highlightNodes, hoverNode);
+        }
+        return "rgb(0,255,0)";
     }
     return getColorVisual(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor);
 }
@@ -198,11 +202,12 @@ function getSpriteColor(node: any,
                         hoverNode: any,
                         defNodeColor: any,
                         setDefNodeColor: any,
-                        highCoupling: any){
+                        highCoupling: any,
+                        antipattern: any){
     if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 'rgba(255,255,255,0)';
     }
-    return getColor(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor, highCoupling);
+    return getColor(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor, highCoupling, antipattern);
 }
 
 // Highlight neighbors
@@ -233,8 +238,8 @@ function getLinkOpacity(link: any, search: any, threed: any) {
     }
 }
 
-function getLinkColor(link: any, search: any, hoverNode: any, highCoupling: any, threed: any) {
-    if(highCoupling){
+function getLinkColor(link: any, search: any, hoverNode: any, antiPattern: any, threed: any) {
+    if(antiPattern){
         return linkColorCoupling(link, search, threed);
     }
     return linkColorVisual(link, search, hoverNode, threed);

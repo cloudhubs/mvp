@@ -9,7 +9,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Graph {
+
+    // A map representing a node and all it's adjacent links
     private Map<Node, LinkedList<Node>> adjacencyMap = new HashMap<>();
+
+    // A map representing every node in the graph with a unique index
     private Map<Integer, Node> indexMap = new HashMap<>();
 
     /*

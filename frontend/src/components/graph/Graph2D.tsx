@@ -12,6 +12,7 @@ type Props = {
     setInitCoords: any;
     setInitRotation: any;
     highCoupling: any;
+    antiPattern: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const Graph: React.FC<Props> = ({
     setInitCoords,
     setInitRotation,
     highCoupling,
+    antiPattern
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -98,7 +100,7 @@ const Graph: React.FC<Props> = ({
             linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling, false)
+                getLinkColor(link, search, hoverNode, antiPattern, false)
             }
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 2 : 0
@@ -126,7 +128,8 @@ const Graph: React.FC<Props> = ({
                 hoverNode,
                 defNodeColor,
                 setDefNodeColor,
-                highCoupling
+                highCoupling,
+                antiPattern
             ).replace(`)`, `, ${getNodeOpacity(node, search)})`).replace('rgb', 'rgba')}
             nodeCanvasObject={((node: any, ctx: any) => {
                 let fontSize = 10;
@@ -142,7 +145,7 @@ const Graph: React.FC<Props> = ({
                 node.__bckgDimensions = bckgDimensions;
             })}
             linkColor={(link) =>
-                getLinkColor(link, search, hoverNode, highCoupling, false)
+                getLinkColor(link, search, hoverNode, antiPattern, false)
             }
             linkCurvature={(link) => {
                 let test = false;

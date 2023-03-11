@@ -15,6 +15,7 @@ type Props = {
     setInitRotation: any;
     highCoupling: any;
     is3d: any;
+    antiPattern: any;
 };
 
 const VisualizationOptions: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const VisualizationOptions: React.FC<Props> = ({
     setInitRotation,
     highCoupling,
     is3d,
+    antiPattern
 }) => {
     const Shared2D3DProps: SharedProps = {
         linkDirectionalArrowRelPos: 1,
@@ -51,6 +53,7 @@ const VisualizationOptions: React.FC<Props> = ({
                     setInitCoords={setInitCoords}
                     setInitRotation={setInitRotation}
                     highCoupling={highCoupling}
+                    antiPattern={antiPattern}
                 />
             ) : (
                 <Graph3D
@@ -63,6 +66,7 @@ const VisualizationOptions: React.FC<Props> = ({
                     setInitCoords={setInitCoords}
                     setInitRotation={setInitRotation}
                     highCoupling={highCoupling}
+                    antiPattern={antiPattern}
                 />
             )}
         </div>
