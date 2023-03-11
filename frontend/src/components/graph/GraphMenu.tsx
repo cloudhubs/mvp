@@ -60,7 +60,7 @@ const GraphMenu: React.FC<Props> = ({
                 </span>
             </label>
             <Search graphRef={graphRef} search={search} setSearch={setSearch} graphData={graphData}/>
-            <GraphButtonMenu graphRef={graphRef} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} />
+            <GraphButtonMenu graphRef={graphRef} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} is3d={is3d}/>
         </div>
     );
 };

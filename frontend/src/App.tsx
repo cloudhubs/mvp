@@ -3,7 +3,7 @@ import GraphWrapper from "./components/graph/GraphWrapper";
 import GraphMenu from "./components/graph/GraphMenu";
 import Menu from "./components/graph/Menu";
 import {InfoBox} from "./components/graph/InfoBox";
-import myData from './data/small_v1.json';
+import myData from './data/train_ticket_new.json';
 import GraphMode from "./components/graph/GraphMode";
 
 function App() {

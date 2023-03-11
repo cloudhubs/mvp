@@ -23,6 +23,22 @@ function getShape(type: String): number {
     }
 }
 
+function showNeighbors(node: any, graphData: any, setHideNodes: any){
+    let {nodes, links} = graphData;
+    let hideNodes = new Set();
+    nodes.forEach((node: any) => hideNodes.add(node));
+    getNeighbors(node, links).nodes.forEach((node: any) => hideNodes.delete(node));
+    setHideNodes(hideNodes);
+
+}
+
+function getVisibility(node: any, hideNodes: any){
+    if(hideNodes.has(node)){
+        return false;
+    }
+    return true;
+}
+
 // Sets color of node
 function getColor(
     node: any,
@@ -251,4 +267,4 @@ function getLinkWidth(link: any, search: any) {
     }*/
 }
 
-export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor, getLinkWidth};
+export {getShape, getColor, getNeighbors, reset, resetView, getHighlightNeighbors, getNodeOpacity, getSpriteColor, getLinkOpacity, getLinkColor, getLinkWidth, getVisibility, showNeighbors};

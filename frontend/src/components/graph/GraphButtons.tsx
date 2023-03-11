@@ -40,6 +40,7 @@ type Props = {
     setGraphData: any;
     initCoords: any;
     initRotation: any;
+    is3d: any;
 };
 
 const GraphButtonMenu: React.FC<Props> = ({
@@ -48,6 +49,7 @@ const GraphButtonMenu: React.FC<Props> = ({
     setGraphData,
     initCoords,
     initRotation,
+    is3d,
 }) => {
     let [numScreenshots, setNumScreenshots] = useState(0);
     const [trackMenu] = useState<any>(null);
@@ -132,12 +134,18 @@ const GraphButtonMenu: React.FC<Props> = ({
      * @TODO this doesn't seem to actually put the graph upright
      */
     function forceReset() {
-        graphRef.current.refresh();
-        graphRef.current.cameraPosition(
-            initCoords, // new position
-            { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
-            2000 // ms transition duration
-        );
+        if(is3d){
+            graphRef.current.refresh();
+            graphRef.current.cameraPosition(
+                initCoords, // new position
+                { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
+                2000 // ms transition duration
+            );
+        }
+        else{
+            graphRef.current.zoom(1, 2000);
+            graphRef.current.centerAt(0, 0, 2000);
+        }
 
         // This doesn't work either
         //graphRef.current.camera().applyQuaternion(initRotation);

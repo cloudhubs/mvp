@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import ForceGraph2D, { ForceGraphProps } from "react-force-graph-2d";
-import {getColor, getLinkColor, getLinkOpacity, getLinkWidth, getNodeOpacity} from "../../utils/GraphFunctions";
+import {getColor, getLinkColor, getLinkOpacity, getLinkWidth, getNodeOpacity, getVisibility, showNeighbors} from "../../utils/GraphFunctions";
 
 type Props = {
     width: number;
@@ -30,6 +30,7 @@ const Graph: React.FC<Props> = ({
     const [hoverNode, setHoverNode] = useState(null);
     const [selectedLink, setSelectedLink] = useState(null);
     const [defNodeColor, setDefNodeColor] = useState(false);
+    const [hideNodes, setHideNodes] = useState<any>(new Set());
 
     const handleNodeHover = (node: any) => {
         highlightNodes.clear();
@@ -106,10 +107,17 @@ const Graph: React.FC<Props> = ({
             onNodeClick={handleNodeClick}
             onNodeHover={handleNodeHover}
             onLinkHover={handleLinkHover}
+            nodeVisibility={(node) => getVisibility(node, hideNodes)}
             nodeId={"nodeName"}
             nodeLabel={"nodeName"}
             nodeCanvasObjectMode = {(() => 'after')}
             nodeRelSize={8}
+            onNodeRightClick={(node: any) => {
+                const event = new CustomEvent("nodecontextmenu", {
+                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y), graphData: sharedProps.graphData, setHideNodes: setHideNodes},
+                });
+                document.dispatchEvent(event);
+            }}
             nodeColor={(node: any) => getColor(
                 node,
                 sharedProps.graphData,

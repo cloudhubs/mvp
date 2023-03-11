@@ -1,7 +1,8 @@
 import { useContextMenu } from "../../hooks/useContextMenu";
+import {showNeighbors} from "../../utils/GraphFunctions";
 
 export const Menu = () => {
-    const { anchorPoint, show } = useContextMenu();
+    const { anchorPoint, show, node, graphData, setHideNodes } = useContextMenu();
 
     if (show) {
         return (
@@ -10,7 +11,7 @@ export const Menu = () => {
                 style={{ top: anchorPoint.y, left: anchorPoint.x }}
             >
                 <button
-                    onClick={showNeighbors}
+                    onClick={onlyNeighbors}
                     className="inline-flex items-center justify-center w-full text-gray-700 block px-4 py-2 text-sm hover:bg-slate-200 hover:bg-opacity-60"
                 >
                     <svg
@@ -90,7 +91,9 @@ export const Menu = () => {
         );
     }
 
-    function showNeighbors() {}
+    function onlyNeighbors() {
+        showNeighbors(node, graphData, setHideNodes)
+    }
 
     function highlightNode() {}
 

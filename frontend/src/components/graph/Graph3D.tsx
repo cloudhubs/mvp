@@ -6,7 +6,7 @@ import {
     getLinkColor,
     getLinkWidth,
     getNodeOpacity,
-    getSpriteColor,
+    getSpriteColor, getVisibility, showNeighbors
 } from "../../utils/GraphFunctions";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
@@ -39,6 +39,7 @@ const Graph: React.FC<Props> = ({
     const [hoverNode, setHoverNode] = useState(null);
     const [selectedLink, setSelectedLink] = useState(null);
     const [defNodeColor, setDefNodeColor] = useState(false);
+    const [hideNodes, setHideNodes] = useState<any>(new Set());
 
     const handleNodeHover = (node: any) => {
         highlightNodes.clear();
@@ -110,6 +111,13 @@ const Graph: React.FC<Props> = ({
             nodeId={"nodeName"}
             width={width}
             height={height}
+            nodeVisibility={(node) => getVisibility(node, hideNodes)}
+            onNodeRightClick={(node: any) => {
+                const event = new CustomEvent("nodecontextmenu", {
+                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y, node.z), graphData: sharedProps.graphData, setHideNodes: setHideNodes}
+                });
+                document.dispatchEvent(event);
+            }}
             nodeThreeObject={(node) => {
                 const nodes = new THREE.Mesh(
                     new THREE.SphereGeometry(5),
