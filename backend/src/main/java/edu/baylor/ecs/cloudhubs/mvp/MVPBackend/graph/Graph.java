@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -6,7 +6,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Graph {
 

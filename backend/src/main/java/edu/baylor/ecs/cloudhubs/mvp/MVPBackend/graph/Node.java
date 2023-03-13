@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph;
 
 import java.util.Objects;
 import java.util.Set;

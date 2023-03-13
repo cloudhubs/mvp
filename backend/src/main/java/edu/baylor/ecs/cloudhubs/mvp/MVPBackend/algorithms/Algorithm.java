@@ -1,6 +1,6 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Graph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph.Graph;
 
 public class Algorithm {
     Graph graph;

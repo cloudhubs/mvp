@@ -1,7 +1,7 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Graph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph.Graph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph.Node;
 
 import java.util.HashMap;
 import java.util.LinkedList;
