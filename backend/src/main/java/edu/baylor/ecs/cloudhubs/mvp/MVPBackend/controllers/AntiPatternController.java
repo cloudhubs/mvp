@@ -1,8 +1,8 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.controllers;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.BottleneckAlgorithm;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms.BottleneckAlgorithm;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Graph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.GraphAlgorithms;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms.SCCAlgorithm;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,39 +21,50 @@ import java.util.Map;
 public class AntiPatternController {
 
 
+    // Return a list of all the cyclic dependencies
     @GetMapping("/cyclic")
-    public Object getCyclic() throws Exception{
-        // Understood that the input format will change but for now will read from a specified file
+    public Object getCyclic() throws Exception {
 
         FileReader fileReader = new FileReader("enterFilePathHere");
         Graph g = new Graph(fileReader);
-        GraphAlgorithms ga = new GraphAlgorithms(g, false);
-        return ga.getSCCs();
+        SCCAlgorithm sccAlgorithm = new SCCAlgorithm(g, false);
+
+
+        JSONObject returnVal = new JSONObject();
+        JSONArray SCCList = new JSONArray();
+        sccAlgorithm.getSCCList().forEach(s -> SCCList.add(s));
+        returnVal.put("SCCList", SCCList);
+
+        return returnVal;
     }
 
 
-    // TODO Return a bottleneck map
-    @GetMapping("/bottleneck/{threshold}")
-    public Object getBottlenecks(@PathVariable Integer threshold) throws Exception {
-        if(threshold <= 0){
-            return "Threshold cannot be non-positive!";
-        }
-
+    /*
+        Here we will return ALL NODES with their respective bottleneck value,
+        and we will let the frontend decide what the threshold is
+    */
+    @GetMapping("/bottleneck")
+    public Object getBottlenecks() throws Exception {
         FileReader fileReader = new FileReader("enterFilePathHere");
         Graph g = new Graph(fileReader);
         BottleneckAlgorithm bottleneckAlgorithm = new BottleneckAlgorithm(g);
+
         JSONObject returnVal = new JSONObject();
         JSONArray bottleneckList = new JSONArray();
         JSONObject temp;
-        for(Map.Entry<String, Integer> e : bottleneckAlgorithm.calculateBottlenecks(threshold).entrySet()){
+
+        for(Map.Entry<String, Integer> e : bottleneckAlgorithm.getBottleneckList().entrySet()){
             temp = new JSONObject();
             temp.put(e.getKey(),e.getValue());
             bottleneckList.add(temp);
         }
+
         returnVal.put("BottleneckList" ,bottleneckList);
+
         return returnVal;
     }
 
+    // Just return data file stored locally as JSON
     @GetMapping(value = "/data", produces = "application/json")
     public Object getData() throws Exception {
 
@@ -67,8 +78,10 @@ public class AntiPatternController {
         return jsonObject;
     }
 
-    // Post endpoint accepting a .json file to send back as graph
+    // Post endpoint accepting a .json file to send back as JSON file
     // TODO Validate the JSON format is acceptable before returning the object
+    // This is mostly intended to be a placeholder if we want to operate on
+    // files uploaded live from users
     @PostMapping(value = "/graph", consumes = "multipart/form-data", produces = "application/json")
     public Object getDataFromFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
 

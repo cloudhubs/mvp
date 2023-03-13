@@ -1,26 +1,30 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms;
 
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Graph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Node;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.util.*;
 
-public class GraphAlgorithms {
+public class SCCAlgorithm extends Algorithm {
     private LinkedList<Integer>[] adj; //Adjacency List.
     private int size;
-    Graph g;
 
-    public GraphAlgorithms(Graph g, boolean reverse){
-        size = g.getSize();
-        this.g = g;
+    private List<List<String>> SCCList;
+
+    public SCCAlgorithm(Graph graph, boolean reverse){
+        size = graph.getSize();
+        this.graph = graph;
         adj = new LinkedList[size];
         for(int i=0; i < size; i++){
             adj[i] = new LinkedList<>();
         }
         if(!reverse) {
-            generateAdjList(g);
+            generateAdjList(graph);
         }
+
+        this.SCCList = getSCCList();
     }
 
     //Need to make this return a string of SCC found.
@@ -38,8 +42,8 @@ public class GraphAlgorithms {
         }
     }
 
-    private GraphAlgorithms getTranspose(Graph g) throws Exception{
-        GraphAlgorithms gar = new GraphAlgorithms(g, true);
+    private SCCAlgorithm getTranspose(Graph g) {
+        SCCAlgorithm gar = new SCCAlgorithm(g, true);
 
         for(Node n : g.getIndexMap().values()){
             for(Node t : g.getAdjacencyMap().get(n)){
@@ -50,11 +54,11 @@ public class GraphAlgorithms {
         return gar;
     }
 
-    public JSONObject getSCCs() throws Exception {
+    public List<List<String>> getSCCList() {
         Stack stack = new Stack();
         List<List<String>> allSCCs = new ArrayList<>();
 
-        boolean[] visited = new boolean[g.getSize()];
+        boolean[] visited = new boolean[graph.getSize()];
         for(int i = 0; i < size; i++){
             visited[i] = false;
         }
@@ -66,7 +70,7 @@ public class GraphAlgorithms {
         }
 
         //Reversed graph
-        GraphAlgorithms gar = getTranspose(g);
+        SCCAlgorithm gar = getTranspose(graph);
 
         for(int i = 0; i < size; i++){
             visited[i] = false;
@@ -83,7 +87,7 @@ public class GraphAlgorithms {
                     List<String> curr = new ArrayList<>();
 
                     for(int i : sccs){
-                        curr.add(g.getIndexMap().get(i).getNodeName());
+                        curr.add(graph.getIndexMap().get(i).getNodeName());
                     }
 
                     allSCCs.add(curr);
@@ -91,11 +95,8 @@ public class GraphAlgorithms {
             }
         }
 
-        JSONObject returnVal = new JSONObject();
-        JSONArray SCCList = new JSONArray();
-        allSCCs.forEach(s -> SCCList.add(s));
-        returnVal.put("SCCList", SCCList);
-        return returnVal;
+
+        return allSCCs;
     }
 
     private void fillOrder(int i, boolean[] visited, Stack stack) {
