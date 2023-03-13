@@ -1,5 +1,9 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.util.*;
 
 public class GraphAlgorithms {
@@ -46,7 +50,7 @@ public class GraphAlgorithms {
         return gar;
     }
 
-    public String getSCCs() throws Exception {
+    public JSONObject getSCCs() throws Exception {
         Stack stack = new Stack();
         List<List<String>> allSCCs = new ArrayList<>();
 
@@ -87,7 +91,11 @@ public class GraphAlgorithms {
             }
         }
 
-        return allSCCs.toString();
+        JSONObject returnVal = new JSONObject();
+        JSONArray SCCList = new JSONArray();
+        allSCCs.forEach(s -> SCCList.add(s));
+        returnVal.put("SCCList", SCCList);
+        return returnVal;
     }
 
     private void fillOrder(int i, boolean[] visited, Stack stack) {

@@ -10,7 +10,7 @@ public class BottleneckAlgorithm {
     private Map<Node, LinkedList<Node>> transposeMap = new HashMap<>();
     Graph graph;
 
-    BottleneckAlgorithm(Graph graph) {
+    public BottleneckAlgorithm(Graph graph) {
         this.graph = graph;
         adjacencyMap = graph.getAdjacencyMap();
 
@@ -26,12 +26,12 @@ public class BottleneckAlgorithm {
         }
     }
 
-    private Map<Node, Integer> calculateBottlenecks(Integer threshold){
-        Map<Node, Integer> returnMap = new HashMap<>();
+    public Map<String, Integer> calculateBottlenecks(Integer threshold){
+        Map<String, Integer> returnMap = new HashMap<>();
 
         for(Node n : transposeMap.keySet()){
             if(transposeMap.get(n).size() > threshold){
-                returnMap.put(n, transposeMap.get(n).size());
+                returnMap.put(n.getNodeName(), transposeMap.get(n).size());
             }
         }
 
