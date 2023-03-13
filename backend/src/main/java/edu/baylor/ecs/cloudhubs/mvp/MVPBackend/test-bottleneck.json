@@ -46,28 +46,20 @@
     {
       "nodeName": "D",
       "nodeType": "customer",
-      "dependencies": [
-        {
-          "nodeName": "E"
-        }
-      ],
+      "dependencies": [],
       "targets": [
         {
-          "nodeName": "E"
+          "nodeName": "B"
         }
       ]
     },
     {
       "nodeName": "E",
       "nodeType": "customer",
-      "dependencies": [
-        {
-          "nodeName": "D"
-        }
-      ],
+      "dependencies": [],
       "targets": [
         {
-          "nodeName": "D"
+          "nodeName": "B"
         }
       ]
     }
