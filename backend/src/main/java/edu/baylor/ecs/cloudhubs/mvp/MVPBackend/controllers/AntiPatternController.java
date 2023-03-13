@@ -1,7 +1,7 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.controllers;
 
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms.BottleneckAlgorithm;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.Graph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.graph.Graph;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.algorithms.SCCAlgorithm;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONArray;
