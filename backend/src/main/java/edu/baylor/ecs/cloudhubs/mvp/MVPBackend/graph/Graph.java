@@ -42,6 +42,30 @@ public class Graph {
         nodesToGraph();
     }
 
+    /*
+        Graph constructor with variable filereader
+        Assumptions: Throws exception on invalid graph
+     */
+    public Graph(FileReader fileReader) throws Exception {
+        Object obj = new JSONParser().parse(fileReader);
+        JSONObject data = (JSONObject) obj;
+
+        JSONArray jsonNodes = ((JSONArray) data.get("nodes"));
+
+        // Iterate through all the JSON nodes
+        int count = 0;
+        for (Object node : jsonNodes) {
+            JSONObject n = (JSONObject) node;
+            Node newNode = jsonToNode(n, count);
+            indexMap.put(count, newNode);
+
+            count++;
+        }
+
+        // Form the graph from all the collected and converted nodes
+        nodesToGraph();
+    }
+
     public Node jsonToNode(JSONObject obj, Integer index){
         Set<String> dependenciesSet = new HashSet<>();
         Set<String> targetsSet = new HashSet<>();
