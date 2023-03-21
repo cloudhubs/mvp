@@ -70,7 +70,7 @@ const Graph: React.FC<Props> = ({
                     });
                 }
                 const event = new CustomEvent("nodeClick", {
-                    detail: { node: node },
+                    detail: { node },
                 });
                 document.dispatchEvent(event);
             }
@@ -110,8 +110,8 @@ const Graph: React.FC<Props> = ({
             onNodeHover={handleNodeHover}
             onLinkHover={handleLinkHover}
             nodeVisibility={(node) => getVisibility(node, hideNodes)}
-            nodeId={"nodeName"}
-            nodeLabel={"nodeName"}
+            nodeId="nodeName"
+            nodeLabel="nodeName"
             nodeCanvasObjectMode = {(() => 'after')}
             nodeRelSize={8}
             onNodeRightClick={(node: any) => {
