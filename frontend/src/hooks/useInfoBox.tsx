@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import { getNeighbors } from "../utils/GraphFunctions";
-import myData from '../data/small_v1.json';
+import myData from '../data/communicationGraph.json';
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -24,7 +24,7 @@ export const useInfoBox = () => {
             let dependency = neighbors.map((data: any) => {
                 if (
 
-                    event.detail.node.Dependencies.includes(
+                    event.detail.node.Dependencies?.includes(
                         data.nodeName
                     )
                 ) {

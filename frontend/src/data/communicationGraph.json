@@ -1,0 +1,1594 @@
+{
+  "nodes": [
+    {
+      "nodeName": "ts-consign-price-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-consign-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-admin-user-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-train-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-route-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-admin-route-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-price-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-assurance-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-order-other-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-user-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-admin-basic-info-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-route-plan-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-preserve-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-food-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-payment-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-seat-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-travel-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-cancel-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-station-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-wait-order-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-admin-order-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-security-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-order-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-rebook-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-train-food-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-auth-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-travel-plan-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-preserve-other-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-inside-payment-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-basic-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-station-food-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-admin-travel-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-food-delivery-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-travel2-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-notification-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-config-service",
+      "nodeType": "service"
+    },
+    {
+      "nodeName": "ts-contacts-service",
+      "nodeType": "service"
+    }
+  ],
+  "links": [
+    {
+      "source": "ts-seat-service",
+      "target": "ts-order-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-order-service/api/v1/orderservice/order/tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.getTicketListByDateAndTripId",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order/tickets",
+          "isCollection": false,
+          "parentMethod": "seat.service.SeatServiceImpl.distributeSeat",
+          "msName": "ts-seat-service",
+          "restCallInClassName": "seat.service.SeatServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-order-service/api/v1/orderservice/order/tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.getTicketListByDateAndTripId",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order/tickets",
+          "isCollection": false,
+          "parentMethod": "seat.service.SeatServiceImpl.getLeftTicketOfInterval",
+          "msName": "ts-seat-service",
+          "restCallInClassName": "seat.service.SeatServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-seat-service",
+      "target": "ts-order-other-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther/tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.getTicketListByDateAndTripId",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther/tickets",
+          "isCollection": false,
+          "parentMethod": "seat.service.SeatServiceImpl.getLeftTicketOfInterval",
+          "msName": "ts-seat-service",
+          "restCallInClassName": "seat.service.SeatServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther/tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.getTicketListByDateAndTripId",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther/tickets",
+          "isCollection": false,
+          "parentMethod": "seat.service.SeatServiceImpl.distributeSeat",
+          "msName": "ts-seat-service",
+          "restCallInClassName": "seat.service.SeatServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats/left_tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.getLeftTicketOfInterval",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats/left_tickets",
+          "isCollection": false,
+          "parentMethod": "travel.service.TravelServiceImpl.getRestTicketNumber",
+          "msName": "ts-travel-service",
+          "restCallInClassName": "travel.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-service",
+      "target": "ts-basic-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travels",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravels",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travels",
+          "isCollection": false,
+          "parentMethod": "travel.service.TravelServiceImpl.getTicketsByBatch",
+          "msName": "ts-travel-service",
+          "restCallInClassName": "travel.service.TravelServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travel",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravel",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travel",
+          "isCollection": false,
+          "parentMethod": "travel.service.TravelServiceImpl.getTickets",
+          "msName": "ts-travel-service",
+          "restCallInClassName": "travel.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "travel.service.TravelServiceImpl.getRouteByRouteId",
+          "msName": "ts-travel-service",
+          "restCallInClassName": "travel.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-plan-service",
+      "target": "ts-route-plan-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-route-plan-service/api/v1/routeplanservice/routePlan/cheapestRoute",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "plan.controller.RoutePlanController.getCheapestRoutes",
+          "endpointMsName": "ts-route-plan-service",
+          "targetEndpointUri": "/api/v1/routeplanservice/routePlan/cheapestRoute",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.getRoutePlanResultCheapest",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-route-plan-service/api/v1/routeplanservice/routePlan/minStopStations",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "plan.controller.RoutePlanController.getMinStopStations",
+          "endpointMsName": "ts-route-plan-service",
+          "targetEndpointUri": "/api/v1/routeplanservice/routePlan/minStopStations",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.getRoutePlanResultMinStation",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-route-plan-service/api/v1/routeplanservice/routePlan/quickestRoute",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "plan.controller.RoutePlanController.getQuickestRoutes",
+          "endpointMsName": "ts-route-plan-service",
+          "targetEndpointUri": "/api/v1/routeplanservice/routePlan/quickestRoute",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.getRoutePlanResultQuickest",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-plan-service",
+      "target": "ts-travel2-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel2-service/api/v1/travel2service/trips/left",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel2.controller.Travel2Controller.queryInfo",
+          "endpointMsName": "ts-travel2-service",
+          "targetEndpointUri": "/api/v1/travel2service/trips/left",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.tripsFromNormal",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-plan-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats/left_tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.getLeftTicketOfInterval",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats/left_tickets",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.getRestTicketNumber",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel-plan-service",
+      "target": "ts-travel-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel-service/api/v1/travelservice/trips/left",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel.controller.TravelController.queryInfo",
+          "endpointMsName": "ts-travel-service",
+          "targetEndpointUri": "/api/v1/travelservice/trips/left",
+          "isCollection": false,
+          "parentMethod": "travelplan.service.TravelPlanServiceImpl.tripsFromHighSpeed",
+          "msName": "ts-travel-plan-service",
+          "restCallInClassName": "travelplan.service.TravelPlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-food-delivery-service",
+      "target": "ts-station-food-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-station-food-service/api/v1/stationfoodservice/stationfoodstores/bystoreid/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "food.controller.StationFoodController.home",
+          "endpointMsName": "ts-station-food-service",
+          "targetEndpointUri": "/api/v1/stationfoodservice/stationfoodstores/welcome",
+          "isCollection": false,
+          "parentMethod": "food_delivery.service.FoodDeliveryServiceImpl.createFoodDeliveryOrder",
+          "msName": "ts-food-delivery-service",
+          "restCallInClassName": "food_delivery.service.FoodDeliveryServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-wait-order-service",
+      "target": "ts-preserve-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "/api/v1/contactservice/preserve",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "preserve.controller.PreserveController.preserve",
+          "endpointMsName": "ts-preserve-service",
+          "targetEndpointUri": "/api/v1/preserveservice/preserve",
+          "isCollection": false,
+          "parentMethod": "waitorder.utils.PollThread.doPreserve",
+          "msName": "ts-wait-order-service",
+          "restCallInClassName": "waitorder.utils.PollThread"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel2-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats/left_tickets",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.getLeftTicketOfInterval",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats/left_tickets",
+          "isCollection": false,
+          "parentMethod": "travel2.service.TravelServiceImpl.getRestTicketNumber",
+          "msName": "ts-travel2-service",
+          "restCallInClassName": "travel2.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel2-service",
+      "target": "ts-basic-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travel",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravel",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travel",
+          "isCollection": false,
+          "parentMethod": "travel2.service.TravelServiceImpl.getTickets",
+          "msName": "ts-travel2-service",
+          "restCallInClassName": "travel2.service.TravelServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travels",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravels",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travels",
+          "isCollection": false,
+          "parentMethod": "travel2.service.TravelServiceImpl.getTicketsByBatch",
+          "msName": "ts-travel2-service",
+          "restCallInClassName": "travel2.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-travel2-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "travel2.service.TravelServiceImpl.getRouteByRouteId",
+          "msName": "ts-travel2-service",
+          "restCallInClassName": "travel2.service.TravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-order-other-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.createNewOrder",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.createOrder",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-food-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-food-service/api/v1/foodservice/orders",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "foodsearch.controller.FoodController.createFoodOrder",
+          "endpointMsName": "ts-food-service",
+          "targetEndpointUri": "/api/v1/foodservice/orders",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.createFoodOrder",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-travel2-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel2-service/api/v1/travel2service/trip_detail",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel2.controller.Travel2Controller.getTripAllDetailInfo",
+          "endpointMsName": "ts-travel2-service",
+          "targetEndpointUri": "/api/v1/travel2service/trip_detail",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.getTripAllDetailInformation",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-basic-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travel",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravel",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travel",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.preserve",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-security-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-security-service/api/v1/securityservice/securityConfigs/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "security.controller.SecurityController.findAllSecurityConfig",
+          "endpointMsName": "ts-security-service",
+          "targetEndpointUri": "/api/v1/securityservice/securityConfigs",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.checkSecurity",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-consign-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-consign-service/api/v1/consignservice/consigns",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "consign.controller.ConsignController.insertConsign",
+          "endpointMsName": "ts-consign-service",
+          "targetEndpointUri": "/api/v1/consignservice/consigns",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.createConsign",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.create",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.dipatchSeat",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-other-service",
+      "target": "ts-assurance-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-assurance-service/api/v1/assuranceservice/assurances//",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "assurance.controller.AssuranceController.getAllAssurances",
+          "endpointMsName": "ts-assurance-service",
+          "targetEndpointUri": "/api/v1/assuranceservice/assurances",
+          "isCollection": false,
+          "parentMethod": "preserveOther.service.PreserveOtherServiceImpl.addAssuranceForOrder",
+          "msName": "ts-preserve-other-service",
+          "restCallInClassName": "preserveOther.service.PreserveOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-basic-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-basic-service/api/v1/basicservice/basic/travel",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.BasicController.queryForTravel",
+          "endpointMsName": "ts-basic-service",
+          "targetEndpointUri": "/api/v1/basicservice/basic/travel",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.preserve",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-security-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-security-service/api/v1/securityservice/securityConfigs/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "security.controller.SecurityController.findAllSecurityConfig",
+          "endpointMsName": "ts-security-service",
+          "targetEndpointUri": "/api/v1/securityservice/securityConfigs",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.checkSecurity",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-assurance-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-assurance-service/api/v1/assuranceservice/assurances//",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "assurance.controller.AssuranceController.getAllAssurances",
+          "endpointMsName": "ts-assurance-service",
+          "targetEndpointUri": "/api/v1/assuranceservice/assurances",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.addAssuranceForOrder",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-consign-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-consign-service/api/v1/consignservice/consigns",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "consign.controller.ConsignController.insertConsign",
+          "endpointMsName": "ts-consign-service",
+          "targetEndpointUri": "/api/v1/consignservice/consigns",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.createConsign",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.create",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.dipatchSeat",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-travel-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel-service/api/v1/travelservice/trip_detail",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel.controller.TravelController.getTripAllDetailInfo",
+          "endpointMsName": "ts-travel-service",
+          "targetEndpointUri": "/api/v1/travelservice/trip_detail",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.getTripAllDetailInformation",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-order-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-order-service/api/v1/orderservice/order",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.createNewOrder",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.createOrder",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-preserve-service",
+      "target": "ts-food-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-food-service/api/v1/foodservice/orders",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "foodsearch.controller.FoodController.createFoodOrder",
+          "endpointMsName": "ts-food-service",
+          "targetEndpointUri": "/api/v1/foodservice/orders",
+          "isCollection": false,
+          "parentMethod": "preserve.service.PreserveServiceImpl.createFoodOrder",
+          "msName": "ts-preserve-service",
+          "restCallInClassName": "preserve.service.PreserveServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-order-other-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations/namelist",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.queryForNameBatch",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations/namelist",
+          "isCollection": false,
+          "parentMethod": "other.service.OrderOtherServiceImpl.queryForStationId",
+          "msName": "ts-order-other-service",
+          "restCallInClassName": "other.service.OrderOtherServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-user-service",
+      "target": "ts-user-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-user-service/api/v1/userservice/users/register",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "user.controller.UserController.registerUser",
+          "endpointMsName": "ts-user-service",
+          "targetEndpointUri": "/api/v1/userservice/users/register",
+          "isCollection": false,
+          "parentMethod": "adminuser.service.AdminUserServiceImpl.addUser",
+          "msName": "ts-admin-user-service",
+          "restCallInClassName": "adminuser.service.AdminUserServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-user-service/api/v1/userservice/users",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "user.controller.UserController.getAllUser",
+          "endpointMsName": "ts-user-service",
+          "targetEndpointUri": "/api/v1/userservice/users",
+          "isCollection": false,
+          "parentMethod": "adminuser.service.AdminUserServiceImpl.getAllUsers",
+          "msName": "ts-admin-user-service",
+          "restCallInClassName": "adminuser.service.AdminUserServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-user-service/api/v1/userservice/users",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "user.controller.UserController.updateUser",
+          "endpointMsName": "ts-user-service",
+          "targetEndpointUri": "/api/v1/userservice/users",
+          "isCollection": false,
+          "parentMethod": "adminuser.service.AdminUserServiceImpl.updateUser",
+          "msName": "ts-admin-user-service",
+          "restCallInClassName": "adminuser.service.AdminUserServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-food-service",
+      "target": "ts-train-food-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-train-food-service/api/v1/trainfoodservice/trainfoods/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "trainFood.controller.TrainFoodController.getAllTrainFood",
+          "endpointMsName": "ts-train-food-service",
+          "targetEndpointUri": "/api/v1/trainfoodservice/trainfoods",
+          "isCollection": false,
+          "parentMethod": "foodsearch.service.FoodServiceImpl.getAllFood",
+          "msName": "ts-food-service",
+          "restCallInClassName": "foodsearch.service.FoodServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-food-service",
+      "target": "ts-station-food-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-food-service/api/v1/stationfoodservice/stationfoodstores",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "food.controller.StationFoodController.getFoodStoresByStationNames",
+          "endpointMsName": "ts-station-food-service",
+          "targetEndpointUri": "/api/v1/stationfoodservice/stationfoodstores",
+          "isCollection": false,
+          "parentMethod": "foodsearch.service.FoodServiceImpl.getAllFood",
+          "msName": "ts-food-service",
+          "restCallInClassName": "foodsearch.service.FoodServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-route-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-route-service/api/v1/routeservice/routes",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.createAndModifyRoute",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "adminroute.service.AdminRouteServiceImpl.createAndModifyRoute",
+          "msName": "ts-admin-route-service",
+          "restCallInClassName": "adminroute.service.AdminRouteServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "adminroute.service.AdminRouteServiceImpl.getAllRoutes",
+          "msName": "ts-admin-route-service",
+          "restCallInClassName": "adminroute.service.AdminRouteServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-route-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations/idlist",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.queryForIdBatch",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations/idlist",
+          "isCollection": false,
+          "parentMethod": "adminroute.service.AdminRouteServiceImpl.checkStationsExists",
+          "msName": "ts-admin-route-service",
+          "restCallInClassName": "adminroute.service.AdminRouteServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-order-service",
+      "target": "ts-order-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-order-service/api/v1/orderservice/order/admin",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.addcreateNewOrder",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order/admin",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.addOrder",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-order-service/api/v1/orderservice/order",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.findAllOrder",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.getAllOrders",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-order-service/api/v1/orderservice/order/admin",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.updateOrder",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order/admin",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.updateOrder",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-order-service",
+      "target": "ts-order-other-service",
+      "requests": [
+        {
+          "type": "PUT",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther/admin",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.updateOrder",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther/admin",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.updateOrder",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther/admin",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.addcreateNewOrder",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther/admin",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.addOrder",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.findAllOrder",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther",
+          "isCollection": false,
+          "parentMethod": "adminorder.service.AdminOrderServiceImpl.getAllOrders",
+          "msName": "ts-admin-order-service",
+          "restCallInClassName": "adminorder.service.AdminOrderServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-travel-service",
+      "target": "ts-travel2-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-travel2-service/api/v1/travel2service/admin_trip",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel2.controller.Travel2Controller.adminQueryAll",
+          "endpointMsName": "ts-travel2-service",
+          "targetEndpointUri": "/api/v1/travel2service/admin_trip",
+          "isCollection": false,
+          "parentMethod": "admintravel.service.AdminTravelServiceImpl.getAllTravels",
+          "msName": "ts-admin-travel-service",
+          "restCallInClassName": "admintravel.service.AdminTravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-travel-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "admintravel.service.AdminTravelServiceImpl.getRouteByRouteId",
+          "msName": "ts-admin-travel-service",
+          "restCallInClassName": "admintravel.service.AdminTravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-travel-service",
+      "target": "ts-travel-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-travel-service/api/v1/travelservice/admin_trip",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel.controller.TravelController.adminQueryAll",
+          "endpointMsName": "ts-travel-service",
+          "targetEndpointUri": "/api/v1/travelservice/admin_trip",
+          "isCollection": false,
+          "parentMethod": "admintravel.service.AdminTravelServiceImpl.getAllTravels",
+          "msName": "ts-admin-travel-service",
+          "restCallInClassName": "admintravel.service.AdminTravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-travel-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations/idlist",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.queryForIdBatch",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations/idlist",
+          "isCollection": false,
+          "parentMethod": "admintravel.service.AdminTravelServiceImpl.checkStationsExists",
+          "msName": "ts-admin-travel-service",
+          "restCallInClassName": "admintravel.service.AdminTravelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-cancel-service",
+      "target": "ts-order-service",
+      "requests": [
+        {
+          "type": "PUT",
+          "uri": "ts-order-service/api/v1/orderservice/order",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.saveOrderInfo",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order",
+          "isCollection": false,
+          "parentMethod": "cancel.service.CancelServiceImpl.cancelFromOrder",
+          "msName": "ts-cancel-service",
+          "restCallInClassName": "cancel.service.CancelServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-order-service/api/v1/orderservice/order/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "order.controller.OrderController.findAllOrder",
+          "endpointMsName": "ts-order-service",
+          "targetEndpointUri": "/api/v1/orderservice/order",
+          "isCollection": false,
+          "parentMethod": "cancel.service.CancelServiceImpl.getOrderByIdFromOrder",
+          "msName": "ts-cancel-service",
+          "restCallInClassName": "cancel.service.CancelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-cancel-service",
+      "target": "ts-notification-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-notification-service/api/v1/notifyservice/notification/order_cancel_success",
+          "requestReturn": "java.lang.Boolean",
+          "endpointFunction": "notification.controller.NotificationController.order_cancel_success",
+          "endpointMsName": "ts-notification-service",
+          "targetEndpointUri": "/api/v1/notifyservice/notification/order_cancel_success",
+          "isCollection": false,
+          "parentMethod": "cancel.service.CancelServiceImpl.sendEmail",
+          "msName": "ts-cancel-service",
+          "restCallInClassName": "cancel.service.CancelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-cancel-service",
+      "target": "ts-order-other-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.findAllOrder",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther",
+          "isCollection": false,
+          "parentMethod": "cancel.service.CancelServiceImpl.getOrderByIdFromOrderOther",
+          "msName": "ts-cancel-service",
+          "restCallInClassName": "cancel.service.CancelServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-order-other-service/api/v1/orderOtherService/orderOther",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "other.controller.OrderOtherController.saveOrderInfo",
+          "endpointMsName": "ts-order-other-service",
+          "targetEndpointUri": "/api/v1/orderOtherService/orderOther",
+          "isCollection": false,
+          "parentMethod": "cancel.service.CancelServiceImpl.cancelFromOtherOrder",
+          "msName": "ts-cancel-service",
+          "restCallInClassName": "cancel.service.CancelServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-basic-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations/idlist",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.queryForIdBatch",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations/idlist",
+          "isCollection": false,
+          "parentMethod": "fdse.microservice.service.BasicServiceImpl.checkStationsExists",
+          "msName": "ts-basic-service",
+          "restCallInClassName": "fdse.microservice.service.BasicServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-basic-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-route-service/api/v1/routeservice/routes/byIds/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryByIds",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes/byIds",
+          "isCollection": false,
+          "parentMethod": "fdse.microservice.service.BasicServiceImpl.getRoutesByRouteIds",
+          "msName": "ts-basic-service",
+          "restCallInClassName": "fdse.microservice.service.BasicServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "fdse.microservice.service.BasicServiceImpl.getRouteByRouteId",
+          "msName": "ts-basic-service",
+          "restCallInClassName": "fdse.microservice.service.BasicServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-basic-service",
+      "target": "ts-train-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-train-service/api/v1/trainservice/trains/byNames",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "train.controller.TrainController.retrieveByName",
+          "endpointMsName": "ts-train-service",
+          "targetEndpointUri": "/api/v1/trainservice/trains/byNames",
+          "isCollection": false,
+          "parentMethod": "fdse.microservice.service.BasicServiceImpl.queryTrainTypeByNames",
+          "msName": "ts-basic-service",
+          "restCallInClassName": "fdse.microservice.service.BasicServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-basic-service",
+      "target": "ts-price-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-price-service/api/v1/priceservice/prices/byRouteIdsAndTrainTypes",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "price.controller.PriceController.query",
+          "endpointMsName": "ts-price-service",
+          "targetEndpointUri": "/api/v1/priceservice/prices/byRouteIdsAndTrainTypes",
+          "isCollection": false,
+          "parentMethod": "fdse.microservice.service.BasicServiceImpl.queryPriceConfigByRouteIdsAndTrainTypes",
+          "msName": "ts-basic-service",
+          "restCallInClassName": "fdse.microservice.service.BasicServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-route-plan-service",
+      "target": "ts-travel2-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel2-service/api/v1/travel2service/trips/left",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel2.controller.Travel2Controller.queryInfo",
+          "endpointMsName": "ts-travel2-service",
+          "targetEndpointUri": "/api/v1/travel2service/trips/left",
+          "isCollection": false,
+          "parentMethod": "plan.service.RoutePlanServiceImpl.getTripFromNormalTrainTravelService",
+          "msName": "ts-route-plan-service",
+          "restCallInClassName": "plan.service.RoutePlanServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-travel2-service/api/v1/travel2service/trips/routes",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel2.controller.Travel2Controller.getTripsByRouteId",
+          "endpointMsName": "ts-travel2-service",
+          "targetEndpointUri": "/api/v1/travel2service/trips/routes",
+          "isCollection": false,
+          "parentMethod": "plan.service.RoutePlanServiceImpl.searchMinStopStations",
+          "msName": "ts-route-plan-service",
+          "restCallInClassName": "plan.service.RoutePlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-route-plan-service",
+      "target": "ts-travel-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-travel-service/api/v1/travelservice/trips/left",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel.controller.TravelController.queryInfo",
+          "endpointMsName": "ts-travel-service",
+          "targetEndpointUri": "/api/v1/travelservice/trips/left",
+          "isCollection": false,
+          "parentMethod": "plan.service.RoutePlanServiceImpl.getTripFromHighSpeedTravelServive",
+          "msName": "ts-route-plan-service",
+          "restCallInClassName": "plan.service.RoutePlanServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-travel-service/api/v1/travelservice/trips/routes",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "travel.controller.TravelController.getTripsByRouteId",
+          "endpointMsName": "ts-travel-service",
+          "targetEndpointUri": "/api/v1/travelservice/trips/routes",
+          "isCollection": false,
+          "parentMethod": "plan.service.RoutePlanServiceImpl.searchMinStopStations",
+          "msName": "ts-route-plan-service",
+          "restCallInClassName": "plan.service.RoutePlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-route-plan-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "plan.service.RoutePlanServiceImpl.getRouteByRouteId",
+          "msName": "ts-route-plan-service",
+          "restCallInClassName": "plan.service.RoutePlanServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-rebook-service",
+      "target": "ts-inside-payment-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-inside-payment-service/api/v1/inside_pay_service/inside_payment/difference",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "inside_payment.controller.InsidePaymentController.payDifference",
+          "endpointMsName": "ts-inside-payment-service",
+          "targetEndpointUri": "/api/v1/inside_pay_service/inside_payment/difference",
+          "isCollection": false,
+          "parentMethod": "rebook.service.RebookServiceImpl.payDifferentMoney",
+          "msName": "ts-rebook-service",
+          "restCallInClassName": "rebook.service.RebookServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-rebook-service",
+      "target": "ts-route-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-route-service/api/v1/routeservice/routes/",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "route.controller.RouteController.queryAll",
+          "endpointMsName": "ts-route-service",
+          "targetEndpointUri": "/api/v1/routeservice/routes",
+          "isCollection": false,
+          "parentMethod": "rebook.service.RebookServiceImpl.getRouteByRouteId",
+          "msName": "ts-rebook-service",
+          "restCallInClassName": "rebook.service.RebookServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-rebook-service",
+      "target": "ts-seat-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-seat-service/api/v1/seatservice/seats",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "seat.controller.SeatController.create",
+          "endpointMsName": "ts-seat-service",
+          "targetEndpointUri": "/api/v1/seatservice/seats",
+          "isCollection": false,
+          "parentMethod": "rebook.service.RebookServiceImpl.dipatchSeat",
+          "msName": "ts-rebook-service",
+          "restCallInClassName": "rebook.service.RebookServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-inside-payment-service",
+      "target": "ts-payment-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-payment-service/api/v1/paymentservice/payment",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "com.trainticket.controller.PaymentController.pay",
+          "endpointMsName": "ts-payment-service",
+          "targetEndpointUri": "/api/v1/paymentservice/payment",
+          "isCollection": false,
+          "parentMethod": "inside_payment.service.InsidePaymentServiceImpl.payDifference",
+          "msName": "ts-inside-payment-service",
+          "restCallInClassName": "inside_payment.service.InsidePaymentServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-payment-service/api/v1/paymentservice/payment",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "com.trainticket.controller.PaymentController.pay",
+          "endpointMsName": "ts-payment-service",
+          "targetEndpointUri": "/api/v1/paymentservice/payment",
+          "isCollection": false,
+          "parentMethod": "inside_payment.service.InsidePaymentServiceImpl.pay",
+          "msName": "ts-inside-payment-service",
+          "restCallInClassName": "inside_payment.service.InsidePaymentServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-basic-info-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "GET",
+          "uri": "ts-station-service/api/v1/stationservice/stations",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.query",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.getAllStations",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.create",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.addStation",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-station-service/api/v1/stationservice/stations",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.update",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.modifyStation",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-basic-info-service",
+      "target": "ts-price-service",
+      "requests": [
+        {
+          "type": "PUT",
+          "uri": "ts-price-service/api/v1/priceservice/prices",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "price.controller.PriceController.update",
+          "endpointMsName": "ts-price-service",
+          "targetEndpointUri": "/api/v1/priceservice/prices",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.modifyPrice",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-price-service/api/v1/priceservice/prices",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "price.controller.PriceController.queryAll",
+          "endpointMsName": "ts-price-service",
+          "targetEndpointUri": "/api/v1/priceservice/prices",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.getAllPrices",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "POST",
+          "uri": "ts-price-service/api/v1/priceservice/prices",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "price.controller.PriceController.create",
+          "endpointMsName": "ts-price-service",
+          "targetEndpointUri": "/api/v1/priceservice/prices",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.addPrice",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-basic-info-service",
+      "target": "ts-contacts-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-contacts-service/api/v1/contactservice/contacts/admin",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "contacts.controller.ContactsController.createNewContactsAdmin",
+          "endpointMsName": "ts-contacts-service",
+          "targetEndpointUri": "api/v1/contactservice/contacts/admin",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.addContact",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-basic-info-service",
+      "target": "ts-config-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-config-service/api/v1/configservice/configs",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "config.controller.ConfigController.createConfig",
+          "endpointMsName": "ts-config-service",
+          "targetEndpointUri": "api/v1/configservice/configs",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.addConfig",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-config-service/api/v1/configservice/configs",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "config.controller.ConfigController.updateConfig",
+          "endpointMsName": "ts-config-service",
+          "targetEndpointUri": "api/v1/configservice/configs",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.modifyConfig",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-config-service/api/v1/configservice/configs",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "config.controller.ConfigController.queryAll",
+          "endpointMsName": "ts-config-service",
+          "targetEndpointUri": "api/v1/configservice/configs",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.getAllConfigs",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-admin-basic-info-service",
+      "target": "ts-train-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-train-service/api/v1/trainservice/trains",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "train.controller.TrainController.create",
+          "endpointMsName": "ts-train-service",
+          "targetEndpointUri": "/api/v1/trainservice/trains",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.addTrain",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "PUT",
+          "uri": "ts-train-service/api/v1/trainservice/trains",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "train.controller.TrainController.update",
+          "endpointMsName": "ts-train-service",
+          "targetEndpointUri": "/api/v1/trainservice/trains",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.modifyTrain",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        },
+        {
+          "type": "GET",
+          "uri": "ts-train-service/api/v1/trainservice/trains",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "train.controller.TrainController.query",
+          "endpointMsName": "ts-train-service",
+          "targetEndpointUri": "/api/v1/trainservice/trains",
+          "isCollection": false,
+          "parentMethod": "adminbasic.service.AdminBasicInfoServiceImpl.getAllTrains",
+          "msName": "ts-admin-basic-info-service",
+          "restCallInClassName": "adminbasic.service.AdminBasicInfoServiceImpl"
+        }
+      ]
+    },
+    {
+      "source": "ts-order-service",
+      "target": "ts-station-service",
+      "requests": [
+        {
+          "type": "POST",
+          "uri": "ts-station-service/api/v1/stationservice/stations/namelist",
+          "requestReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "fdse.microservice.controller.StationController.queryForNameBatch",
+          "endpointMsName": "ts-station-service",
+          "targetEndpointUri": "/api/v1/stationservice/stations/namelist",
+          "isCollection": false,
+          "parentMethod": "order.service.OrderServiceImpl.queryForStationId",
+          "msName": "ts-order-service",
+          "restCallInClassName": "order.service.OrderServiceImpl"
+        }
+      ]
+    }
+  ]
+}
