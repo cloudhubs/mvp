@@ -1,8 +1,7 @@
 import { useInfoBox } from "../../hooks/useInfoBox";
 
 export const InfoBox = () => {
-    const { anchorPoint, show, name, type, depends, setShow, dependencies } =
-        useInfoBox();
+    const { anchorPoint, show, name, type, depends, setShow, dependencies } = useInfoBox();
 
     if (show) {
         return (
@@ -15,10 +14,12 @@ export const InfoBox = () => {
                 <ul className="list-disc list-inside">
                     Dependencies: {dependencies}
                 </ul>
-                <ul className="list-disc list-inside">Depends On: {depends}</ul>
+                <ul className="list-disc list-inside">
+                    Depends On: {depends}
+                </ul>
                 <button
                     onClick={() => setShow(false)}
-                    className="hover:blue-green-gradient-text"
+                    className="hover:blue-green-gradient-text hover:border-blue-green-gradient-text border-black border-2"
                 >
                     Close Box
                 </button>
