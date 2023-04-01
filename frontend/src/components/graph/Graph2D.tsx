@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import ForceGraph2D, { ForceGraphProps } from "react-force-graph-2d";
 import {getColor, getLinkColor, getLinkOpacity, getLinkWidth, getNodeOpacity, getVisibility, showNeighbors} from "../../utils/GraphFunctions";
+import { request } from "http";
 
 type Props = {
     width: number;
@@ -79,7 +80,11 @@ const Graph: React.FC<Props> = ({
     );
 
     // TODO: Implement Link Clicking
-    const handleLinkClick = useCallback(() => { console.log("HELLO") }, [graphRef]);
+    const handleLinkClick = useCallback((link: any) => { 
+        const { requests, source: sourceNode } = link
+        console.log("link: " + JSON.stringify(requests, null, 2)) 
+        console.log("source Node: " + JSON.stringify(sourceNode, null, 2))
+    }, [graphRef]);
 
     useEffect(() => {
         graphRef.current.d3Force('charge').strength((node: any) => {return -120;})

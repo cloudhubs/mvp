@@ -98,8 +98,12 @@ const Graph: React.FC<Props> = ({
     );
 
     // TODO: Implement Link Clicking
-    const handleLinkClick = useCallback(() => { console.log("HELLO") }, [graphRef]);
-
+    const handleLinkClick = useCallback((link: any) => { 
+        const { requests, source: sourceNode } = link
+        console.log("link: " + JSON.stringify(requests, null, 2)) 
+        console.log("source Node: " + JSON.stringify(sourceNode, null, 2))
+    }, [graphRef]);
+    
     useEffect(() => {
         let { x, y, z } = graphRef.current.cameraPosition();
 
