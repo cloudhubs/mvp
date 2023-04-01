@@ -97,6 +97,9 @@ const Graph: React.FC<Props> = ({
         [graphRef]
     );
 
+    // TODO: Implement Link Clicking
+    const handleLinkClick = useCallback(() => { console.log("HELLO") }, [graphRef]);
+
     useEffect(() => {
         let { x, y, z } = graphRef.current.cameraPosition();
 
@@ -198,6 +201,7 @@ const Graph: React.FC<Props> = ({
             }}
             backgroundColor={"rgba(0,0,0,0)"}
             onNodeClick={handleNodeClick}
+            onLinkClick={handleLinkClick}
             onNodeHover={handleNodeHover}
             onLinkHover={handleLinkHover}
             linkWidth={(link) => getLinkWidth(link, search)}

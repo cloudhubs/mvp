@@ -78,6 +78,9 @@ const Graph: React.FC<Props> = ({
         [graphRef]
     );
 
+    // TODO: Implement Link Clicking
+    const handleLinkClick = useCallback(() => { console.log("HELLO") }, [graphRef]);
+
     useEffect(() => {
         graphRef.current.d3Force('charge').strength((node: any) => {return -120;})
         graphRef.current.d3Force('link').distance((link: any) => {return 100;});
@@ -107,6 +110,7 @@ const Graph: React.FC<Props> = ({
             }
             linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             onNodeClick={handleNodeClick}
+            onLinkClick={handleLinkClick}
             onNodeHover={handleNodeHover}
             onLinkHover={handleLinkHover}
             nodeVisibility={(node) => getVisibility(node, hideNodes)}
