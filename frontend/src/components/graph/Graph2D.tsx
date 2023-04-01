@@ -80,30 +80,20 @@ const Graph: React.FC<Props> = ({
     );
 
     // TODO: Implement Link Clicking
-    const handleLinkClick = useCallback((link: any) => { 
+    const handleLinkClick = useCallback((link: any) => {
         if (link != null) {
-            const { x, y, z } = link.source
-            const distance = 100;
-            const distRatio =
-                1 + distance / Math.hypot(x, y, z);
             if (graphRef.current) {
-                graphRef.current.cameraPosition(
-                    {
-                        x: x * distRatio,
-                        y: y * distRatio,
-                        z: z * distRatio,
-                    },
-                    link,
-                    1500
-                );
+                graphRef.current.zoomToFit(1500, 300, (link2: any) => {
+                    return link.nodeName === link2.nodeName;
+                });
             }
             const event = new CustomEvent("linkClick", {
-                detail: { link }
+                detail: { link },
             });
             document.dispatchEvent(event);
         }
-
-    }, [graphRef]);
+    },
+    [graphRef]);
 
     useEffect(() => {
         graphRef.current.d3Force('charge').strength((node: any) => {return -120;})

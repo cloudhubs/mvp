@@ -44,6 +44,7 @@ export const useInfoBox = () => {
 
     const handleLinkClick = useCallback(
         (event: any) => {
+            console.log(event)
             setAnchorPoint({ x: event.pageX, y: event.pageY });
             setName(event.detail.link.nodeName);
             setType(event.detail.link.nodeType);
