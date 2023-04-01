@@ -42,6 +42,37 @@ export const useInfoBox = () => {
         [setShow, setAnchorPoint]
     );
 
+    const handleLinkClick = useCallback(
+        (event: any) => {
+            setAnchorPoint({ x: event.pageX, y: event.pageY });
+            setName(event.detail.link.nodeName);
+            setType(event.detail.link.nodeType);
+            // let neighbors = getNeighbors(
+            //     event.detail.link,
+            //     graphData.links
+            // ).nodes;
+            // neighbors.splice(neighbors.indexOf(event.detail.node), 1);
+            // let dependency = neighbors.map((data: any) => {
+            //     if (
+
+            //         event.detail.node.Dependencies?.includes(
+            //             data.nodeName
+            //         )
+            //     ) {
+            //         neighbors.splice(neighbors.indexOf(data), 1);
+            //         return <li key={data.nodeName}>{data.nodeName}</li>;
+            //     }
+            // });
+            // neighbors = neighbors.map((data: any) => {
+            //     return <li key={data.nodeName}>{data.nodeName}</li>;
+            // });
+            // setDependencies(dependency);
+            // setDepends(neighbors);
+            setShow(true);
+        },
+        [setShow, setAnchorPoint]
+    );
+
     const handleLClick = useCallback(
         () => (show ? setShow(false) : null),
         [show]
@@ -50,9 +81,11 @@ export const useInfoBox = () => {
     useEffect(() => {
         document.addEventListener("nodeClick", handleClick);
         document.addEventListener("click", handleLClick);
+        document.addEventListener("linkClick", handleLinkClick);
         return () => {
             document.removeEventListener("nodeClick", handleClick);
             document.removeEventListener("click", handleLClick);
+            document.removeEventListener("linkClick", handleLinkClick);
         };
     });
     return {
