@@ -44,10 +44,10 @@ export const useInfoBox = () => {
 
     const handleLinkClick = useCallback(
         (event: any) => {
-            console.log(event)
             setAnchorPoint({ x: event.pageX, y: event.pageY });
-            setName(event.detail.link.nodeName);
-            setType(event.detail.link.nodeType);
+            console.log(event)
+            // setName(event.detail.link);
+            // setType(event.detail.link);
             // let neighbors = getNeighbors(
             //     event.detail.link,
             //     graphData.links
@@ -82,11 +82,9 @@ export const useInfoBox = () => {
     useEffect(() => {
         document.addEventListener("nodeClick", handleClick);
         document.addEventListener("click", handleLClick);
-        document.addEventListener("linkClick", handleLinkClick);
         return () => {
             document.removeEventListener("nodeClick", handleClick);
             document.removeEventListener("click", handleLClick);
-            document.removeEventListener("linkClick", handleLinkClick);
         };
     });
     return {

@@ -100,21 +100,21 @@ const Graph: React.FC<Props> = ({
     // TODO: Implement Link Clicking
     const handleLinkClick = useCallback((link: any) => { 
         if (link != null) {
-            const { x, y, z } = link.source
-            const distance = 100;
-            const distRatio =
-                1 + distance / Math.hypot(x, y, z);
-            if (graphRef.current) {
-                graphRef.current.cameraPosition(
-                    {
-                        x: x * distRatio,
-                        y: y * distRatio,
-                        z: z * distRatio,
-                    },
-                    link,
-                    1500
-                );
-            }
+            const { x, y, z } = link.target
+            // const distance = 100;
+            // const distRatio =
+            //     1 + distance / Math.hypot(x, y, z);
+            // if (graphRef.current) {
+            //     graphRef.current.cameraPosition(
+            //         {
+            //             x: x * distRatio,
+            //             y: y * distRatio,
+            //             z: z * distRatio,
+            //         },
+            //         link,
+            //         1500
+            //     );
+            // }
             const event = new CustomEvent("linkClick", {
                 detail: { link }
             });
