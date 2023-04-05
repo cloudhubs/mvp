@@ -205,10 +205,10 @@ function resetView(graphRef: any, initCoords: any) {
 
 const getNodeOpacity = (node: any, search: any): number => {
     if (search === "") {
-        return 0.75;
+        return 0.9;
     }
     if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
-        return 0.8;
+        return 0.9;
     } else {
         return 0.1;
     }
