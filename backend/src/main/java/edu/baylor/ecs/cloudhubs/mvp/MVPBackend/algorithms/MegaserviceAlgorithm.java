@@ -12,7 +12,7 @@ public class MegaserviceAlgorithm extends Algorithm {
     private Map<Node, LinkedList<Node>> adjacencyMap;
 
     /*
-        Here we will store ALL NODES with their respective megaservice value,
+        Here we will store ALL NODES with their respective mega service value,
         and we will let the frontend decide what the threshold is
     */
     private Map<String, Integer> megaserviceList;

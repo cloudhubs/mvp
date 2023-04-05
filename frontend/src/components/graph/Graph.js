@@ -79,7 +79,7 @@ const Graph = ({ graphRef }) => {
     return (
         <div className="App">
             <ForceGraph3D
-                linkWidth={(link) => (highlightLinks.has(link) ? 5 : 1)}
+                linkWidth={(link) => (highlightLinks.has(link) ? 1 : 1)}
                 linkDirectionalParticles={4}
                 linkDirectionalParticleWidth={(link) =>
                     highlightLinks.has(link) ? 4 : 0
