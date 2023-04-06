@@ -28,12 +28,18 @@ public class AntiPatternService {
      */
     public MicroserviceGraph<PatternedNode, Link> labelCyclicDependencies(MicroserviceGraph<Node, Link> graph) {
         Objects.requireNonNull(graph);
+
+        // Find the strongly connected components
         Graph<Set<Node>> sccs = graph.findSCCs();
-        Set<Set<Node>> multiNodeSccs = sccs.nodes().stream().filter(scc -> scc.size() > 1).collect(Collectors.toSet());
+        // Reduce SCCs to only those containing multiple nodes
+        Set<Set<Node>> cyclicDeps = sccs.nodes().stream().filter(scc -> scc.size() > 1).collect(Collectors.toSet());
+        // Map the normal graph to patterned nodes
         Set<PatternedNode> labeledNodes = graph.getNodes().stream()
                 .map(PatternedNode::new).collect(Collectors.toSet());
 
-        for (Set<Node> scc : multiNodeSccs) {
+        // Iterate over the strongly connected components and add cyclic dependency
+        // tags to applicable nodes
+        for (Set<Node> scc : cyclicDeps) {
             scc.forEach(node -> labeledNodes.stream().filter(node2 ->
                     node2.filterByName(node.getNodeName())).findFirst().ifPresent(
                             n -> n.addPattern(new CyclicDependency(scc))
@@ -41,6 +47,7 @@ public class AntiPatternService {
             );
         }
 
+        // Return the new graph
         return new MicroserviceGraph<>(labeledNodes, graph.getLinks());
     }
 }
