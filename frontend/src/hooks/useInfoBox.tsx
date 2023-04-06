@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import { getNeighbors } from "../utils/GraphFunctions";
-import myData from '../data/small_v1.json';
+import myData from "../data/train_ticket_new.json";
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -22,12 +22,7 @@ export const useInfoBox = () => {
             ).nodes;
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
             let dependency = neighbors.map((data: any) => {
-                if (
-
-                    event.detail.node.Dependencies.includes(
-                        data.nodeName
-                    )
-                ) {
+                if (event.detail.node.Dependencies.includes(data.nodeName)) {
                     neighbors.splice(neighbors.indexOf(data), 1);
                     return <li key={data.nodeName}>{data.nodeName}</li>;
                 }
