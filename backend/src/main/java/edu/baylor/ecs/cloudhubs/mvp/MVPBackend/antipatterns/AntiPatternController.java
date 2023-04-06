@@ -1,5 +1,6 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns;
 
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.PatternedNode;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph.MicroserviceGraph;
@@ -22,8 +23,8 @@ public class AntiPatternController {
      * @return the labelled graph
      */
     @GetMapping("/cyclic")
-    public ResponseEntity<MicroserviceGraph<CyclicNode, Link>> getCyclicDependencies(@RequestBody GraphModel<Node, Link> graphModel) {
-        MicroserviceGraph<CyclicNode, Link> resultGraph = antiPatternService.labelCyclicDependencies(graphModel.toGraph());
+    public ResponseEntity<MicroserviceGraph<PatternedNode, Link>> getCyclicDependencies(@RequestBody GraphModel<Node, Link> graphModel) {
+        MicroserviceGraph<PatternedNode, Link> resultGraph = antiPatternService.labelCyclicDependencies(graphModel.toGraph());
         return ResponseEntity.ok(resultGraph);
     }
 

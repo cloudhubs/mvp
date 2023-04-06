@@ -20,4 +20,13 @@ public class Node {
         this.nodeName = nodeName;
         this.nodeType = nodeType;
     }
+
+    /**
+     * Return if names are the same
+     * @param nodeName other node name
+     * @return if same
+     */
+    public boolean filterByName(String nodeName) {
+        return this.nodeName.equals(nodeName);
+    }
 }
