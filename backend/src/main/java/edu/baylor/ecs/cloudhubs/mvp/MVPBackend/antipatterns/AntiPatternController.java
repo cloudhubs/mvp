@@ -1,10 +1,10 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.patterns;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns;
 
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph.MicroserviceGraph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.patterns.model.CyclicNode;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.patterns.model.GraphModel;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.CyclicNode;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.GraphModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +22,9 @@ public class AntiPatternController {
      * @return the labelled graph
      */
     @GetMapping("/cyclic")
-    public ResponseEntity<GraphModel<CyclicNode, Link>> getCyclicDependencies(@RequestBody GraphModel<Node, Link> graphModel) {
+    public ResponseEntity<MicroserviceGraph<CyclicNode, Link>> getCyclicDependencies(@RequestBody GraphModel<Node, Link> graphModel) {
         MicroserviceGraph<CyclicNode, Link> resultGraph = antiPatternService.labelCyclicDependencies(graphModel.toGraph());
-        return ResponseEntity.ok(GraphModel.fromGraph(resultGraph));
+        return ResponseEntity.ok(resultGraph);
     }
 
     /**

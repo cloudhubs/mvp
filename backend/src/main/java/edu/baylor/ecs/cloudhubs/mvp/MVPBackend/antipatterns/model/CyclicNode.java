@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.patterns.model;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model;
 
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
 import lombok.Getter;
@@ -6,16 +6,19 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ * Node with cyclic dependency labelling
+ * @apiNote probably could be improved by taking after decorator pattern more -Austin
+ */
 @Getter
 public class CyclicNode extends Node {
     @Setter
     protected boolean isInCyclicDependency;
 
-    public CyclicNode(String nodeName, String nodeType) {
-        super(nodeName, nodeType);
-        isInCyclicDependency = false;
-    }
-
+    /**
+     * Creates a cyclic node from an existing node
+     * @param node node to wrap
+     */
     public CyclicNode(Node node) {
         super(node.getNodeName(), node.getNodeType());
         isInCyclicDependency = false;

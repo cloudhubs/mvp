@@ -2,6 +2,10 @@ package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models;
 
 import java.util.Set;
 
+/**
+ * Intermediate Language representation of a Node, use if
+ * you want to represent the graph that way instead.
+ */
 public class IRNode extends Node {
     /** Node names that this node depends on*/
     protected Set<String> dependencies;

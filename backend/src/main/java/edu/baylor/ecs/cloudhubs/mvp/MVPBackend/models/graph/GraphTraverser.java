@@ -7,6 +7,10 @@ import com.google.common.graph.Graph;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * Graph traverser for post order
+ * @param <T> Type of node
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class GraphTraverser<T> {
     private record PostOrderNode<T>(T root, Iterator<T> childIterator) {

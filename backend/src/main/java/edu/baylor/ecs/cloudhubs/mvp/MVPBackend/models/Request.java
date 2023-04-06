@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Simple request implementation modelling a REST
+ * request as type (ex: GET), argument(s),
+ * msReturn (full name of return type class), and endpointFunction
+ * (absolute function name)
+ */
 @AllArgsConstructor
 @Getter
 public class Request {

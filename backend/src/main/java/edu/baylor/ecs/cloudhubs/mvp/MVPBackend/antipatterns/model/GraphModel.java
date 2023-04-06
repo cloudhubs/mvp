@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.patterns.model;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model;
 
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph.MicroserviceGraph;
@@ -8,6 +8,11 @@ import lombok.*;
 
 import java.util.Set;
 
+/**
+ * Model of a graph for requests from frontend
+ * @param <N> Node representation extending Node
+ * @param <E> Link representation
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,14 +25,11 @@ public class GraphModel<N extends Node, E extends Link> {
     @NotNull
     Set<E> links;
 
+    /**
+     * Converts the simple graph model to a Microservice graph to work with
+     * @return the microservice graph
+     */
     public MicroserviceGraph<N, E> toGraph() {
         return new MicroserviceGraph<>(nodes, links);
-    }
-
-    public static <N extends Node, E extends Link> GraphModel<N, E> fromGraph(MicroserviceGraph<N, E> graph) {
-        GraphModel<N,E> model = new GraphModel<>();
-        model.setNodes(graph.getNodes());
-        model.setLinks(graph.getLinks());
-        return model;
     }
 }

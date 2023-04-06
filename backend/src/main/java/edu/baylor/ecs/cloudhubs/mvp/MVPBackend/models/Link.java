@@ -6,6 +6,10 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Generic link representation
+ * @apiNote Requests might be optional or better off generified
+ */
 @AllArgsConstructor
 @Getter
 public class Link {

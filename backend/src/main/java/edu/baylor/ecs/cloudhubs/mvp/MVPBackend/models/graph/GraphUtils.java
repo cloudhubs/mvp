@@ -8,6 +8,14 @@ import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
 
 import java.util.*;
+
+/**
+ * I shamelessly ripped this off of stack exchange ;)
+ * -Austin
+ * <br/>
+ * Allows us to perform SCC search namely.
+ * Probably a much better way to do this
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class GraphUtils {
     private GraphUtils() {

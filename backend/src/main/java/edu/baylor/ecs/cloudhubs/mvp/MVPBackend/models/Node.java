@@ -4,6 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Simple node representation containing only name and type
+ */
 @Getter
 @ToString
 @EqualsAndHashCode
