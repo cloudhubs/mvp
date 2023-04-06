@@ -6,7 +6,6 @@ import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.patterns.Cycli
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph.MicroserviceGraph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.CyclicNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
