@@ -1,10 +1,7 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.controllers;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +16,11 @@ public class JSONController {
     public String getLanguage() throws IOException {
         return new String(Files.readAllBytes(Paths.get("src/main/java/edu/baylor/ecs/cloudhubs/" +
                 "mvp/MVPBackend/example-redhat.json")));
+    }
+
+    @PostMapping("/save")
+    public void saveGraph(int id, String data){
+        System.out.println("Got graph with id " + id);
     }
 
 }

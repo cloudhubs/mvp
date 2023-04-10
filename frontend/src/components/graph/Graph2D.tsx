@@ -13,6 +13,7 @@ type Props = {
     setInitRotation: any;
     highCoupling: any;
     antiPattern: any;
+    colorMode: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -25,7 +26,8 @@ const Graph: React.FC<Props> = ({
     setInitCoords,
     setInitRotation,
     highCoupling,
-    antiPattern
+    antiPattern,
+    colorMode
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -97,7 +99,7 @@ const Graph: React.FC<Props> = ({
                 }
             }}
             linkWidth={(link) => getLinkWidth(link, search)}
-            linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
+            linkDirectionalArrowLength={20}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
                 getLinkColor(link, search, hoverNode, antiPattern, false)
@@ -129,7 +131,8 @@ const Graph: React.FC<Props> = ({
                 defNodeColor,
                 setDefNodeColor,
                 highCoupling,
-                antiPattern
+                antiPattern,
+                colorMode
             ).replace(`)`, `, ${getNodeOpacity(node, search)})`).replace('rgb', 'rgba')}
             nodeCanvasObject={((node: any, ctx: any) => {
                 let fontSize = 10;

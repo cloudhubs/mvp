@@ -19,6 +19,9 @@ const GraphMode: React.FC<Props> = ({
 }) => {
     const [open, setOpen] = useState(false);
 
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(50);
+
     const handleClick = (e: any) => {
         setOpen(!open);
     };
@@ -170,7 +173,7 @@ const GraphMode: React.FC<Props> = ({
                                     High Coupling
                                 </div>
                                 {highCoupling ? (
-                                    <Slider value={value} setValue={setValue} />
+                                    <Slider min={min} max={max} setMin={setMin} setMax={setMax} value={value} setValue={setValue} />
                                 ) : (
                                     <></>
                                 )}

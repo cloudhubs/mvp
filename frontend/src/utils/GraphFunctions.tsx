@@ -50,7 +50,8 @@ function getColor(
     defNodeColor: any,
     setDefNodeColor: any,
     highCoupling: any,
-    antipattern: any
+    antipattern: any,
+    colorMode: any
 ): any {
     if (antipattern) {
         if (highCoupling) {
@@ -71,11 +72,104 @@ function getColor(
         highlightNodes,
         hoverNode,
         defNodeColor,
-        setDefNodeColor
+        setDefNodeColor,
+        colorMode
     );
 }
 
 function getColorVisual(
+    node: any,
+    graphData: any,
+    threshold: number,
+    highlightNodes: any,
+    hoverNode: any,
+    defNodeColor: any,
+    setDefNodeColor: any,
+    colorMode: string
+): ColorRepresentation {
+    let { nodes, links } = graphData;
+    if (highlightNodes.has(node)) {
+        if (node === hoverNode) {
+            return "rgb(50,50,200)";
+        }
+    }
+    let neighbors: any = getNeighbors(node, links);
+    if (neighbors.nodes.includes(hoverNode)) return "rgb(0,150,150)";
+    switch(colorMode){
+        case "neighbor":
+            return getColorNeighbor(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor, neighbors)
+        case "git":
+            break;
+        case "cpu":
+            return getColorThreshold(threshold, node.cpu)
+        case "ram":
+            return getColorThreshold(threshold, node.ram)
+        case "disk":
+            return getColorThreshold(threshold, node.disk)
+        case "latency":
+            return getColorThreshold(threshold, node.latency)
+    }
+    return node.color;
+
+}
+
+function getColorNeighbor(
+    node: any,
+    graphData: any,
+    threshold: number,
+    highlightNodes: any,
+    hoverNode: any,
+    defNodeColor: any,
+    setDefNodeColor: any,
+    neighbors: any
+): ColorRepresentation {
+    let { nodes, links } = graphData;
+
+    if (!defNodeColor) {
+        nodes.map((n: any) => {
+            n.color = "-1";
+        });
+        setDefNodeColor(true);
+    }
+
+    if (node.color === "-1") {
+        const colors = [
+            "rgb(250, 93, 57)",
+            "rgb(255, 167, 0)",
+            "rgb(245, 239, 71)",
+            "rgb(51, 241, 255)",
+            "rgb(204, 51, 255)",
+            "rgb(255, 51, 112)",
+            "rgb(173, 255, 51)",
+            "rgb(194, 151, 252)",
+        ];
+
+        //let neighbors: any = getNeighbors(node, links);
+
+        let offLimits: any = [];
+        let newColors: any = [];
+
+        neighbors.nodes.map((neighbor: any) => {
+            if (neighbor.color !== "-1") {
+                offLimits.push(neighbor.color);
+            }
+        });
+
+        colors.map((color) => {
+            if (offLimits.indexOf(color) === -1) {
+                newColors.push(color);
+            }
+        });
+
+        let randIndex = Math.floor(Math.random() * newColors.length);
+
+        node.color = newColors[randIndex];
+    }
+
+    return node.color;
+}
+
+function getColorGit(
     node: any,
     graphData: any,
     threshold: number,
@@ -165,6 +259,21 @@ function getColorCoupling(
     return "rgb(0,255,0)";
 }
 
+function getColorThreshold(
+    threshold: number,
+    value: number
+): ColorRepresentation {
+
+    if (value > threshold) {
+        return "rgb(255,0,0)";
+    }
+    if (value > threshold / 2) {
+        return "rgb(255,160,0)";
+    }
+
+    return "rgb(0,255,0)";
+}
+
 // Find neighbors of a given node
 function getNeighbors(node: any, links: any) {
     return {
@@ -224,7 +333,8 @@ function getSpriteColor(
     defNodeColor: any,
     setDefNodeColor: any,
     highCoupling: any,
-    antipattern: any
+    antipattern: any,
+    colorMode: any
 ) {
     if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return "rgba(255,255,255,0)";
@@ -238,7 +348,8 @@ function getSpriteColor(
         defNodeColor,
         setDefNodeColor,
         highCoupling,
-        antipattern
+        antipattern,
+        colorMode
     );
 }
 
@@ -260,7 +371,7 @@ function getLinkOpacity(link: any, search: any, threed: any) {
         if (threed) {
             return 0.9;
         }
-        return 0.3;
+        return 0.7;
     }
     if (
         link.source.nodeName.toLowerCase().includes(search.toLowerCase()) ||

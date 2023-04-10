@@ -17,7 +17,7 @@ import java.util.Map;
 // TODO Optimize endpoints (remove duplicate code)
 @Log4j2
 @RestController
-@CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600)
+@CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600, allowedHeaders = "*")
 public class AntiPatternController {
 
 
@@ -26,7 +26,7 @@ public class AntiPatternController {
     public Object getCyclic() throws Exception {
 
         FileReader fileReader = new FileReader("enterFilePathHere");
-        Graph g = new Graph(fileReader);
+        Graph g = new Graph();
         SCCAlgorithm sccAlgorithm = new SCCAlgorithm(g, false);
 
 
@@ -46,7 +46,7 @@ public class AntiPatternController {
     @GetMapping("/bottleneck")
     public Object getBottlenecks() throws Exception {
         FileReader fileReader = new FileReader("enterFilePathHere");
-        Graph g = new Graph(fileReader);
+        Graph g = new Graph();
         BottleneckAlgorithm bottleneckAlgorithm = new BottleneckAlgorithm(g);
 
         JSONObject returnVal = new JSONObject();

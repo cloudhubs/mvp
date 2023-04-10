@@ -3,9 +3,13 @@ import React from "react";
 type Props = {
     value: number;
     setValue: React.Dispatch<React.SetStateAction<number>>;
+    min: number;
+    setMin: React.Dispatch<React.SetStateAction<number>>;
+    max: number;
+    setMax: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Slider: React.FC<Props> = ({ value, setValue }) => {
+const Slider: React.FC<Props> = ({ value, setValue, min, setMin, max, setMax }) => {
     const handleInput = (e: any) => {
         setValue(e.target.value);
     };
@@ -17,8 +21,8 @@ const Slider: React.FC<Props> = ({ value, setValue }) => {
             <br />
             <input
                 type="range"
-                min="0"
-                max="100"
+                min={min}
+                max={max}
                 value={value}
                 onInput={(e) => handleInput(e)}
                 id="slider"

@@ -22,6 +22,7 @@ type Props = {
     setInitRotation: any;
     highCoupling: any;
     antiPattern: any;
+    colorMode: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -34,7 +35,8 @@ const Graph: React.FC<Props> = ({
     setInitCoords,
     setInitRotation,
     highCoupling,
-    antiPattern
+    antiPattern,
+    colorMode
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -134,7 +136,8 @@ const Graph: React.FC<Props> = ({
                             defNodeColor,
                             setDefNodeColor,
                             highCoupling,
-                            antiPattern
+                            antiPattern,
+                            colorMode
                         ),
                         opacity: getNodeOpacity(node, search),
                     })
@@ -152,7 +155,8 @@ const Graph: React.FC<Props> = ({
                     defNodeColor,
                     setDefNodeColor,
                     highCoupling,
-                    antiPattern
+                    antiPattern,
+                    colorMode
                 ) as string;
                 sprite.textHeight = 8;
                 sprite.position.set(0, 10, 0);
@@ -177,7 +181,7 @@ const Graph: React.FC<Props> = ({
                     return 0;
                 }
             }}
-            linkDirectionalArrowLength={(link) => getLinkWidth(link, search)}
+            linkDirectionalArrowLength={10}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
                 getLinkColor(link, search, hoverNode, antiPattern, true)

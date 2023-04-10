@@ -1,6 +1,7 @@
 import { saveAs } from "file-saver";
 import React, { useState } from "react";
 import { reset } from "../../utils/GraphFunctions";
+import axios from "axios";
 
 type ButtonProps = {
     onClick: any;
@@ -96,6 +97,24 @@ const GraphButtonMenu: React.FC<Props> = ({
         linkElement.setAttribute("download", exportFileDefaultName);
         linkElement.click();
     }
+
+    function save() {
+        let dataStr = JSON.stringify(
+            Object.assign({}, graphData, graphRef.current.cameraPosition()),
+            replacer
+        );
+
+        axios.post("http://localhost:8080/save", {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length"
+            }, data: { id: 1, data: dataStr}});
+
+
+    }
+
     function delay(time: any) {
         return new Promise((resolve) => setTimeout(resolve, time));
     }
@@ -173,6 +192,7 @@ const GraphButtonMenu: React.FC<Props> = ({
             <GraphButton onClick={screenshotGraph}>Capture Graph</GraphButton>
             <GraphButton onClick={toggleTrack}>Track Menu</GraphButton>
             <GraphButton onClick={forceReset}>Reset</GraphButton>
+            <GraphButton onClick={save}>Save</GraphButton>
         </div>
     );
 };
