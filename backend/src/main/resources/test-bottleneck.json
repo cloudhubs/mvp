@@ -1,0 +1,67 @@
+{
+  "systemName": "RedHat-Pipeline",
+  "systemVersion": "1.0.2",
+  "nodes": [
+    {
+      "nodeName": "A",
+      "nodeType": "customer",
+      "dependencies": [],
+      "targets": [
+        {
+          "nodeName": "B"
+        }
+      ]
+    },
+    {
+      "nodeName": "B",
+      "nodeType": "customer",
+      "dependencies": [
+        {
+          "nodeName": "A"
+        },
+        {
+          "nodeName": "C"
+        }
+      ],
+      "targets": [
+        {
+          "nodeName": "C"
+        }
+      ]
+    },
+    {
+      "nodeName": "C",
+      "nodeType": "customer",
+      "dependencies": [
+        {
+          "nodeName": "B"
+        }
+      ],
+      "targets": [
+        {
+          "nodeName": "B"
+        }
+      ]
+    },
+    {
+      "nodeName": "D",
+      "nodeType": "customer",
+      "dependencies": [],
+      "targets": [
+        {
+          "nodeName": "B"
+        }
+      ]
+    },
+    {
+      "nodeName": "E",
+      "nodeType": "customer",
+      "dependencies": [],
+      "targets": [
+        {
+          "nodeName": "B"
+        }
+      ]
+    }
+  ]
+}
