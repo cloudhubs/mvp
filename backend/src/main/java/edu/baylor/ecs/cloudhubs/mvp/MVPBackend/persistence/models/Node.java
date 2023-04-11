@@ -1,8 +1,12 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models;
 
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.patterns.AntiPattern;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.Set;
+
 
 /**
  * Simple node representation containing only name and type
@@ -15,6 +19,8 @@ public class Node {
     protected final String nodeName;
     /** Type of node */
     protected final String nodeType;
+    /** Anti-patterns in the node */
+    protected Set<AntiPattern> patterns;
 
     public Node(String nodeName, String nodeType) {
         this.nodeName = nodeName;
@@ -26,7 +32,13 @@ public class Node {
      * @param nodeName other node name
      * @return if same
      */
+    @Deprecated
     public boolean filterByName(String nodeName) {
         return this.nodeName.equals(nodeName);
     }
+
+    public void addPattern(AntiPattern pattern) {
+        patterns.add(pattern);
+    }
+
 }

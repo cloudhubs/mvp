@@ -1,8 +1,8 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Link;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph.MicroserviceGraph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Link;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.graph.MicroserviceGraph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Node;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -19,17 +19,17 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class GraphModel<N extends Node, E extends Link> {
+public class GraphModel {
     @NotNull
-    Set<N> nodes;
+    Set<Node> nodes;
     @NotNull
-    Set<E> links;
+    Set<Link> links;
 
     /**
      * Converts the simple graph model to a Microservice graph to work with
      * @return the microservice graph
      */
-    public MicroserviceGraph<N, E> toGraph() {
-        return new MicroserviceGraph<>(nodes, links);
+    public MicroserviceGraph toGraph() {
+        return new MicroserviceGraph(nodes, links);
     }
 }

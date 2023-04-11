@@ -1,6 +1,6 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.patterns;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.patterns;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Node;
 import lombok.Getter;
 
 import java.util.Set;

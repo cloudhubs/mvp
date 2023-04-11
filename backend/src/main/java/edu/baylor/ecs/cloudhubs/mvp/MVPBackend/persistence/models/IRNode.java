@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models;
 
 import java.util.Set;
 

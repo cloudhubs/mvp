@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.patterns;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.patterns;
 
 public interface AntiPattern {
     /**

@@ -1,4 +1,4 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.models.graph;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.graph;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.graph.ElementOrder;
