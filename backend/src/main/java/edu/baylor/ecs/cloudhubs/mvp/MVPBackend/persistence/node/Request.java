@@ -1,8 +1,10 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Simple request implementation modelling a REST
@@ -12,10 +14,11 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
+@Setter
+@NoArgsConstructor
 public class Request {
-    @NotNull
-    private final String type;
-    private final String argument;
-    private final String msReturn;
-    private final String endpointFunction;
+    private String type;
+    private String argument;
+    private String msReturn;
+    private String endpointFunction;
 }

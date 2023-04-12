@@ -1,9 +1,7 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.antipatterns;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Link;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Node;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.graph.MicroserviceGraph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns.model.GraphModel;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.MicroserviceGraph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.GraphModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/anti-pattern")
 @CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600)
 public class AntiPatternController {
-    final AntiPatternService antiPatternService;
+    protected final AntiPatternService antiPatternService;
 
     /**
      * Labels the provided graph with cyclic dependencies

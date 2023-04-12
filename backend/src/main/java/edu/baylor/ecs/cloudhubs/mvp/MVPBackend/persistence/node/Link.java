@@ -1,8 +1,10 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,15 +14,17 @@ import java.util.List;
  */
 @AllArgsConstructor
 @Getter
+@Setter
+@NoArgsConstructor
 public class Link {
     /** Source node name */
     @NotNull
-    private final String source;
+    private String source;
 
     /** Target node name */
     @NotNull
-    private final String target;
+    private String target;
 
     /** List of requests */
-    private final List<Request> requests;
+    private List<Request> requests;
 }

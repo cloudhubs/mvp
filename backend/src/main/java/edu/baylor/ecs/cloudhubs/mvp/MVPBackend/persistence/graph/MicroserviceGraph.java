@@ -1,8 +1,11 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.graph;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph;
 
 import com.google.common.graph.*;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Link;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Link;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -36,7 +39,6 @@ public class MicroserviceGraph {
     public Set<Node> getNodes() {
         return graph.nodes();
     }
-
     public Set<Link> getLinks() {
         return graph.edges();
     }

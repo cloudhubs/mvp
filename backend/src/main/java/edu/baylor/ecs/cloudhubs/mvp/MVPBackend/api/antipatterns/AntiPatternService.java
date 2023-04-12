@@ -1,9 +1,9 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.antipatterns;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.antipatterns;
 
 import com.google.common.graph.Graph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.Node;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.graph.MicroserviceGraph;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.patterns.CyclicDependency;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.MicroserviceGraph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.CyclicDependency;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,6 +4,14 @@ server:
     context-path: /
 spring:
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-    generate-ddl: true
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/msGraph
+    username: root
+    password: csi3335rocks
+  sql:
+    init:
+      platform: mariadb

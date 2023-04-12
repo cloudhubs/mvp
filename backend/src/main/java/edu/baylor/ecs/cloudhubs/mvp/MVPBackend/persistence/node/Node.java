@@ -1,26 +1,32 @@
-package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models;
+package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node;
 
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.models.patterns.AntiPattern;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.AntiPattern;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
-
-
 /**
  * Simple node representation containing only name and type
  */
 @Getter
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
+@Setter
+@NoArgsConstructor
 public class Node {
     /** Name of node */
-    protected final String nodeName;
+    protected String nodeName;
     /** Type of node */
-    protected final String nodeType;
+    protected String nodeType;
     /** Anti-patterns in the node */
-    protected Set<AntiPattern> patterns;
+    protected Set<AntiPattern> patterns = new HashSet<>();
+
+    @JsonUnwrapped
+    protected NodeMetaData nodeMetaData;
+    @JsonUnwrapped
+    protected VisualizationData visualizationData;
 
     public Node(String nodeName, String nodeType) {
         this.nodeName = nodeName;
@@ -40,5 +46,4 @@ public class Node {
     public void addPattern(AntiPattern pattern) {
         patterns.add(pattern);
     }
-
 }
