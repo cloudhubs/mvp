@@ -8,9 +8,4 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = CyclicDependency.class, name = "Cyclic Dependency"),
 })
 public interface AntiPattern {
-    /**
-     * Get the name of this anti-pattern
-     * @return name
-     */
-    Long getId();
 }

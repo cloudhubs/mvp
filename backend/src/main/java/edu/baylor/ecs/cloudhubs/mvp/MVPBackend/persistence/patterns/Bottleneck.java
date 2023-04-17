@@ -8,10 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class Bottleneck implements AntiPattern{
-
     protected Integer threshold;
-
-
 
     public Bottleneck(Integer threshold) {
         this.threshold = threshold;
