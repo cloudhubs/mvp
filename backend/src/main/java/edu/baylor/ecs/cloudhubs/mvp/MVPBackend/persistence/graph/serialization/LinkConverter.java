@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * JPA Attribute converter for a Set of Links to JSON string
+ */
 @Slf4j
 public class LinkConverter implements AttributeConverter<Set<Link>, String> {
     ObjectMapper objectMapper = new ObjectMapper();

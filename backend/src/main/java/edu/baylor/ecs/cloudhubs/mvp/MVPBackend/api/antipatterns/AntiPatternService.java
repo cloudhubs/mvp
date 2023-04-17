@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -33,14 +33,16 @@ public class AntiPatternService {
         // Find the strongly connected components
         Graph<Set<Node>> sccs = graph.findSCCs();
         // Reduce SCCs to only those containing multiple nodes
-        Set<Set<Node>> cyclicDeps = sccs.nodes().stream().filter(scc -> scc.size() > 1).collect(Collectors.toSet());
+        List<Set<Node>> cyclicDeps = sccs.nodes().stream().filter(scc -> scc.size() > 1).toList();
 
         // Iterate over the strongly connected components and add cyclic dependency
         // tags to applicable nodes
-        for (Set<Node> scc : cyclicDeps) {
+        for (int i = 0; i < cyclicDeps.size(); i++) {
+            Set<Node> scc = cyclicDeps.get(i);
+            int id = i;
             scc.forEach(node -> graph.getNodes().stream().filter(node2 ->
                     node2.filterByName(node.getNodeName())).findFirst().ifPresent(
-                            n -> n.addPattern(new CyclicDependency(scc))
+                            n -> n.addPattern(new CyclicDependency(scc, (long) id))
                     )
             );
         }
