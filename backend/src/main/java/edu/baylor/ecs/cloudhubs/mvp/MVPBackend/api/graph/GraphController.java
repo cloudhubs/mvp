@@ -1,5 +1,8 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.graph;
 
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.model.Errors;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.model.ForbiddenException;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.model.NotFoundException;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.GraphModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +19,65 @@ public class GraphController {
     protected final GraphService graphService;
 
     @GetMapping("/instance/{id}")
-    public ResponseEntity<GraphModel> getGraphSnapshot(@PathVariable Long id) {
+    public ResponseEntity<GraphModel> getGraphInstance(@PathVariable Long id) {
         return ResponseEntity.of(graphService.getGraphInstance(id));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<GraphModel>> getAllInstances(@PathVariable Long id) {
-        return ResponseEntity.ok(graphService.getAllInstancesOfGraph(id));
+    @GetMapping("/{name}")
+    public ResponseEntity<List<GraphModel>> getAllInstances(@PathVariable String name) {
+        return ResponseEntity.ok(graphService.getAllInstancesOfGraph(name));
     }
 
     @PostMapping("/instance")
-    public ResponseEntity<GraphModel> saveGraphInstance(@RequestBody GraphModel graphModel) {
-        return ResponseEntity.ok(graphService.saveGraphInstance(graphModel));
+    public ResponseEntity<?> newGraphInstance(@RequestBody GraphModel graphModel) {
+        GraphModel saved;
+        try {
+            saved = graphService.newGraphInstance(graphModel);
+        } catch (NotFoundException e) {
+            return Errors.Response404NotFound(e.getMessage());
+        } catch (Exception e) {
+            return Errors.Response500InternalServerError(e, e.getMessage());
+        }
+        return ResponseEntity.ok(saved);
+    }
+
+    @PatchMapping("/instance")
+    public ResponseEntity<?> updateGraphInstance(@RequestBody GraphModel graphModel) {
+        GraphModel savedModel;
+        try {
+            savedModel = graphService.updateGraphInstance(graphModel);
+        } catch (IllegalArgumentException e) {
+            return Errors.Response404NotFound(e.getMessage());
+        } catch (Exception e) {
+            return Errors.Response500InternalServerError(e.getCause(), e.getMessage());
+        }
+        return ResponseEntity.ok(savedModel);
+    }
+
+    @DeleteMapping("/instance/{id}")
+    public ResponseEntity<?> deleteGraphInstance(@PathVariable Long id) {
+        try {
+            graphService.deleteGraphInstance(id);
+        } catch (IllegalArgumentException e) {
+            return Errors.Response404NotFound(e.getMessage());
+        } catch (Exception e) {
+            return Errors.Response500InternalServerError(e.getCause(), e.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createGraph(@RequestBody GraphModel graphModel) {
+        GraphModel savedModel;
+        try {
+            savedModel = graphService.createNewLifelongGraph(graphModel);
+        } catch (ForbiddenException e) {
+            return Errors.Response403Forbidden(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return Errors.Response400BadRequest(e.getMessage());
+        } catch (Exception e) {
+            return Errors.Response500InternalServerError(e.getCause(), e.getMessage());
+        }
+        return ResponseEntity.ok(savedModel);
     }
 }

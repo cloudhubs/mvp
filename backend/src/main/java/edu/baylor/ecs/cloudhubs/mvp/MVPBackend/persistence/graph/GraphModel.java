@@ -3,12 +3,14 @@ package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.serialization.LinkConverter;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.serialization.NodeConverter;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Link;
-import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.MicroserviceGraph;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -28,9 +30,9 @@ public class GraphModel {
     @Id
     @GeneratedValue
     protected Long instanceId;
-    /** ID of a graph across its entire lifespan */
+    /** ID of a graph across its entire lifespan, must be submitted with graph on each save */
     @NotNull
-    protected Long lifelongId;
+    protected String graphName;
     /** Nodes in the graph */
     @Convert(converter = NodeConverter.class)
     @NotNull
@@ -41,6 +43,16 @@ public class GraphModel {
     @NotNull
     @Column(columnDefinition="LONGTEXT")
     Set<Link> links;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modify_date")
+    private Date modifyDate;
 
     /**
      * Converts the simple graph model to a Microservice graph to work with
@@ -53,14 +65,14 @@ public class GraphModel {
     /**
      * Builder for the graph
      * @param instanceId instance ID
-     * @param lifelongId lifelong graph ID
+     * @param graphName lifelong graph identifier
      * @param graph graph representation from Guava
      * @return graph model
      */
-    public static GraphModel fromGraph(Long instanceId, Long lifelongId, MicroserviceGraph graph) {
+    public static GraphModel fromGraph(Long instanceId, String graphName, MicroserviceGraph graph) {
         return GraphModel.builder()
                 .instanceId(instanceId)
-                .lifelongId(lifelongId)
+                .graphName(graphName)
                 .nodes(graph.getNodes())
                 .links(graph.getLinks())
                 .build();
