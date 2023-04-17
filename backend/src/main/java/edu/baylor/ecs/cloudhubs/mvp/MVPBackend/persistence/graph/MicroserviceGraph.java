@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Adapts the Guava Network representation for simplified interface
- * @apiNote Reminder: Jackson automatically makes JSON representation based on public getters
+ * Allows us to run algorithms on the graph
  */
 @SuppressWarnings("UnstableApiUsage")
 public class MicroserviceGraph {

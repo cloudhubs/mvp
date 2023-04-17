@@ -12,7 +12,7 @@ import lombok.*;
 import java.util.Set;
 
 /**
- * Model of a graph for requests from frontend
+ * Model of a graph for JSON serialization and storage in database
  */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,15 +24,19 @@ import java.util.Set;
 @Builder
 @Table(name = "graphs")
 public class GraphModel {
+    /** ID of a specific snapshot of the graph */
     @Id
     @GeneratedValue
     protected Long instanceId;
+    /** ID of a graph across its entire lifespan */
     @NotNull
     protected Long lifelongId;
+    /** Nodes in the graph */
     @Convert(converter = NodeConverter.class)
     @NotNull
     @Column(columnDefinition="LONGTEXT")
     Set<Node> nodes;
+    /** Links in the graph */
     @Convert(converter = LinkConverter.class)
     @NotNull
     @Column(columnDefinition="LONGTEXT")
@@ -46,6 +50,13 @@ public class GraphModel {
         return new MicroserviceGraph(nodes, links);
     }
 
+    /**
+     * Builder for the graph
+     * @param instanceId instance ID
+     * @param lifelongId lifelong graph ID
+     * @param graph graph representation from Guava
+     * @return graph model
+     */
     public static GraphModel fromGraph(Long instanceId, Long lifelongId, MicroserviceGraph graph) {
         return GraphModel.builder()
                 .instanceId(instanceId)
