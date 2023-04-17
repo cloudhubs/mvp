@@ -1,14 +1,18 @@
 package edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.antipatterns;
 
 import com.google.common.graph.Graph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.MicroserviceGraph;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.Bottleneck;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.CyclicDependency;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -42,6 +46,43 @@ public class AntiPatternService {
                     )
             );
         }
+
+        // Return the new graph
+        return graph;
+    }
+
+    /**
+     * Takes a graph of Nodes and links and maps the nodes by labelling them if they are in a bottleneck dependency
+     * @param graph microservice graph
+     * @return same graph but labelled with nodes that are in the dependency
+     */
+    public MicroserviceGraph labelBottlenecks(MicroserviceGraph graph, Integer threshold) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(threshold);
+
+        if(threshold < 0){
+            throw new IllegalArgumentException("Threshold cannot be non-positive");
+        }
+
+
+        // Count of how many nodes depend on each node
+        Map<String, Integer> nodeCount = new HashMap<>();
+
+        // Fill the map
+        for(Link l : graph.getLinks()) {
+            nodeCount.merge(l.getTarget(), 1, Integer::sum);
+        }
+
+        // Apply the pattern
+        nodeCount.forEach((K,V) -> {
+            if(V > threshold) {
+                graph.getNodes()
+                .stream()
+                .filter(node -> node.filterByName(K)).findFirst().ifPresent(
+                    n -> n.addPattern(new Bottleneck(threshold))
+                );
+            }
+        });
 
         // Return the new graph
         return graph;

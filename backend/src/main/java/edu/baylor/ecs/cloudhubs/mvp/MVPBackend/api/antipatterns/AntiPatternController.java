@@ -29,7 +29,8 @@ public class AntiPatternController {
      * @return the labelled graph
      */
     @GetMapping("/bottleneck")
-    public ResponseEntity<GraphModel> getBottleneck() {
-        return null;
+    public ResponseEntity<MicroserviceGraph> getBottleneck(@RequestBody GraphModel graphModel, @RequestParam Integer threshold) {
+        MicroserviceGraph resultGraph = antiPatternService.labelBottlenecks(graphModel.toGraph(), threshold);
+        return ResponseEntity.ok(resultGraph);
     }
 }
