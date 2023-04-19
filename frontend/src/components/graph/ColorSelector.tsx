@@ -11,13 +11,12 @@ const ColorSelector: React.FC<Props> = ({
     color,
     setColor,
     value,
-    setValue
+    setValue,
 }) => {
     const [open, setOpen] = useState(false);
 
     const [max, setMax] = useState(100);
     const [min, setMin] = useState(0);
-
 
     const handleClick = (e: any) => {
         setOpen(!open);
@@ -27,12 +26,11 @@ const ColorSelector: React.FC<Props> = ({
         setOpen(!open);
         color = e.currentTarget.value;
         setColor(e.currentTarget.value);
-        if(e.currentTarget.value === "latency"){
+        if (e.currentTarget.value === "latency") {
             setMin(0);
             setMax(2000);
             setValue(500);
-        }
-        else{
+        } else {
             setMin(0);
             setMax(100);
             setValue(50);
@@ -152,7 +150,14 @@ const ColorSelector: React.FC<Props> = ({
             ) : (
                 <></>
             )}
-            <Slider max={max} setMax={setMax} min={min} setMin={setMin} value={value} setValue={setValue} />
+            <Slider
+                max={max}
+                setMax={setMax}
+                min={min}
+                setMin={setMin}
+                value={value}
+                setValue={setValue}
+            />
         </div>
     );
 };

@@ -1,8 +1,9 @@
 import { useContextMenu } from "../../hooks/useContextMenu";
-import {showNeighbors} from "../../utils/GraphFunctions";
+import { showNeighbors } from "../../utils/GraphFunctions";
 
 export const Menu = () => {
-    const { anchorPoint, show, node, graphData, setHideNodes } = useContextMenu();
+    const { anchorPoint, show, node, graphData, setHideNodes } =
+        useContextMenu();
 
     if (show) {
         return (
@@ -92,7 +93,7 @@ export const Menu = () => {
     }
 
     function onlyNeighbors() {
-        showNeighbors(node, graphData, setHideNodes)
+        showNeighbors(node, graphData, setHideNodes);
     }
 
     function highlightNode() {}

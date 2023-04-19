@@ -15,7 +15,7 @@ const GraphMode: React.FC<Props> = ({
     highCoupling,
     setHighCoupling,
     antiPattern,
-    setAntiPattern
+    setAntiPattern,
 }) => {
     const [open, setOpen] = useState(false);
 
@@ -173,7 +173,14 @@ const GraphMode: React.FC<Props> = ({
                                     High Coupling
                                 </div>
                                 {highCoupling ? (
-                                    <Slider min={min} max={max} setMin={setMin} setMax={setMax} value={value} setValue={setValue} />
+                                    <Slider
+                                        min={min}
+                                        max={max}
+                                        setMin={setMin}
+                                        setMax={setMax}
+                                        value={value}
+                                        setValue={setValue}
+                                    />
                                 ) : (
                                     <></>
                                 )}

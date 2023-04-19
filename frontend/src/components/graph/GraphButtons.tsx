@@ -2,7 +2,7 @@ import { saveAs } from "file-saver";
 import React, { useState } from "react";
 import { reset } from "../../utils/GraphFunctions";
 import axios from "axios";
-import myData from '../../data/mock1.json';
+import myData from "../../data/mock1.json";
 
 type ButtonProps = {
     onClick: any;
@@ -110,11 +110,13 @@ const GraphButtonMenu: React.FC<Props> = ({
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "http://localhost:3000",
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length"
-            }, data: { id: 1, data: dataStr}});
-
-
+                "Access-Control-Allow-Methods":
+                    "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers":
+                    "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
+            },
+            data: { id: 1, data: dataStr },
+        });
     }
 
     function delay(time: any) {
@@ -155,15 +157,14 @@ const GraphButtonMenu: React.FC<Props> = ({
      * @TODO this doesn't seem to actually put the graph upright
      */
     function forceReset() {
-        if(is3d){
+        if (is3d) {
             graphRef.current.refresh();
             graphRef.current.cameraPosition(
                 initCoords, // new position
                 { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
                 2000 // ms transition duration
             );
-        }
-        else{
+        } else {
             graphRef.current.zoom(1, 2000);
             graphRef.current.centerAt(0, 0, 2000);
         }

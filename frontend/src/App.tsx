@@ -1,9 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import GraphWrapper from "./components/graph/GraphWrapper";
 import GraphMenu from "./components/graph/GraphMenu";
 import Menu from "./components/graph/Menu";
-import {InfoBox} from "./components/graph/InfoBox";
-import myData from './data/mock5.json';
+import { InfoBox } from "./components/graph/InfoBox";
+import myData from "./data/mock5.json";
 import GraphMode from "./components/graph/GraphMode";
 import TimeSlider from "./components/graph/TimeSlider";
 import ColorSelector from "./components/graph/ColorSelector";
@@ -18,23 +18,65 @@ function App() {
     const [highCoupling, setHighCoupling] = useState(false);
     const [is3d, setIs3d] = useState(true);
     const [antiPattern, setAntiPattern] = useState(false);
-    const [max, setMax] = useState(5);
+    const [max, setMax] = useState(6);
     const [color, setColor] = useState("neighbor");
-  return (
-      <div className="bg-white">
-          <>
-              <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-                  <GraphMode value={value} setValue={setValue} highCoupling={highCoupling} setHighCoupling={setHighCoupling} antiPattern={antiPattern} setAntiPattern={setAntiPattern}/>
-                  <GraphMenu graphRef={graphRef} search={search} setSearch={setSearch} value={value} setValue={setValue} graphData={graphData} setGraphData={setGraphData} initCoords={initCoords} initRotation={initRotation} highCoupling={highCoupling} setHighCoupling={setHighCoupling} is3d={is3d} setIs3d={setIs3d}/>
-                  <GraphWrapper  height={735}  width={1710} search={search} threshold={value} graphRef={graphRef} graphData={graphData} setInitCoords={setInitCoords} setInitRotation={setInitRotation} highCoupling={highCoupling} is3d={is3d} antiPattern={antiPattern} colorMode={color}/>;
-                  <Menu />
-                  <InfoBox />
-                  <ColorSelector value={value} setValue={setValue} color={color} setColor={setColor} />
-                  <TimeSlider max={max} setGraphData={setGraphData}/>
-              </div>
-          </>
-      </div>
-  );
+    const ref = useRef<HTMLDivElement>(null);
+
+    return (
+        <div
+            className="bg-white max-w-full min-h-screen max-h-screen overflow-clip"
+            ref={ref}
+        >
+            <GraphMode
+                value={value}
+                setValue={setValue}
+                highCoupling={highCoupling}
+                setHighCoupling={setHighCoupling}
+                antiPattern={antiPattern}
+                setAntiPattern={setAntiPattern}
+            />
+            <GraphMenu
+                graphRef={graphRef}
+                search={search}
+                setSearch={setSearch}
+                value={value}
+                setValue={setValue}
+                graphData={graphData}
+                setGraphData={setGraphData}
+                initCoords={initCoords}
+                initRotation={initRotation}
+                highCoupling={highCoupling}
+                setHighCoupling={setHighCoupling}
+                is3d={is3d}
+                setIs3d={setIs3d}
+            />
+            <GraphWrapper
+                height={ref?.current?.clientHeight ?? 735}
+                width={ref?.current?.clientWidth ?? 1710}
+                search={search}
+                threshold={value}
+                graphRef={graphRef}
+                graphData={graphData}
+                setInitCoords={setInitCoords}
+                setInitRotation={setInitRotation}
+                highCoupling={highCoupling}
+                is3d={is3d}
+                antiPattern={antiPattern}
+                colorMode={color}
+            />
+            <Menu />
+            <InfoBox />
+            <ColorSelector
+                value={value}
+                setValue={setValue}
+                color={color}
+                setColor={setColor}
+            />
+            <div className="flex flex-row items-center justify-center w-full">
+                <TimeSlider max={max} setGraphData={setGraphData} />
+            </div>
+        </div>
+    );
 }
 
 export default App;
