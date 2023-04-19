@@ -54,7 +54,7 @@ const TimeSlider: React.FC<Props> = ({ max, setGraphData }) => {
                     value={value}
                     onChange={handleChange}
                     step="1"
-                    className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                    className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer "
                 />
                 <h6>Time {value}</h6>
             </div>

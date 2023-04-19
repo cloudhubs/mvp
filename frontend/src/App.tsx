@@ -21,10 +21,13 @@ function App() {
     const [max, setMax] = useState(6);
     const [color, setColor] = useState("neighbor");
     const ref = useRef<HTMLDivElement>(null);
+    const [isDark, setIsDark] = useState(false);
 
     return (
         <div
-            className="bg-white max-w-full min-h-screen max-h-screen overflow-clip"
+            className={`max-w-full min-h-screen max-h-screen overflow-clip ${
+                isDark ? `bg-gray-900` : `bg-white`
+            }`}
             ref={ref}
         >
             <GraphMode
@@ -49,6 +52,8 @@ function App() {
                 setHighCoupling={setHighCoupling}
                 is3d={is3d}
                 setIs3d={setIs3d}
+                isDark={isDark}
+                setIsDark={setIsDark}
             />
             <GraphWrapper
                 height={ref?.current?.clientHeight ?? 735}

@@ -31,7 +31,7 @@ const VisualizationOptions: React.FC<Props> = ({
     highCoupling,
     is3d,
     antiPattern,
-    colorMode
+    colorMode,
 }) => {
     const Shared2D3DProps: SharedProps = {
         linkDirectionalArrowRelPos: 1,
@@ -44,7 +44,7 @@ const VisualizationOptions: React.FC<Props> = ({
 
     return (
         <div>
-            {!is3d ? (
+            {/* {!is3d ? (
                 <Graph2D
                     width={width}
                     height={height}
@@ -58,21 +58,21 @@ const VisualizationOptions: React.FC<Props> = ({
                     antiPattern={antiPattern}
                     colorMode={colorMode}
                 />
-            ) : (
-                <Graph3D
-                    width={width}
-                    height={height}
-                    {...GraphProps}
-                    search={search}
-                    threshold={threshold}
-                    graphRef={graphRef}
-                    setInitCoords={setInitCoords}
-                    setInitRotation={setInitRotation}
-                    highCoupling={highCoupling}
-                    antiPattern={antiPattern}
-                    colorMode={colorMode}
-                />
-            )}
+            ) : ( */}
+            <Graph3D
+                width={width}
+                height={height}
+                {...GraphProps}
+                search={search}
+                threshold={threshold}
+                graphRef={graphRef}
+                setInitCoords={setInitCoords}
+                setInitRotation={setInitRotation}
+                highCoupling={highCoupling}
+                antiPattern={antiPattern}
+                colorMode={colorMode}
+            />
+            {/* )} */}
         </div>
     );
 };

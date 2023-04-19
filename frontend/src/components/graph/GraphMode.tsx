@@ -59,9 +59,9 @@ const GraphMode: React.FC<Props> = ({
                         aria-hidden="true"
                     >
                         <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                         />
                     </svg>
                 </button>
@@ -69,10 +69,10 @@ const GraphMode: React.FC<Props> = ({
             {open ? (
                 <div
                     id="dropdown-states"
-                    className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700"
+                    className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full"
                 >
                     <ul
-                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        className="py-2 text-sm text-gray-700"
                         aria-labelledby="states-button"
                     >
                         <li>
@@ -80,7 +80,7 @@ const GraphMode: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"visual"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     <svg
@@ -89,9 +89,9 @@ const GraphMode: React.FC<Props> = ({
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="#227fe3"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     >
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                         <circle cx="12" cy="12" r="3"></circle>
@@ -105,7 +105,7 @@ const GraphMode: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"anti-pattern"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     <svg
@@ -114,9 +114,9 @@ const GraphMode: React.FC<Props> = ({
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="#e70f0f"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     >
                                         <circle cx="12" cy="12" r="10"></circle>
                                         <line
@@ -153,7 +153,7 @@ const GraphMode: React.FC<Props> = ({
                         />
                         <label
                             htmlFor="react-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
                         >
                             <div className="flex flex-col justify-center items-center text-center">
                                 <svg
@@ -162,7 +162,7 @@ const GraphMode: React.FC<Props> = ({
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#227fe3"
-                                    stroke-width="2"
+                                    strokeWidth="2"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 >
@@ -196,7 +196,7 @@ const GraphMode: React.FC<Props> = ({
                         />
                         <label
                             htmlFor="flowbite-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
                         >
                             <div className="flex flex-col justify-center items-center text-center">
                                 <svg
@@ -205,7 +205,7 @@ const GraphMode: React.FC<Props> = ({
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#ab06f1"
-                                    stroke-width="2"
+                                    strokeWidth="2"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 >
@@ -226,7 +226,7 @@ const GraphMode: React.FC<Props> = ({
                         />
                         <label
                             htmlFor="angular-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
                         >
                             <div className="flex flex-col justify-center items-center text-center">
                                 <svg
@@ -235,7 +235,7 @@ const GraphMode: React.FC<Props> = ({
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#e70f0f"
-                                    stroke-width="2"
+                                    strokeWidth="2"
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 >

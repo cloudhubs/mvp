@@ -9,7 +9,14 @@ type Props = {
     setMax: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Slider: React.FC<Props> = ({ value, setValue, min, setMin, max, setMax }) => {
+const Slider: React.FC<Props> = ({
+    value,
+    setValue,
+    min,
+    setMin,
+    max,
+    setMax,
+}) => {
     const handleInput = (e: any) => {
         setValue(e.target.value);
     };

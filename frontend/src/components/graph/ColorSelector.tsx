@@ -57,9 +57,9 @@ const ColorSelector: React.FC<Props> = ({
                         aria-hidden="true"
                     >
                         <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                         />
                     </svg>
                 </button>
@@ -67,10 +67,10 @@ const ColorSelector: React.FC<Props> = ({
             {open ? (
                 <div
                     id="dropdown-states"
-                    className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700"
+                    className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full "
                 >
                     <ul
-                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        className="py-2 text-sm text-gray-700 "
                         aria-labelledby="states-button"
                     >
                         <li>
@@ -78,7 +78,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"neighbor"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     Neighbor Unique
@@ -90,7 +90,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"git"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     Git Contributor
@@ -102,7 +102,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"latency"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     Response Time
@@ -114,7 +114,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"cpu"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     CPU Load
@@ -126,7 +126,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"ram"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     RAM Load
@@ -138,7 +138,7 @@ const ColorSelector: React.FC<Props> = ({
                                 type="button"
                                 onClick={handleSelectMode}
                                 value={"disk"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
                                 <div className="inline-flex items-center">
                                     Disk Usage

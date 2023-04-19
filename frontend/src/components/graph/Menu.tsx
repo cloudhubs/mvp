@@ -21,7 +21,7 @@ export const Menu = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#227fe3"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
@@ -40,7 +40,7 @@ export const Menu = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#f1e906"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
@@ -58,7 +58,7 @@ export const Menu = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#ab06f1"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
@@ -77,7 +77,7 @@ export const Menu = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="#e70f0f"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
