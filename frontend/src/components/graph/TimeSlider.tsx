@@ -10,32 +10,23 @@ import data5 from "../../data/mock5.json";
 type Props = {
     max: number;
     setGraphData: any;
+    graphTimeline: Array<any>;
+    currentInstance: any;
+    setCurrentInstance: any;
 };
-const TimeSlider: React.FC<Props> = ({ max, setGraphData }) => {
-    const [value, setValue] = useState(max);
+const TimeSlider: React.FC<Props> = ({
+    max,
+    setGraphData,
+    graphTimeline,
+    currentInstance,
+    setCurrentInstance,
+}) => {
+    const [value, setValue] = useState(0);
 
     const handleChange = (e: any) => {
-        setValue(e.currentTarget.value);
-        switch (e.currentTarget.value) {
-            case "5":
-                setGraphData(data5);
-                break;
-            case "4":
-                setGraphData(data4);
-                break;
-            case "3":
-                setGraphData(data3);
-                break;
-            case "2":
-                setGraphData(data2);
-                break;
-            case "1":
-                setGraphData(data1);
-                break;
-            case "0":
-                setGraphData(data0);
-                break;
-        }
+        setValue(e.target.value);
+        setCurrentInstance(e.target.value);
+        setGraphData(graphTimeline[e.target.value]);
     };
     return (
         <div className="absolute bottom-16 z-50 flex flex-col gap-2 text-sm bg-blue-300 bg-opacity-60 rounded-lg p-4 w-1/3">
@@ -50,7 +41,7 @@ const TimeSlider: React.FC<Props> = ({ max, setGraphData }) => {
                     id="steps-range"
                     type="range"
                     min="0"
-                    max={max}
+                    max={graphTimeline.length - 1}
                     value={value}
                     onChange={handleChange}
                     step="1"

@@ -106,15 +106,7 @@ const GraphButtonMenu: React.FC<Props> = ({
             replacer
         );
 
-        axios.post("http://localhost:8080/instance", {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "http://localhost:3000",
-                "Access-Control-Allow-Methods":
-                    "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers":
-                    "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
-            },
+        axios.post("/instance", {
             data: { id: 1, data: dataStr },
         });
     }

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GraphWrapper from "./components/graph/GraphWrapper";
 import GraphMenu from "./components/graph/GraphMenu";
 import Menu from "./components/graph/Menu";
@@ -7,6 +7,8 @@ import myData from "./data/mock5.json";
 import GraphMode from "./components/graph/GraphMode";
 import TimeSlider from "./components/graph/TimeSlider";
 import ColorSelector from "./components/graph/ColorSelector";
+import { setupAxios, setupLogger } from "./utils/axiosSetup";
+import axios from "axios";
 
 function App() {
     const graphRef = useRef();
@@ -22,6 +24,28 @@ function App() {
     const [color, setColor] = useState("neighbor");
     const ref = useRef<HTMLDivElement>(null);
     const [isDark, setIsDark] = useState(false);
+    const [graphName, setGraphName] = useState("traintickettest1");
+    const [graphTimeline, setGraphTimeline] = useState<any[] | null>(null);
+    const [currentInstance, setCurrentInstance] = useState<number>();
+
+    setupLogger();
+    setupAxios();
+
+    useEffect(() => {
+        const getGraphLifespan = async () => {
+            const graphLifespan = await axios.get(`/graph/${graphName}`);
+            setGraphTimeline(graphLifespan.data);
+            setGraphData(graphLifespan.data[0] ?? null);
+            setCurrentInstance(0);
+        };
+
+        getGraphLifespan();
+    }, [graphName]);
+
+    if (typeof currentInstance == "undefined" || !graphTimeline) {
+        // Ideally just return a prompt to upload a file or use some default file
+        return null;
+    }
 
     return (
         <div
@@ -78,7 +102,13 @@ function App() {
                 setColor={setColor}
             />
             <div className="flex flex-row items-center justify-center w-full">
-                <TimeSlider max={max} setGraphData={setGraphData} />
+                <TimeSlider
+                    max={max}
+                    setGraphData={setGraphData}
+                    graphTimeline={graphTimeline}
+                    currentInstance={currentInstance}
+                    setCurrentInstance={setCurrentInstance}
+                />
             </div>
         </div>
     );
