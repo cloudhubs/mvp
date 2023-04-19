@@ -3,7 +3,7 @@ import GraphWrapper from "./components/graph/GraphWrapper";
 import GraphMenu from "./components/graph/GraphMenu";
 import Menu from "./components/graph/Menu";
 import {InfoBox} from "./components/graph/InfoBox";
-import myData from './data/mock_data.json';
+import myData from './data/mock5.json';
 import GraphMode from "./components/graph/GraphMode";
 import TimeSlider from "./components/graph/TimeSlider";
 import ColorSelector from "./components/graph/ColorSelector";
@@ -30,7 +30,7 @@ function App() {
                   <Menu />
                   <InfoBox />
                   <ColorSelector value={value} setValue={setValue} color={color} setColor={setColor} />
-                  <TimeSlider max={max}/>
+                  <TimeSlider max={max} setGraphData={setGraphData}/>
               </div>
           </>
       </div>

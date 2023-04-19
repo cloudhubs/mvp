@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {"nodeName": "1",
+      "nodeType": "service",
+      "contributor": "A",
+      "latency": "10",
+      "cpu": "100",
+      "ram":  "5",
+      "disk":  "50"},
+    {"nodeName": "2",
+      "nodeType": "service",
+      "contributor": "B",
+      "latency": "17",
+      "cpu": "90",
+      "ram":  "10",
+      "disk":  "65"},
+    {"nodeName": "3",
+      "nodeType": "service",
+      "contributor": "C",
+      "latency": "87",
+      "cpu": "80",
+      "ram":  "15",
+      "disk":  "35"}
+  ],
+  "links": [
+    {"source": "1",  "target": "2",
+      "requests": [
+        { "type": "PUT",
+          "argument": "@RequestBody UserDto user, @RequestHeader HttpHeaders headers",
+          "msReturn": "ResponseEntity<Response>",
+          "endpointFunction": "user.controller.UserController.updateUser"
+        },
+        { "type": "GET",
+          "argument":  "@RequestHeader HttpHeaders headers",
+          "msReturn":  "ResponseEntity<Response>",
+          "endpointFunction":  "user.controller.UserController.getAllUser"
+        },
+        { "type": "DELETE",
+          "argument":  "@PathVariable String userId, @RequestHeader HttpHeaders headers",
+          "msReturn":  "ResponseEntity<Response>",
+          "endpointFunction":  "user.controller.UserController.deleteUserById"
+        }
+      ]
+    },
+
+    {"source": "2",  "target": "3",
+      "requests": [
+        { "type": "GET",
+          "argument": "@PathVariable String routeId, @PathVariable String trainType, @RequestHeader HttpHeaders headers",
+          "msReturn": "org.springframework.http.HttpEntity",
+          "endpointFunction": "price.controller.PriceController.query"
+        }
+      ]
+    },
+
+    {"source": "3",  "target": "2",
+      "requests": [
+        {"type": "GET",
+          "argument":  "@PathVariable String id, @RequestHeader HttpHeaders headers",
+          "msReturn":  "org.springframework.http.HttpEntity",
+          "endpointFunction":  "train.controller.TrainController.retrieve"
+        }
+      ]
+    }
+  ]
+}

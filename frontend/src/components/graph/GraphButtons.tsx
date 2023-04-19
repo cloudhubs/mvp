@@ -2,6 +2,7 @@ import { saveAs } from "file-saver";
 import React, { useState } from "react";
 import { reset } from "../../utils/GraphFunctions";
 import axios from "axios";
+import myData from '../../data/mock1.json';
 
 type ButtonProps = {
     onClick: any;
@@ -99,12 +100,13 @@ const GraphButtonMenu: React.FC<Props> = ({
     }
 
     function save() {
+        //setGraphData(myData);
         let dataStr = JSON.stringify(
             Object.assign({}, graphData, graphRef.current.cameraPosition()),
             replacer
         );
 
-        axios.post("http://localhost:8080/save", {
+        axios.post("http://localhost:8080/instance", {
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "http://localhost:3000",
