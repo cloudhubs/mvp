@@ -4,17 +4,20 @@ export const useContextMenu = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
     const [show, setShow] = useState(false);
     const [node, setNode] = useState(null);
-    const [graphData, setGraphData] = useState(null);
-    let setHideNodes;
+    const [graphData, setGraphData] = useState<any>(null);
+    let setHideNodes: any;
+    let setGraphData2: any;
 
     const handleContextMenu = useCallback(
         (event: any) => {
+            console.log(event.detail)
             event.preventDefault();
             setAnchorPoint(event.detail.coords);
             setShow(true);
             setNode(event.detail.node);
             setGraphData(event.detail.graphData);
             setHideNodes = event.detail.setHideNodes;
+            setGraphData2 = event.detail.setGraphData;
         },
         [setShow, setAnchorPoint]
     );
@@ -32,5 +35,5 @@ export const useContextMenu = () => {
             document.removeEventListener("nodecontextmenu", handleContextMenu);
         };
     });
-    return { anchorPoint, show, node, graphData, setHideNodes };
+    return { anchorPoint, show, node, graphData, setHideNodes, setGraphData, setGraphData2 };
 };

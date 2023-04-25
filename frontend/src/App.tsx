@@ -24,9 +24,10 @@ function App() {
     const [color, setColor] = useState("neighbor");
     const ref = useRef<HTMLDivElement>(null);
     const [isDark, setIsDark] = useState(false);
-    const [graphName, setGraphName] = useState("traintickettest1");
+    const [graphName, setGraphName] = useState("test");
     const [graphTimeline, setGraphTimeline] = useState<any[] | null>(null);
     const [currentInstance, setCurrentInstance] = useState<number>();
+    const [defNodeColor, setDefNodeColor] = useState(false);
 
     setupLogger();
     setupAxios();
@@ -34,6 +35,7 @@ function App() {
     useEffect(() => {
         const getGraphLifespan = async () => {
             const graphLifespan = await axios.get(`/graph/${graphName}`);
+            console.log(graphLifespan.data)
             setGraphTimeline(graphLifespan.data);
             setGraphData(graphLifespan.data[0] ?? null);
             setCurrentInstance(0);
@@ -92,6 +94,9 @@ function App() {
                 is3d={is3d}
                 antiPattern={antiPattern}
                 colorMode={color}
+                defNodeColor={defNodeColor}
+                setDefNodeColor={setDefNodeColor}
+                setGraphData={setGraphData}
             />
             <Menu />
             <InfoBox />
@@ -108,6 +113,7 @@ function App() {
                     graphTimeline={graphTimeline}
                     currentInstance={currentInstance}
                     setCurrentInstance={setCurrentInstance}
+                    setDefNodeColor={setDefNodeColor}
                 />
             </div>
         </div>

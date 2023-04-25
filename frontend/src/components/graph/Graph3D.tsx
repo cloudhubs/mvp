@@ -23,6 +23,9 @@ type Props = {
     highCoupling: any;
     antiPattern: any;
     colorMode: any;
+    defNodeColor: any;
+    setDefNodeColor: any;
+    setGraphData: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -36,13 +39,15 @@ const Graph: React.FC<Props> = ({
     setInitRotation,
     highCoupling,
     antiPattern,
-    colorMode
+    colorMode,
+    defNodeColor,
+    setDefNodeColor,
+    setGraphData
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
     const [hoverNode, setHoverNode] = useState(null);
     const [selectedLink, setSelectedLink] = useState(null);
-    const [defNodeColor, setDefNodeColor] = useState(false);
     const [hideNodes, setHideNodes] = useState<any>(new Set());
 
     const handleNodeHover = (node: any) => {
@@ -118,7 +123,7 @@ const Graph: React.FC<Props> = ({
             nodeVisibility={(node) => getVisibility(node, hideNodes)}
             onNodeRightClick={(node: any) => {
                 const event = new CustomEvent("nodecontextmenu", {
-                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y, node.z), graphData: sharedProps.graphData, setHideNodes: setHideNodes}
+                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y, node.z), graphData: sharedProps.graphData, setHideNodes: setHideNodes, setGraphData: setGraphData}
                 });
                 document.dispatchEvent(event);
             }}

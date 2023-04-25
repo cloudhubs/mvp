@@ -75,14 +75,14 @@ const GraphButtonMenu: React.FC<Props> = ({
         else if (key === "__arrowObj") return undefined;
         else if (key === "__curve") return undefined;
         else if (key === "index") return undefined;
-        else if (key === "source") return value.id;
-        else if (key === "target") return value.id;
+        else if (key === "source") return value.nodeName;
+        else if (key === "target") return value.nodeName;
         else return value;
     }
 
     function exportToJsonFile(jsonData: any) {
         let dataStr = JSON.stringify(
-            Object.assign({}, jsonData, graphRef.current.cameraPosition()),
+            Object.assign({}, {"graphName": "test"}, jsonData, graphRef.current.cameraPosition()),
             replacer
         );
 
@@ -100,15 +100,36 @@ const GraphButtonMenu: React.FC<Props> = ({
     }
 
     function save() {
-        //setGraphData(myData);
         let dataStr = JSON.stringify(
-            Object.assign({}, graphData, graphRef.current.cameraPosition()),
+            Object.assign({}, {"graphName": "test"}, graphData, graphRef.current.cameraPosition()),
             replacer
         );
 
-        axios.post("/instance", {
-            data: { id: 1, data: dataStr },
-        });
+        /*axios.post("http://localhost:8080/graph/new", {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length"
+            }, data: { id: 1, data: dataStr}});*/
+        var config = {
+            method: 'post',
+            url: 'http://localhost:8080/graph/instance',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data : dataStr
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
     }
 
     function delay(time: any) {

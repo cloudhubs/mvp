@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/graph")
-@CrossOrigin(origins={"http://localhost:3000"}, maxAge = 3600)
+@CrossOrigin(origins={"http://localhost:3000", "http://localhost:8080"}, maxAge = 3600, allowedHeaders = "*")
 public class GraphController {
     protected final GraphService graphService;
 
@@ -34,6 +34,7 @@ public class GraphController {
         try {
             saved = graphService.newGraphInstance(graphModel);
         } catch (NotFoundException e) {
+            System.out.println(graphModel.getGraphName());
             return Errors.Response404NotFound(e.getMessage());
         } catch (Exception e) {
             return Errors.Response500InternalServerError(e, e.getMessage());
@@ -67,7 +68,9 @@ public class GraphController {
     }
 
     @PostMapping("/create")
+    @CrossOrigin(origins={"http://localhost:3000", "http://localhost:8080"}, maxAge = 3600, allowedHeaders = "*")
     public ResponseEntity<?> createGraph(@RequestBody GraphModel graphModel) {
+        System.out.println("test");
         GraphModel savedModel;
         try {
             savedModel = graphService.createNewLifelongGraph(graphModel);

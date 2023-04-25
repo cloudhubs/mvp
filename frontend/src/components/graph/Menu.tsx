@@ -2,7 +2,7 @@ import { useContextMenu } from "../../hooks/useContextMenu";
 import { showNeighbors } from "../../utils/GraphFunctions";
 
 export const Menu = () => {
-    const { anchorPoint, show, node, graphData, setHideNodes } =
+    const { anchorPoint, show, node, graphData, setHideNodes, setGraphData, setGraphData2 } =
         useContextMenu();
 
     if (show) {
@@ -68,7 +68,7 @@ export const Menu = () => {
                     Track Node
                 </button>
                 <button
-                    onClick={trackNode}
+                    onClick={deleteNode}
                     className="inline-flex items-center justify-center w-full text-gray-700 block px-4 py-2 text-sm hover:bg-slate-200 hover:bg-opacity-60"
                 >
                     <svg
@@ -99,6 +99,15 @@ export const Menu = () => {
     function highlightNode() {}
 
     function trackNode() {}
+
+    function deleteNode(){
+        console.log(node);
+        if(graphData != null) {
+            //setHideNodes(node);
+            let index = graphData.nodes.indexOf(node);
+            setGraphData2(graphData.nodes.splice(index, 1));
+        }
+    }
 
     return <></>;
 };

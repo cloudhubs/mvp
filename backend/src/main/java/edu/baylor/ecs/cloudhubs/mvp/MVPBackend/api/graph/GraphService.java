@@ -33,7 +33,9 @@ public class GraphService {
     }
 
     public GraphModel createNewLifelongGraph(GraphModel graphModel) {
-        if (!graphDAO.existsByGraphName(graphModel.getGraphName())) {
+        System.out.println(graphModel.getGraphName());
+        if (graphDAO.existsByGraphName(graphModel.getGraphName())) {
+            System.out.println("BAD" + graphModel.getGraphName());
             throw new ForbiddenException("This graph identifier is in use");
         }
         else if (graphModel.getGraphName() == null) {

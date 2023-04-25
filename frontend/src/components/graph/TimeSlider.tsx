@@ -13,6 +13,7 @@ type Props = {
     graphTimeline: Array<any>;
     currentInstance: any;
     setCurrentInstance: any;
+    setDefNodeColor: any;
 };
 const TimeSlider: React.FC<Props> = ({
     max,
@@ -20,6 +21,7 @@ const TimeSlider: React.FC<Props> = ({
     graphTimeline,
     currentInstance,
     setCurrentInstance,
+    setDefNodeColor,
 }) => {
     const [value, setValue] = useState(0);
 
@@ -27,6 +29,7 @@ const TimeSlider: React.FC<Props> = ({
         setValue(e.target.value);
         setCurrentInstance(e.target.value);
         setGraphData(graphTimeline[e.target.value]);
+        setDefNodeColor(false);
     };
     return (
         <div className="absolute bottom-16 z-50 flex flex-col gap-2 text-sm bg-blue-300 bg-opacity-60 rounded-lg p-4 w-1/3">
