@@ -1,7 +1,15 @@
 import { useContextMenu } from "../../hooks/useContextMenu";
 import { showNeighbors } from "../../utils/GraphFunctions";
+import React from "react";
 
-export const Menu = () => {
+type Props = {
+    trackNodes: any;
+    setTrackNodes: any;
+};
+
+export const Menu : React.FC<Props> = ({
+                                           trackNodes, setTrackNodes
+                                       }) =>{
     const {
         anchorPoint,
         show,
@@ -105,7 +113,17 @@ export const Menu = () => {
 
     function highlightNode() {}
 
-    function trackNode() {}
+    function trackNode() {
+        if(trackNodes.includes(node.nodeName)){
+            trackNodes.splice(trackNodes.findIndex((element: any) => element === node.nodeName), 1);
+            setTrackNodes(trackNodes);
+        }
+        else{
+            trackNodes.push(node.nodeName);
+            setTrackNodes(trackNodes);
+        }
+        console.log(trackNodes);
+    }
 
     function deleteNode() {
         console.log(node);

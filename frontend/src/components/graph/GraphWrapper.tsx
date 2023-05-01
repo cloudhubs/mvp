@@ -22,6 +22,7 @@ type Props = {
     setGraphData: any;
     isDarkMode: any;
     selectedAntiPattern: any;
+    trackNodes: any;
 };
 
 const VisualizationOptions: React.FC<Props> = ({
@@ -42,6 +43,7 @@ const VisualizationOptions: React.FC<Props> = ({
     setGraphData,
     isDarkMode,
     selectedAntiPattern,
+    trackNodes,
 }) => {
     const Shared2D3DProps: SharedProps = {
         linkDirectionalArrowRelPos: 1,
@@ -86,6 +88,7 @@ const VisualizationOptions: React.FC<Props> = ({
                 setGraphData={setGraphData}
                 isDarkMode={isDarkMode}
                 selectedAntiPattern={selectedAntiPattern}
+                trackNodes={trackNodes}
             />
             {/* )} */}
         </div>

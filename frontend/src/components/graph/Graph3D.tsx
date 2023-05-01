@@ -31,6 +31,7 @@ type Props = {
     setGraphData: any;
     isDarkMode: any;
     selectedAntiPattern: any;
+    trackNodes: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -50,6 +51,7 @@ const Graph: React.FC<Props> = ({
     setGraphData,
     isDarkMode,
     selectedAntiPattern,
+    trackNodes,
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<Set<string>>(
         new Set()
@@ -174,7 +176,8 @@ const Graph: React.FC<Props> = ({
                             highCoupling,
                             antiPattern,
                             colorMode,
-                            selectedAntiPattern
+                            selectedAntiPattern,
+                            trackNodes
                         ),
                         opacity: getNodeOpacity(node, search),
                     })
@@ -194,7 +197,8 @@ const Graph: React.FC<Props> = ({
                     highCoupling,
                     antiPattern,
                     colorMode,
-                    selectedAntiPattern
+                    selectedAntiPattern,
+                    trackNodes
                 ) as string;
                 sprite.textHeight = 8;
                 sprite.position.set(0, 10, 0);

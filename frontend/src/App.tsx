@@ -29,6 +29,7 @@ function App() {
     const [graphTimeline, setGraphTimeline] = useState<any[] | null>(null);
     const [currentInstance, setCurrentInstance] = useState<number>();
     const [defNodeColor, setDefNodeColor] = useState(false);
+    const [trackNodes, setTrackNodes] = useState([]);
 
     setupLogger();
     setupAxios();
@@ -105,8 +106,9 @@ function App() {
                 setGraphData={setGraphData}
                 isDarkMode={isDark}
                 selectedAntiPattern={selectedAntiPattern}
+                trackNodes={trackNodes}
             />
-            <Menu />
+            <Menu trackNodes={trackNodes} setTrackNodes={setTrackNodes}/>
 
             {/* left click node pop up box */}
             <InfoBox />

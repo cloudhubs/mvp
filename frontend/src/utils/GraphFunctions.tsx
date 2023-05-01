@@ -66,7 +66,8 @@ function getColor(
     highCoupling: any,
     antipattern: any,
     colorMode: any,
-    selectedAntiPattern: any
+    selectedAntiPattern: any,
+    trackNodes: any,
 ): any {
     if (highlightNodes && highlightNodes.has(node.nodeName)) {
         if (node.nodeName === hoverNode) {
@@ -74,6 +75,10 @@ function getColor(
         } else {
             return HOVER_NEIGHBOR;
         }
+    }
+
+    if(trackNodes.includes(node.nodeName)){
+        return "rgb(25,200,25)"
     }
 
     if (antipattern && selectedAntiPattern != "none") {
@@ -290,7 +295,8 @@ function getSpriteColor(
     highCoupling: any,
     antipattern: any,
     colorMode: any,
-    selectedAntiPattern: any
+    selectedAntiPattern: any,
+    trackNodes: any,
 ) {
     if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return "rgba(255,255,255,0)";
@@ -306,7 +312,8 @@ function getSpriteColor(
         highCoupling,
         antipattern,
         colorMode,
-        selectedAntiPattern
+        selectedAntiPattern,
+        trackNodes
     );
 }
 

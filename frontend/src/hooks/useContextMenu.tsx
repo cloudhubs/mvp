@@ -3,7 +3,7 @@ import { useEffect, useCallback, useState } from "react";
 export const useContextMenu = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
     const [show, setShow] = useState(false);
-    const [node, setNode] = useState(null);
+    const [node, setNode] = useState<any>(null);
     const [graphData, setGraphData] = useState<any>(null);
     let setHideNodes: any;
     let setGraphData2: any;

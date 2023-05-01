@@ -22,6 +22,7 @@ type Props = {
     highCoupling: any;
     antiPattern: any;
     colorMode: any;
+    trackNodes: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -36,6 +37,7 @@ const Graph: React.FC<Props> = ({
     highCoupling,
     antiPattern,
     colorMode,
+    trackNodes,
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -154,7 +156,8 @@ const Graph: React.FC<Props> = ({
                     highCoupling,
                     antiPattern,
                     colorMode,
-                    null
+                    null,
+                    trackNodes
                 )
                     .replace(`)`, `, ${getNodeOpacity(node, search)})`)
                     .replace("rgb", "rgba")
