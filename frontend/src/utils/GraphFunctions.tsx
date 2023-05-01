@@ -51,9 +51,10 @@ function getColor(
     setDefNodeColor: any,
     highCoupling: any,
     antipattern: any,
-    colorMode: any
+    colorMode: any,
+    selectedAntiPattern: any
 ): any {
-    if (antipattern) {
+    if (antipattern && selectedAntiPattern != "none") {
         if (highCoupling) {
             return getColorCoupling(
                 node,
@@ -95,22 +96,34 @@ function getColorVisual(
     }
     let neighbors: any = getNeighbors(node, links);
     if (neighbors.nodes.includes(hoverNode)) return "rgb(0,150,150)";
-    switch(colorMode){
+    switch (colorMode) {
         case "neighbor":
-            return getColorNeighbor(node, graphData, threshold, highlightNodes, hoverNode, defNodeColor, setDefNodeColor, neighbors)
+            return getColorNeighbor(
+                node,
+                graphData,
+                threshold,
+                highlightNodes,
+                hoverNode,
+                defNodeColor,
+                setDefNodeColor,
+                neighbors
+            );
         case "git":
             break;
         case "cpu":
-            return getColorThreshold(threshold, node.cpu)
+            return getColorThreshold(threshold, node.cpu);
         case "ram":
-            return getColorThreshold(threshold, node.ram)
+            return getColorThreshold(threshold, node.ram);
         case "disk":
-            return getColorThreshold(threshold, node.disk)
+            return getColorThreshold(threshold, node.disk);
         case "latency":
-            return getColorThreshold(threshold, node.latency)
+            return getColorThreshold(threshold, node.latency);
+        case "dark-default":
+            return "rgb(200,200,200)";
+        case "light-default":
+            return "rgb(50,50,50)";
     }
     return node.color;
-
 }
 
 function getColorNeighbor(
@@ -263,7 +276,6 @@ function getColorThreshold(
     threshold: number,
     value: number
 ): ColorRepresentation {
-
     if (value > threshold) {
         return "rgb(255,0,0)";
     }
@@ -334,7 +346,8 @@ function getSpriteColor(
     setDefNodeColor: any,
     highCoupling: any,
     antipattern: any,
-    colorMode: any
+    colorMode: any,
+    selectedAntiPattern: any
 ) {
     if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return "rgba(255,255,255,0)";
@@ -349,7 +362,8 @@ function getSpriteColor(
         setDefNodeColor,
         highCoupling,
         antipattern,
-        colorMode
+        colorMode,
+        selectedAntiPattern
     );
 }
 
@@ -393,9 +407,10 @@ function getLinkColor(
     search: any,
     hoverNode: any,
     antiPattern: any,
-    threed: any
+    threed: any,
+    selectedAntiPattern: any
 ) {
-    if (antiPattern) {
+    if (antiPattern && selectedAntiPattern != "none") {
         return linkColorCoupling(link, search, threed);
     }
     return linkColorVisual(link, search, hoverNode, threed);

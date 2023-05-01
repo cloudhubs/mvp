@@ -1,6 +1,14 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ForceGraph2D, { ForceGraphProps } from "react-force-graph-2d";
-import {getColor, getLinkColor, getLinkOpacity, getLinkWidth, getNodeOpacity, getVisibility, showNeighbors} from "../../utils/GraphFunctions";
+import {
+    getColor,
+    getLinkColor,
+    getLinkOpacity,
+    getLinkWidth,
+    getNodeOpacity,
+    getVisibility,
+    showNeighbors,
+} from "../../utils/GraphFunctions";
 
 type Props = {
     width: number;
@@ -27,7 +35,7 @@ const Graph: React.FC<Props> = ({
     setInitRotation,
     highCoupling,
     antiPattern,
-    colorMode
+    colorMode,
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -81,8 +89,12 @@ const Graph: React.FC<Props> = ({
     );
 
     useEffect(() => {
-        graphRef.current.d3Force('charge').strength((node: any) => {return -120;})
-        graphRef.current.d3Force('link').distance((link: any) => {return 100;});
+        graphRef.current.d3Force("charge").strength((node: any) => {
+            return -120;
+        });
+        graphRef.current.d3Force("link").distance((link: any) => {
+            return 100;
+        });
     }, [graphRef]);
 
     return (
@@ -102,7 +114,7 @@ const Graph: React.FC<Props> = ({
             linkDirectionalArrowLength={20}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
-                getLinkColor(link, search, hoverNode, antiPattern, false)
+                getLinkColor(link, search, hoverNode, antiPattern, false, null)
             }
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 2 : 0
@@ -114,41 +126,56 @@ const Graph: React.FC<Props> = ({
             nodeVisibility={(node) => getVisibility(node, hideNodes)}
             nodeId={"nodeName"}
             nodeLabel={"nodeName"}
-            nodeCanvasObjectMode = {(() => 'after')}
+            nodeCanvasObjectMode={() => "after"}
             nodeRelSize={8}
             onNodeRightClick={(node: any) => {
                 const event = new CustomEvent("nodecontextmenu", {
-                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y), graphData: sharedProps.graphData, setHideNodes: setHideNodes},
+                    detail: {
+                        node: node,
+                        coords: graphRef.current.graph2ScreenCoords(
+                            node.x,
+                            node.y
+                        ),
+                        graphData: sharedProps.graphData,
+                        setHideNodes: setHideNodes,
+                    },
                 });
                 document.dispatchEvent(event);
             }}
-            nodeColor={(node: any) => getColor(
-                node,
-                sharedProps.graphData,
-                threshold,
-                highlightNodes,
-                hoverNode,
-                defNodeColor,
-                setDefNodeColor,
-                highCoupling,
-                antiPattern,
-                colorMode
-            ).replace(`)`, `, ${getNodeOpacity(node, search)})`).replace('rgb', 'rgba')}
-            nodeCanvasObject={((node: any, ctx: any) => {
+            nodeColor={(node: any) =>
+                getColor(
+                    node,
+                    sharedProps.graphData,
+                    threshold,
+                    highlightNodes,
+                    hoverNode,
+                    defNodeColor,
+                    setDefNodeColor,
+                    highCoupling,
+                    antiPattern,
+                    colorMode,
+                    null
+                )
+                    .replace(`)`, `, ${getNodeOpacity(node, search)})`)
+                    .replace("rgb", "rgba")
+            }
+            nodeCanvasObject={(node: any, ctx: any) => {
                 let fontSize = 10;
                 ctx.font = `${fontSize}px "Orbitron,sans-serif"`;
                 //console.log("link label="+ link.label);
                 const textWidth = ctx.measureText(node.nodeName).width;
-                let bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
+                let bckgDimensions = [textWidth, fontSize].map(
+                    (n) => n + fontSize * 0.2
+                );
                 //console.log(link);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
                 ctx.fillStyle = node.nodeColor;
                 ctx.fillText(node.nodeName, node.x, node.y - 10);
                 node.__bckgDimensions = bckgDimensions;
-            })}
+            }}
             linkColor={(link) =>
-                getLinkColor(link, search, hoverNode, antiPattern, false)
+                getLinkColor(link, search, hoverNode, antiPattern, false, null)
             }
             linkCurvature={(link) => {
                 let test = false;

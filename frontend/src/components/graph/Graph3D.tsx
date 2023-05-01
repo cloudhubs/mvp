@@ -6,7 +6,9 @@ import {
     getLinkColor,
     getLinkWidth,
     getNodeOpacity,
-    getSpriteColor, getVisibility, showNeighbors
+    getSpriteColor,
+    getVisibility,
+    showNeighbors,
 } from "../../utils/GraphFunctions";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
@@ -26,6 +28,8 @@ type Props = {
     defNodeColor: any;
     setDefNodeColor: any;
     setGraphData: any;
+    isDarkMode: any;
+    selectedAntiPattern: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -42,7 +46,9 @@ const Graph: React.FC<Props> = ({
     colorMode,
     defNodeColor,
     setDefNodeColor,
-    setGraphData
+    setGraphData,
+    isDarkMode,
+    selectedAntiPattern,
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
     const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
@@ -109,8 +115,12 @@ const Graph: React.FC<Props> = ({
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
-        graphRef.current.d3Force('charge').strength((node: any) => {return -220;})
-        graphRef.current.d3Force('link').distance((link: any) => {return 60;});
+        graphRef.current.d3Force("charge").strength((node: any) => {
+            return -220;
+        });
+        graphRef.current.d3Force("link").distance((link: any) => {
+            return 60;
+        });
     }, []);
 
     return (
@@ -123,7 +133,17 @@ const Graph: React.FC<Props> = ({
             nodeVisibility={(node) => getVisibility(node, hideNodes)}
             onNodeRightClick={(node: any) => {
                 const event = new CustomEvent("nodecontextmenu", {
-                    detail: { node: node, coords: graphRef.current.graph2ScreenCoords(node.x, node.y, node.z), graphData: sharedProps.graphData, setHideNodes: setHideNodes, setGraphData: setGraphData}
+                    detail: {
+                        node: node,
+                        coords: graphRef.current.graph2ScreenCoords(
+                            node.x,
+                            node.y,
+                            node.z
+                        ),
+                        graphData: sharedProps.graphData,
+                        setHideNodes: setHideNodes,
+                        setGraphData: setGraphData,
+                    },
                 });
                 document.dispatchEvent(event);
             }}
@@ -142,7 +162,8 @@ const Graph: React.FC<Props> = ({
                             setDefNodeColor,
                             highCoupling,
                             antiPattern,
-                            colorMode
+                            colorMode,
+                            selectedAntiPattern
                         ),
                         opacity: getNodeOpacity(node, search),
                     })
@@ -161,7 +182,8 @@ const Graph: React.FC<Props> = ({
                     setDefNodeColor,
                     highCoupling,
                     antiPattern,
-                    colorMode
+                    colorMode,
+                    selectedAntiPattern
                 ) as string;
                 sprite.textHeight = 8;
                 sprite.position.set(0, 10, 0);
@@ -189,14 +211,28 @@ const Graph: React.FC<Props> = ({
             linkDirectionalArrowLength={10}
             linkDirectionalArrowRelPos={sharedProps.linkDirectionalArrowRelPos}
             linkDirectionalArrowColor={(link) =>
-                getLinkColor(link, search, hoverNode, antiPattern, true)
+                getLinkColor(
+                    link,
+                    search,
+                    hoverNode,
+                    antiPattern,
+                    true,
+                    selectedAntiPattern
+                )
             }
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 2 : 0
             }
             linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             linkColor={(link) =>
-                getLinkColor(link, search, hoverNode, antiPattern, true)
+                getLinkColor(
+                    link,
+                    search,
+                    hoverNode,
+                    antiPattern,
+                    true,
+                    selectedAntiPattern
+                )
             }
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {

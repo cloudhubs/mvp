@@ -20,6 +20,8 @@ type Props = {
     defNodeColor: any;
     setDefNodeColor: any;
     setGraphData: any;
+    isDarkMode: any;
+    selectedAntiPattern: any;
 };
 
 const VisualizationOptions: React.FC<Props> = ({
@@ -37,7 +39,9 @@ const VisualizationOptions: React.FC<Props> = ({
     colorMode,
     defNodeColor,
     setDefNodeColor,
-    setGraphData
+    setGraphData,
+    isDarkMode,
+    selectedAntiPattern,
 }) => {
     const Shared2D3DProps: SharedProps = {
         linkDirectionalArrowRelPos: 1,
@@ -80,6 +84,8 @@ const VisualizationOptions: React.FC<Props> = ({
                 defNodeColor={defNodeColor}
                 setDefNodeColor={setDefNodeColor}
                 setGraphData={setGraphData}
+                isDarkMode={isDarkMode}
+                selectedAntiPattern={selectedAntiPattern}
             />
             {/* )} */}
         </div>

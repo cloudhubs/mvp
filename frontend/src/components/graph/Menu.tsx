@@ -2,8 +2,15 @@ import { useContextMenu } from "../../hooks/useContextMenu";
 import { showNeighbors } from "../../utils/GraphFunctions";
 
 export const Menu = () => {
-    const { anchorPoint, show, node, graphData, setHideNodes, setGraphData, setGraphData2 } =
-        useContextMenu();
+    const {
+        anchorPoint,
+        show,
+        node,
+        graphData,
+        setHideNodes,
+        setGraphData,
+        setGraphData2,
+    } = useContextMenu();
 
     if (show) {
         return (
@@ -22,8 +29,8 @@ export const Menu = () => {
                         fill="none"
                         stroke="#227fe3"
                         strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     >
                         <circle cx="12" cy="12" r="10" />
                         <path d="M16.2 7.8l-2 6.3-6.4 2.1 2-6.3z" />
@@ -41,8 +48,8 @@ export const Menu = () => {
                         fill="none"
                         stroke="#f1e906"
                         strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     >
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
@@ -59,8 +66,8 @@ export const Menu = () => {
                         fill="none"
                         stroke="#ab06f1"
                         strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     >
                         <circle cx="12" cy="10" r="3" />
                         <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
@@ -78,8 +85,8 @@ export const Menu = () => {
                         fill="none"
                         stroke="#e70f0f"
                         strokeWidth="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                     >
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -100,9 +107,9 @@ export const Menu = () => {
 
     function trackNode() {}
 
-    function deleteNode(){
+    function deleteNode() {
         console.log(node);
-        if(graphData != null) {
+        if (graphData != null) {
             //setHideNodes(node);
             let index = graphData.nodes.indexOf(node);
             setGraphData2(graphData.nodes.splice(index, 1));

@@ -20,11 +20,12 @@ function App() {
     const [highCoupling, setHighCoupling] = useState(false);
     const [is3d, setIs3d] = useState(true);
     const [antiPattern, setAntiPattern] = useState(false);
+    const [selectedAntiPattern, setSelectedAntiPattern] = useState("none");
     const [max, setMax] = useState(6);
-    const [color, setColor] = useState("neighbor");
+    const [color, setColor] = useState("dark-default");
     const ref = useRef<HTMLDivElement>(null);
-    const [isDark, setIsDark] = useState(false);
-    const [graphName, setGraphName] = useState("test");
+    const [isDark, setIsDark] = useState(true);
+    const [graphName, setGraphName] = useState("traintickettest1");
     const [graphTimeline, setGraphTimeline] = useState<any[] | null>(null);
     const [currentInstance, setCurrentInstance] = useState<number>();
     const [defNodeColor, setDefNodeColor] = useState(false);
@@ -35,7 +36,7 @@ function App() {
     useEffect(() => {
         const getGraphLifespan = async () => {
             const graphLifespan = await axios.get(`/graph/${graphName}`);
-            console.log(graphLifespan.data)
+            console.log(graphLifespan.data);
             setGraphTimeline(graphLifespan.data);
             setGraphData(graphLifespan.data[0] ?? null);
             setCurrentInstance(0);
@@ -56,6 +57,7 @@ function App() {
             }`}
             ref={ref}
         >
+            {/* Upper left mode toggle */}
             <GraphMode
                 value={value}
                 setValue={setValue}
@@ -63,7 +65,10 @@ function App() {
                 setHighCoupling={setHighCoupling}
                 antiPattern={antiPattern}
                 setAntiPattern={setAntiPattern}
+                selectedAntiPattern={selectedAntiPattern}
+                setSelectedAntiPattern={setSelectedAntiPattern}
             />
+            {/* Graph Menu on upper right with buttons */}
             <GraphMenu
                 graphRef={graphRef}
                 search={search}
@@ -81,6 +86,7 @@ function App() {
                 isDark={isDark}
                 setIsDark={setIsDark}
             />
+            {/* Graph object itself, contained within a wrapper to toggle 2d-3d */}
             <GraphWrapper
                 height={ref?.current?.clientHeight ?? 735}
                 width={ref?.current?.clientWidth ?? 1710}
@@ -97,16 +103,28 @@ function App() {
                 defNodeColor={defNodeColor}
                 setDefNodeColor={setDefNodeColor}
                 setGraphData={setGraphData}
+                isDarkMode={isDark}
+                selectedAntiPattern={selectedAntiPattern}
             />
             <Menu />
+
+            {/* left click node pop up box */}
             <InfoBox />
-            <ColorSelector
-                value={value}
-                setValue={setValue}
-                color={color}
-                setColor={setColor}
-            />
+            {/* Bottom left "color by" box */}
+            {!antiPattern ? (
+                <ColorSelector
+                    value={value}
+                    setValue={setValue}
+                    color={color}
+                    setColor={setColor}
+                    isDarkMode={isDark}
+                />
+            ) : (
+                <></>
+            )}
+
             <div className="flex flex-row items-center justify-center w-full">
+                {/* Timeline slider on bottom of the screen */}
                 <TimeSlider
                     max={max}
                     setGraphData={setGraphData}

@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import Slider from "./Slider";
-import data0 from "../../data/mock0.json";
-import data1 from "../../data/mock1.json";
-import data2 from "../../data/mock2.json";
-import data3 from "../../data/mock3.json";
-import data4 from "../../data/mock4.json";
-import data5 from "../../data/mock5.json";
 
 type Props = {
     max: number;

@@ -6,17 +6,20 @@ type Props = {
     setColor: any;
     value: number;
     setValue: any;
+    isDarkMode: boolean;
 };
 const ColorSelector: React.FC<Props> = ({
     color,
     setColor,
     value,
     setValue,
+    isDarkMode,
 }) => {
     const [open, setOpen] = useState(false);
-
+    const [buttonText, setButtonText] = useState("Color By");
     const [max, setMax] = useState(100);
     const [min, setMin] = useState(0);
+    const [showSlider, setShowSlider] = useState(false);
 
     const handleClick = (e: any) => {
         setOpen(!open);
@@ -27,10 +30,17 @@ const ColorSelector: React.FC<Props> = ({
         color = e.currentTarget.value;
         setColor(e.currentTarget.value);
         if (e.currentTarget.value === "latency") {
+            setShowSlider(true);
             setMin(0);
             setMax(2000);
             setValue(500);
+        } else if (
+            e.currentTarget.value === "dark-default" ||
+            e.currentTarget.value === "light-default"
+        ) {
+            setShowSlider(false);
         } else {
+            setShowSlider(true);
             setMin(0);
             setMax(100);
             setValue(50);
@@ -48,7 +58,7 @@ const ColorSelector: React.FC<Props> = ({
                     aria-haspopup="true"
                     onClick={handleClick}
                 >
-                    Color By
+                    {buttonText}
                     <svg
                         className="-mr-1 ml-2 h-5 w-5"
                         xmlns="http://www.w3.org/2000/svg"
@@ -145,19 +155,39 @@ const ColorSelector: React.FC<Props> = ({
                                 </div>
                             </button>
                         </li>
+                        <li>
+                            <button
+                                type="button"
+                                onClick={handleSelectMode}
+                                value={
+                                    isDarkMode
+                                        ? "dark-default"
+                                        : "light-default"
+                                }
+                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                            >
+                                <div className="inline-flex items-center">
+                                    None
+                                </div>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             ) : (
                 <></>
             )}
-            <Slider
-                max={max}
-                setMax={setMax}
-                min={min}
-                setMin={setMin}
-                value={value}
-                setValue={setValue}
-            />
+            {showSlider ? (
+                <Slider
+                    max={max}
+                    setMax={setMax}
+                    min={min}
+                    setMin={setMin}
+                    value={value}
+                    setValue={setValue}
+                />
+            ) : (
+                <></>
+            )}
         </div>
     );
 };

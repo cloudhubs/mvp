@@ -64,8 +64,7 @@ const GraphMenu: React.FC<Props> = ({
             <label className="relative inline-flex items-center cursor-pointer">
                 <input
                     type="checkbox"
-                    value=""
-                    checked={isDark}
+                    defaultChecked={isDark}
                     className="sr-only peer"
                     onClick={() => {
                         setIsDark(!isDark);
