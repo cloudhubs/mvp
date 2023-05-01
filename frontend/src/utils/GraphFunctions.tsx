@@ -6,7 +6,7 @@ const ORANGE = "rgb(255,160,0)";
 const GREEN = "rgb(0,255,0)";
 const HOVER_BLUE = "rgb(89, 130, 255)";
 const HOVER_NEIGHBOR = "rgb(79, 200, 209)";
-const LIGHT_GRAY = "rgb(200,200,200)";
+const LIGHT_GRAY = "rgb(150,150,150)";
 const DARK_GRAY = "rgb(50,50,50)";
 
 const IN_PATTERN = "rgb(235,52,192)";
@@ -269,7 +269,7 @@ function resetView(graphRef: any, initCoords: any) {
 
 const getNodeOpacity = (node: any, search: any): number => {
     if (search === "") {
-        return 0.9;
+        return 0.8;
     }
     if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 0.9;
@@ -313,7 +313,7 @@ function getSpriteColor(
 function getLinkOpacity(link: any, search: any, threed: any) {
     if (search === "") {
         if (threed) {
-            return 1;
+            return 0.8;
         }
         return 0.7;
     }
@@ -346,11 +346,20 @@ function getLinkColor(
         return LINK_TO_HOVER;
     }
 
-    if (antiPattern && selectedAntiPattern != "none") {
+    if (antiPattern) {
         if (selectedAntiPattern == "coupling") {
             return linkColorCoupling(link, search, threed);
         } else {
-            return LIGHT_GRAY;
+            if (
+                link.source.patterns?.find((pattern: any) =>
+                    pattern.type.toLowerCase().includes(selectedAntiPattern)
+                ) &&
+                link.target.patterns?.find((pattern: any) =>
+                    pattern.type.toLowerCase().includes(selectedAntiPattern)
+                )
+            ) {
+                return IN_PATTERN.replace(`)`, `, 1)`).replace("rgb", "rgba");
+            }
         }
     }
     return linkColorVisual(link, search, threed);

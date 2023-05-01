@@ -99,18 +99,6 @@ const ColorSelector: React.FC<Props> = ({
                             <button
                                 type="button"
                                 onClick={handleSelectMode}
-                                value={"git"}
-                                className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                            >
-                                <div className="inline-flex items-center">
-                                    Git Contributor
-                                </div>
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                type="button"
-                                onClick={handleSelectMode}
                                 value={"latency"}
                                 className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                             >
