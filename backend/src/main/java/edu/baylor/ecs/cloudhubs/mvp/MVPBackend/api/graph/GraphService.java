@@ -58,4 +58,8 @@ public class GraphService {
         graphDAO.deleteById(graphModel.getInstanceId());
         return graphDAO.save(graphModel);
     }
+
+    public void compareGraphInstances(long id1, long id2) {
+
+    }
 }
