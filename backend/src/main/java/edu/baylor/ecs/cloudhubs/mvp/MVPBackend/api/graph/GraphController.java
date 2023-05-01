@@ -83,11 +83,4 @@ public class GraphController {
         }
         return ResponseEntity.ok(savedModel);
     }
-
-    @GetMapping("/compare{id1}_to_{id2}")
-    public ResponseEntity<?> compareGraphInstances(@PathVariable long id1, @PathVariable long id2) {
-        try {
-            graphService.compareGraphInstances(id1, id2);
-        }
-    }
 }

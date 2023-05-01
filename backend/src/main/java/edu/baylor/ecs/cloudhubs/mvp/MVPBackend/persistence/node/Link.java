@@ -27,4 +27,8 @@ public class Link {
 
     /** List of requests */
     private List<Request> requests;
+
+    public String getId() {
+        return source + "->" + target;
+    }
 }

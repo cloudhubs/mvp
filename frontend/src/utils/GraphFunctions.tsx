@@ -1,4 +1,18 @@
 import { ColorRepresentation } from "three";
+import { Antipattern, Node } from "../types";
+
+const RED = "rgb(255,0,0)";
+const ORANGE = "rgb(255,160,0)";
+const GREEN = "rgb(0,255,0)";
+const HOVER_BLUE = "rgb(89, 130, 255)";
+const HOVER_NEIGHBOR = "rgb(79, 200, 209)";
+const LIGHT_GRAY = "rgb(200,200,200)";
+const DARK_GRAY = "rgb(50,50,50)";
+
+const IN_PATTERN = "rgb(235,52,192)";
+
+const LINK_FROM_HOVER = "rgb(232, 190, 39)";
+const LINK_TO_HOVER = "rgb(39,232,49)";
 
 function getShape(type: String): number {
     if (type === "service") {
@@ -54,24 +68,36 @@ function getColor(
     colorMode: any,
     selectedAntiPattern: any
 ): any {
+    if (highlightNodes && highlightNodes.has(node.nodeName)) {
+        if (node.nodeName === hoverNode) {
+            return HOVER_BLUE;
+        } else {
+            return HOVER_NEIGHBOR;
+        }
+    }
+
     if (antipattern && selectedAntiPattern != "none") {
         if (highCoupling) {
-            return getColorCoupling(
-                node,
-                graphData,
-                threshold,
-                highlightNodes,
-                hoverNode
-            );
+            return getColorCoupling(node, graphData, threshold);
         }
-        return "rgb(0,255,0)";
+
+        switch (selectedAntiPattern) {
+            case "cyclic":
+                const cyclic = node.patterns.find(
+                    (pattern: Antipattern) =>
+                        pattern.type === "Cyclic Dependency"
+                );
+                return cyclic != undefined ? IN_PATTERN : LIGHT_GRAY;
+            case "knot":
+                break;
+            // default just continue into visual color scheme (based on theme)
+        }
     }
+
     return getColorVisual(
         node,
         graphData,
         threshold,
-        highlightNodes,
-        hoverNode,
         defNodeColor,
         setDefNodeColor,
         colorMode
@@ -82,28 +108,19 @@ function getColorVisual(
     node: any,
     graphData: any,
     threshold: number,
-    highlightNodes: any,
-    hoverNode: any,
     defNodeColor: any,
     setDefNodeColor: any,
     colorMode: string
 ): ColorRepresentation {
     let { nodes, links } = graphData;
-    if (highlightNodes.has(node)) {
-        if (node === hoverNode) {
-            return "rgb(50,50,200)";
-        }
-    }
-    let neighbors: any = getNeighbors(node, links);
-    if (neighbors.nodes.includes(hoverNode)) return "rgb(0,150,150)";
+
     switch (colorMode) {
         case "neighbor":
+            let neighbors: any = getNeighbors(node, links);
             return getColorNeighbor(
                 node,
                 graphData,
                 threshold,
-                highlightNodes,
-                hoverNode,
                 defNodeColor,
                 setDefNodeColor,
                 neighbors
@@ -119,9 +136,9 @@ function getColorVisual(
         case "latency":
             return getColorThreshold(threshold, node.latency);
         case "dark-default":
-            return "rgb(200,200,200)";
+            return LIGHT_GRAY;
         case "light-default":
-            return "rgb(50,50,50)";
+            return DARK_GRAY;
     }
     return node.color;
 }
@@ -130,8 +147,6 @@ function getColorNeighbor(
     node: any,
     graphData: any,
     threshold: number,
-    highlightNodes: any,
-    hoverNode: any,
     defNodeColor: any,
     setDefNodeColor: any,
     neighbors: any
@@ -182,94 +197,22 @@ function getColorNeighbor(
     return node.color;
 }
 
-function getColorGit(
-    node: any,
-    graphData: any,
-    threshold: number,
-    highlightNodes: any,
-    hoverNode: any,
-    defNodeColor: any,
-    setDefNodeColor: any
-): ColorRepresentation {
-    let { nodes, links } = graphData;
-    if (highlightNodes.has(node)) {
-        if (node === hoverNode) {
-            return "rgb(50,50,200)";
-        }
-    }
-    let neighbors: any = getNeighbors(node, links);
-    if (neighbors.nodes.includes(hoverNode)) return "rgb(0,150,150)";
-
-    if (!defNodeColor) {
-        nodes.map((n: any) => {
-            n.color = "-1";
-        });
-        setDefNodeColor(true);
-    }
-
-    if (node.color === "-1") {
-        const colors = [
-            "rgb(250, 93, 57)",
-            "rgb(255, 167, 0)",
-            "rgb(245, 239, 71)",
-            "rgb(51, 241, 255)",
-            "rgb(204, 51, 255)",
-            "rgb(255, 51, 112)",
-            "rgb(173, 255, 51)",
-            "rgb(194, 151, 252)",
-        ];
-
-        //let neighbors: any = getNeighbors(node, links);
-
-        let offLimits: any = [];
-        let newColors: any = [];
-
-        neighbors.nodes.map((neighbor: any) => {
-            if (neighbor.color !== "-1") {
-                offLimits.push(neighbor.color);
-            }
-        });
-
-        colors.map((color) => {
-            if (offLimits.indexOf(color) === -1) {
-                newColors.push(color);
-            }
-        });
-
-        let randIndex = Math.floor(Math.random() * newColors.length);
-
-        node.color = newColors[randIndex];
-    }
-
-    return node.color;
-}
-
 function getColorCoupling(
     node: any,
     graphData: any,
-    threshold: number,
-    highlightNodes: any,
-    hoverNode: any
+    threshold: number
 ): ColorRepresentation {
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).nodes.length;
 
-    if (highlightNodes && highlightNodes.has(node)) {
-        if (node === hoverNode) {
-            return "rgb(50,50,200)";
-        } else {
-            return "rgb(0,200,200)";
-        }
-    }
-
     if (numNeighbors > threshold) {
-        return "rgb(255,0,0)";
+        return RED;
     }
     if (numNeighbors > threshold / 2) {
-        return "rgb(255,160,0)";
+        return ORANGE;
     }
 
-    return "rgb(0,255,0)";
+    return GREEN;
 }
 
 function getColorThreshold(
@@ -277,13 +220,13 @@ function getColorThreshold(
     value: number
 ): ColorRepresentation {
     if (value > threshold) {
-        return "rgb(255,0,0)";
+        return RED;
     }
     if (value > threshold / 2) {
-        return "rgb(255,160,0)";
+        return ORANGE;
     }
 
-    return "rgb(0,255,0)";
+    return GREEN;
 }
 
 // Find neighbors of a given node
@@ -367,23 +310,10 @@ function getSpriteColor(
     );
 }
 
-// Highlight neighbors
-function getHighlightNeighbors(
-    node: any,
-    graphData: any,
-    highlightLinks: any,
-    highlightNodes: any
-) {
-    let { links } = graphData;
-    const { nodeLinks, nodes } = getNeighbors(node, links);
-    nodeLinks.forEach((link: any) => highlightLinks.add(link));
-    nodes.forEach((node: any) => highlightNodes.add(node));
-}
-
 function getLinkOpacity(link: any, search: any, threed: any) {
     if (search === "") {
         if (threed) {
-            return 0.9;
+            return 1;
         }
         return 0.7;
     }
@@ -410,16 +340,23 @@ function getLinkColor(
     threed: any,
     selectedAntiPattern: any
 ) {
-    if (antiPattern && selectedAntiPattern != "none") {
-        return linkColorCoupling(link, search, threed);
+    if (link.source.nodeName === hoverNode) {
+        return LINK_FROM_HOVER;
+    } else if (link.target.nodeName === hoverNode) {
+        return LINK_TO_HOVER;
     }
-    return linkColorVisual(link, search, hoverNode, threed);
+
+    if (antiPattern && selectedAntiPattern != "none") {
+        if (selectedAntiPattern == "coupling") {
+            return linkColorCoupling(link, search, threed);
+        } else {
+            return LIGHT_GRAY;
+        }
+    }
+    return linkColorVisual(link, search, threed);
 }
 
-function linkColorVisual(link: any, search: any, hoverNode: any, threed: any) {
-    if (link.source === hoverNode) {
-        return `rgba(50,50,200, ${getLinkOpacity(link, search, threed)})`;
-    }
+function linkColorVisual(link: any, search: any, threed: any) {
     let color = link.source.color;
     if (color && color! + -1) {
         color = color
@@ -435,14 +372,6 @@ function linkColorCoupling(link: any, search: any, threed: any) {
 
 function getLinkWidth(link: any, search: any) {
     return link.requests.length;
-    /*if (search === "") {
-        return link.requests.length * 6;
-    }
-    if (link.source.nodeName.toLowerCase().includes(search.toLowerCase()) || link.target.nodeName.toLowerCase().includes(search.toLowerCase())) {
-        return link.requests.length * 6;
-    } else {
-        return 0;
-    }*/
 }
 
 export {
@@ -451,7 +380,6 @@ export {
     getNeighbors,
     reset,
     resetView,
-    getHighlightNeighbors,
     getNodeOpacity,
     getSpriteColor,
     getLinkOpacity,

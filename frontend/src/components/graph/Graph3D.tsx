@@ -5,6 +5,7 @@ import {
     getColor,
     getLinkColor,
     getLinkWidth,
+    getNeighbors,
     getNodeOpacity,
     getSpriteColor,
     getVisibility,
@@ -50,8 +51,12 @@ const Graph: React.FC<Props> = ({
     isDarkMode,
     selectedAntiPattern,
 }) => {
-    const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
-    const [highlightLinks, setHighlightLinks] = useState<any>(new Set());
+    const [highlightNodes, setHighlightNodes] = useState<Set<string>>(
+        new Set()
+    );
+    const [highlightLinks, setHighlightLinks] = useState<Set<string>>(
+        new Set()
+    );
     const [hoverNode, setHoverNode] = useState(null);
     const [selectedLink, setSelectedLink] = useState(null);
     const [hideNodes, setHideNodes] = useState<any>(new Set());
@@ -61,8 +66,12 @@ const Graph: React.FC<Props> = ({
         highlightLinks.clear();
 
         if (node) {
-            highlightNodes.add(node);
-            setHoverNode(node);
+            highlightNodes.add(node.nodeName);
+            setHoverNode(node.nodeName);
+            const neighbors = getNeighbors(node, sharedProps.graphData?.links);
+            neighbors.nodes.forEach((node: any) =>
+                highlightNodes.add(node.nodeName)
+            );
         }
         updateHighlight();
     };
@@ -72,16 +81,18 @@ const Graph: React.FC<Props> = ({
         highlightLinks.clear();
 
         if (link) {
-            highlightLinks.add(link);
+            highlightLinks.add(link.id);
             highlightNodes.add(link.source);
             highlightNodes.add(link.target);
         }
 
         updateHighlight();
     };
+
     const updateHighlight = () => {
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
+        graphRef.current.refresh();
     };
 
     const handleNodeClick = useCallback(
@@ -220,8 +231,8 @@ const Graph: React.FC<Props> = ({
                     selectedAntiPattern
                 )
             }
-            linkDirectionalParticles={(link) =>
-                highlightLinks.has(link) ? 2 : 0
+            linkDirectionalParticles={(link: any) =>
+                highlightLinks.has(link.id) ? 2 : 0
             }
             linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             linkColor={(link) =>
