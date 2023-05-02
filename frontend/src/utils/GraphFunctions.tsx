@@ -12,7 +12,7 @@ const DARK_GRAY = "rgb(50,50,50)";
 const IN_PATTERN = "rgb(235,52,192)";
 
 const LINK_FROM_HOVER = "rgba(232, 190, 39,1)";
-const LINK_TO_HOVER = "rgba(39,232,49,1)";
+const LINK_TO_HOVER = "rgba(179, 66, 245,1)";
 
 function getShape(type: String): number {
     if (type === "service") {

@@ -53,7 +53,7 @@ function App() {
     return (
         <div
             className={`max-w-full min-h-screen max-h-screen overflow-clip ${
-                isDark ? `bg-gray-900` : `bg-white`
+                isDark ? `bg-gray-900` : `bg-gray-100`
             }`}
             ref={ref}
         >
