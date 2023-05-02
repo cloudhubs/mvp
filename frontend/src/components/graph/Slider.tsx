@@ -21,7 +21,7 @@ const Slider: React.FC<Props> = ({
         setValue(e.target.value);
     };
     return (
-        <div className="w-full h-fit p-0 my-4 bg-transparent accent-blue-300 border-none active:accent-blue-300">
+        <div className="w-full h-fit p-0 my-2 bg-transparent accent-blue-300 border-none active:accent-blue-300">
             <label htmlFor="slider" className="h-fit">
                 Threshold
             </label>

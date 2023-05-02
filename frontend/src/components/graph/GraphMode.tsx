@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Slider from "./Slider";
+import { countCyclic } from "../../utils/antipatternUtils";
+import PatternCounter from "../PatternCounter";
 
 type Props = {
     value: number;
@@ -10,6 +12,9 @@ type Props = {
     setAntiPattern: any;
     selectedAntiPattern: any;
     setSelectedAntiPattern: any;
+    graphData: any;
+    currentInstance: any;
+    graphTimeline: any;
 };
 const GraphMode: React.FC<Props> = ({
     value,
@@ -20,6 +25,9 @@ const GraphMode: React.FC<Props> = ({
     setAntiPattern,
     selectedAntiPattern,
     setSelectedAntiPattern,
+    graphData,
+    currentInstance,
+    graphTimeline,
 }) => {
     const [open, setOpen] = useState(false);
 
@@ -120,6 +128,16 @@ const GraphMode: React.FC<Props> = ({
             {antiPattern ? (
                 <ul className="grid w-full gap-6 md:grid-cols-1">
                     <li>
+                        <Slider
+                            min={min}
+                            max={max}
+                            setMin={setMin}
+                            setMax={setMax}
+                            value={value}
+                            setValue={setValue}
+                        />
+                    </li>
+                    <li>
                         <input
                             type="checkbox"
                             id="react-option"
@@ -136,18 +154,6 @@ const GraphMode: React.FC<Props> = ({
                                 <div className="w-full text-sm font-semibold">
                                     High Coupling
                                 </div>
-                                {highCoupling ? (
-                                    <Slider
-                                        min={min}
-                                        max={max}
-                                        setMin={setMin}
-                                        setMax={setMax}
-                                        value={value}
-                                        setValue={setValue}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
                             </div>
                         </label>
                     </li>
@@ -155,7 +161,7 @@ const GraphMode: React.FC<Props> = ({
                         <input
                             type="checkbox"
                             id="flowbite-option"
-                            value="cyclic"
+                            value="Cyclic Dependency"
                             className="hidden peer"
                             onClick={handleSelectPattern}
                         />
@@ -168,6 +174,13 @@ const GraphMode: React.FC<Props> = ({
                                 <div className="w-full text-sm font-semibold">
                                     Cyclic Dependencies
                                 </div>
+                                <PatternCounter
+                                    counterFn={countCyclic}
+                                    graphData={graphData}
+                                    graphTimeline={graphTimeline}
+                                    currentInstance={currentInstance}
+                                    threshold={value}
+                                />
                             </div>
                         </label>
                     </li>
@@ -175,7 +188,7 @@ const GraphMode: React.FC<Props> = ({
                         <input
                             type="checkbox"
                             id="angular-option"
-                            value="knot"
+                            value="Knot"
                             className="hidden peer"
                             onClick={handleSelectPattern}
                         />

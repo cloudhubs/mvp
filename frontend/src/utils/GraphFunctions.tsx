@@ -87,7 +87,7 @@ function getColor(
         }
 
         switch (selectedAntiPattern) {
-            case "cyclic":
+            case "Cyclic Dependency":
                 const cyclic = node.patterns.find(
                     (pattern: Antipattern) =>
                         pattern.type === "Cyclic Dependency"
@@ -408,11 +408,11 @@ function getLinkWidth(
 
 function linkInAntiPattern(link: any, selectedAntiPattern: any) {
     return (
-        link.source.patterns?.find((pattern: any) =>
-            pattern.type.toLowerCase().includes(selectedAntiPattern)
+        link.source.patterns?.find(
+            (pattern: any) => pattern.type === selectedAntiPattern
         ) &&
-        link.target.patterns?.find((pattern: any) =>
-            pattern.type.toLowerCase().includes(selectedAntiPattern)
+        link.target.patterns?.find(
+            (pattern: any) => pattern.type === selectedAntiPattern
         )
     );
 }

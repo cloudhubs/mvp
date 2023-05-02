@@ -68,6 +68,9 @@ function App() {
                 setAntiPattern={setAntiPattern}
                 selectedAntiPattern={selectedAntiPattern}
                 setSelectedAntiPattern={setSelectedAntiPattern}
+                graphData={graphData}
+                currentInstance={currentInstance}
+                graphTimeline={graphTimeline}
             />
             {/* Graph Menu on upper right with buttons */}
             <GraphMenu
@@ -86,6 +89,8 @@ function App() {
                 setIs3d={setIs3d}
                 isDark={isDark}
                 setIsDark={setIsDark}
+                antiPattern={antiPattern}
+                selectedAntiPattern={selectedAntiPattern}
             />
             {/* Graph object itself, contained within a wrapper to toggle 2d-3d */}
             <GraphWrapper
@@ -108,7 +113,7 @@ function App() {
                 selectedAntiPattern={selectedAntiPattern}
                 trackNodes={trackNodes}
             />
-            <Menu trackNodes={trackNodes} setTrackNodes={setTrackNodes}/>
+            <Menu trackNodes={trackNodes} setTrackNodes={setTrackNodes} />
 
             {/* left click node pop up box */}
             <InfoBox />

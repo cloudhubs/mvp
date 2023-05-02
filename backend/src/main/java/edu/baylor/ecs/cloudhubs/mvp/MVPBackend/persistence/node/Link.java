@@ -29,6 +29,6 @@ public class Link {
     private List<Request> requests;
 
     public String getName() {
-        return source + "->" + target;
+        return source + " --> " + target;
     }
 }

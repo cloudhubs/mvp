@@ -4,6 +4,7 @@ import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.serialization.L
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.serialization.NodeConverter;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.AntiPattern;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,6 +45,8 @@ public class GraphModel {
     @NotNull
     @Column(columnDefinition="LONGTEXT")
     Set<Link> links;
+
+    protected String gitCommitId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

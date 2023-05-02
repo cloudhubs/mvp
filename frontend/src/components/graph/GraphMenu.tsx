@@ -18,6 +18,8 @@ type Props = {
     setIs3d: any;
     isDark: boolean;
     setIsDark: React.Dispatch<React.SetStateAction<boolean>>;
+    antiPattern: boolean;
+    selectedAntiPattern: string;
 };
 
 /**
@@ -43,6 +45,8 @@ const GraphMenu: React.FC<Props> = ({
     setIs3d,
     isDark,
     setIsDark,
+    antiPattern,
+    selectedAntiPattern,
 }) => {
     return (
         <div className="absolute top-2 right-2 z-50 flex flex-col gap-2 text-sm bg-blue-300 bg-opacity-60 rounded-lg p-4 w-44">
