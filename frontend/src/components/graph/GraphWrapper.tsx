@@ -12,7 +12,6 @@ type Props = {
     graphData: any;
     setInitCoords: any;
     setInitRotation: any;
-    highCoupling: any;
     is3d: any;
     antiPattern: any;
     colorMode: any;
@@ -33,7 +32,6 @@ const VisualizationOptions: React.FC<Props> = ({
     graphData,
     setInitCoords,
     setInitRotation,
-    highCoupling,
     is3d,
     antiPattern,
     colorMode,
@@ -65,7 +63,6 @@ const VisualizationOptions: React.FC<Props> = ({
                     threshold={threshold}
                     setInitCoords={setInitCoords}
                     setInitRotation={setInitRotation}
-                    highCoupling={highCoupling}
                     antiPattern={antiPattern}
                     colorMode={colorMode}
                 />
@@ -79,7 +76,6 @@ const VisualizationOptions: React.FC<Props> = ({
                 graphRef={graphRef}
                 setInitCoords={setInitCoords}
                 setInitRotation={setInitRotation}
-                highCoupling={highCoupling}
                 antiPattern={antiPattern}
                 colorMode={colorMode}
                 defNodeColor={defNodeColor}

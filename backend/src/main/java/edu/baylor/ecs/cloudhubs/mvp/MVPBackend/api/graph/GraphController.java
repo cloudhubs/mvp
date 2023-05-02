@@ -75,10 +75,13 @@ public class GraphController {
         try {
             savedModel = graphService.createNewLifelongGraph(graphModel);
         } catch (ForbiddenException e) {
+            e.printStackTrace();
             return Errors.Response403Forbidden(e.getMessage());
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
             return Errors.Response400BadRequest(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             return Errors.Response500InternalServerError(e.getCause(), e.getMessage());
         }
         return ResponseEntity.ok(savedModel);

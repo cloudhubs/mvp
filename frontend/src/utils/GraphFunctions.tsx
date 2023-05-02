@@ -63,7 +63,6 @@ function getColor(
     hoverNode: any,
     defNodeColor: any,
     setDefNodeColor: any,
-    highCoupling: any,
     antipattern: any,
     colorMode: any,
     selectedAntiPattern: any,
@@ -82,10 +81,6 @@ function getColor(
     }
 
     if (antipattern && selectedAntiPattern != "none") {
-        if (highCoupling) {
-            return getColorCoupling(node, graphData, threshold);
-        }
-
         switch (selectedAntiPattern) {
             case "Cyclic Dependency":
                 const cyclic = node.patterns.find(
@@ -93,8 +88,15 @@ function getColor(
                         pattern.type === "Cyclic Dependency"
                 );
                 return cyclic != undefined ? IN_PATTERN : LIGHT_GRAY;
-            case "knot":
-                break;
+            case "Bottleneck":
+                const bottlneck = node.patterns.find(
+                    (pattern: Antipattern) => pattern.type === "Bottleneck"
+                );
+                return bottlneck?.threshold > threshold
+                    ? IN_PATTERN
+                    : LIGHT_GRAY;
+            case "High Coupling":
+                return getColorCoupling(node, graphData, threshold);
             // default just continue into visual color scheme (based on theme)
         }
     }
@@ -298,7 +300,6 @@ function getSpriteColor(
     hoverNode: any,
     defNodeColor: any,
     setDefNodeColor: any,
-    highCoupling: any,
     antipattern: any,
     colorMode: any,
     selectedAntiPattern: any,
@@ -312,7 +313,6 @@ function getSpriteColor(
         hoverNode,
         defNodeColor,
         setDefNodeColor,
-        highCoupling,
         antipattern,
         colorMode,
         selectedAntiPattern,
@@ -360,18 +360,18 @@ function getLinkColor(
     if (antiPattern) {
         if (selectedAntiPattern == "coupling") {
             return `rgba(102,102,153, ${getLinkOpacity(link, search, threed)})`;
-        } else {
+        } else if (selectedAntiPattern == "Cyclic Dependency") {
             if (linkInAntiPattern(link, selectedAntiPattern)) {
                 const color = IN_PATTERN.replace(`)`, `,0.99)`).replace(
                     "rgb",
                     "rgba"
                 );
-                console.log(link.name + " color: " + color);
 
                 return color;
             }
         }
     }
+
     return `rgba(150,150,150,${getLinkOpacity(link, search, threed)})`;
 }
 
@@ -396,7 +396,10 @@ function getLinkWidth(
 ) {
     let size = (link.requests?.length ?? 0) + 2;
     if (antiPattern) {
-        if (linkInAntiPattern(link, selectedAntiPattern)) {
+        if (
+            selectedAntiPattern == "Cyclic Dependency" &&
+            linkInAntiPattern(link, selectedAntiPattern)
+        ) {
             size *= 2;
         }
     }

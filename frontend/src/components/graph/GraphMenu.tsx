@@ -12,8 +12,6 @@ type Props = {
     setGraphData: any;
     initCoords: any;
     initRotation: any;
-    highCoupling: any;
-    setHighCoupling: any;
     is3d: any;
     setIs3d: any;
     isDark: boolean;
@@ -39,8 +37,6 @@ const GraphMenu: React.FC<Props> = ({
     setGraphData,
     initCoords,
     initRotation,
-    highCoupling,
-    setHighCoupling,
     is3d,
     setIs3d,
     isDark,

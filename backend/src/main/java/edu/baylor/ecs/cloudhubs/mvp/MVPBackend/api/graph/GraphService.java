@@ -4,6 +4,7 @@ import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.model.ForbiddenException;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.api.model.NotFoundException;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.dao.GraphDAO;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.GraphModel;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.graph.MicroserviceGraph;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class GraphService {
         if (!graphDAO.existsByGraphName(graphModel.getGraphName())) {
             throw new NotFoundException("This graph identifier is not currently in use");
         }
+        AntiPatternLabeler labeler = new AntiPatternLabeler(graphModel.toGraph());
+        MicroserviceGraph newGraph = labeler.labelAll();
+        graphModel.setGraph(newGraph);
+
         return graphDAO.save(graphModel);
     }
 
@@ -41,6 +46,11 @@ public class GraphService {
         else if (graphModel.getGraphName() == null) {
             throw new IllegalArgumentException("graphName must be a uniquer identifier for graph");
         }
+
+        AntiPatternLabeler labeler = new AntiPatternLabeler(graphModel.toGraph());
+        MicroserviceGraph newGraph = labeler.labelAll();
+        graphModel.setGraph(newGraph);
+
         return graphDAO.save(graphModel);
     }
 
@@ -52,14 +62,7 @@ public class GraphService {
     }
 
     public GraphModel updateGraphInstance(GraphModel graphModel) {
-        if (!graphDAO.existsById(graphModel.getInstanceId())) {
-            throw new IllegalArgumentException("Graph of this id does not exist");
-        }
-        graphDAO.deleteById(graphModel.getInstanceId());
-        return graphDAO.save(graphModel);
-    }
-
-    public void compareGraphInstances(long id1, long id2) {
-
+        deleteGraphInstance(graphModel.getInstanceId());
+        return this.newGraphInstance(graphModel);
     }
 }

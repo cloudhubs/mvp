@@ -17,7 +17,6 @@ function App() {
     const [initCoords, setInitCoords] = useState(null);
     const [initRotation, setInitRotation] = useState(null);
     const [graphData, setGraphData] = useState(myData);
-    const [highCoupling, setHighCoupling] = useState(false);
     const [is3d, setIs3d] = useState(true);
     const [antiPattern, setAntiPattern] = useState(false);
     const [selectedAntiPattern, setSelectedAntiPattern] = useState("none");
@@ -25,7 +24,7 @@ function App() {
     const [color, setColor] = useState("dark-default");
     const ref = useRef<HTMLDivElement>(null);
     const [isDark, setIsDark] = useState(true);
-    const [graphName, setGraphName] = useState("traintickettest1");
+    const [graphName, setGraphName] = useState("test");
     const [graphTimeline, setGraphTimeline] = useState<any[] | null>(null);
     const [currentInstance, setCurrentInstance] = useState<number>();
     const [defNodeColor, setDefNodeColor] = useState(false);
@@ -62,8 +61,6 @@ function App() {
             <GraphMode
                 value={value}
                 setValue={setValue}
-                highCoupling={highCoupling}
-                setHighCoupling={setHighCoupling}
                 antiPattern={antiPattern}
                 setAntiPattern={setAntiPattern}
                 selectedAntiPattern={selectedAntiPattern}
@@ -83,8 +80,6 @@ function App() {
                 setGraphData={setGraphData}
                 initCoords={initCoords}
                 initRotation={initRotation}
-                highCoupling={highCoupling}
-                setHighCoupling={setHighCoupling}
                 is3d={is3d}
                 setIs3d={setIs3d}
                 isDark={isDark}
@@ -102,7 +97,6 @@ function App() {
                 graphData={graphData}
                 setInitCoords={setInitCoords}
                 setInitRotation={setInitRotation}
-                highCoupling={highCoupling}
                 is3d={is3d}
                 antiPattern={antiPattern}
                 colorMode={color}

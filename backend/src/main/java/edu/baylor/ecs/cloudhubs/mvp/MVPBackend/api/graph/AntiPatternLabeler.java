@@ -58,6 +58,10 @@ public class AntiPatternLabeler {
     }
 
     public MicroserviceGraph labelAll() {
+        Set<Node> newNodes = graph.getNodes();
+        newNodes.forEach(Node::clearPatterns);
+        graph = new MicroserviceGraph(newNodes, graph.getLinks());
+
         return this.labelCyclicDependencies()
                 .labelBottleneck()
                 .getGraph();

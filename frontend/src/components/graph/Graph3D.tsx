@@ -4,13 +4,10 @@ import { ForceGraphProps as SharedProps } from "react-force-graph-2d";
 import {
     getColor,
     getLinkColor,
-    getLinkOpacity,
     getLinkWidth,
     getNeighbors,
     getNodeOpacity,
-    getSpriteColor,
     getVisibility,
-    showNeighbors,
 } from "../../utils/GraphFunctions";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
@@ -24,7 +21,6 @@ type Props = {
     graphRef: any;
     setInitCoords: any;
     setInitRotation: any;
-    highCoupling: any;
     antiPattern: any;
     colorMode: any;
     defNodeColor: any;
@@ -44,13 +40,11 @@ const Graph: React.FC<Props> = ({
     graphRef,
     setInitCoords,
     setInitRotation,
-    highCoupling,
     antiPattern,
     colorMode,
     defNodeColor,
     setDefNodeColor,
     setGraphData,
-    isDarkMode,
     selectedAntiPattern,
     trackNodes,
 }) => {
@@ -176,7 +170,6 @@ const Graph: React.FC<Props> = ({
                     hoverNode,
                     defNodeColor,
                     setDefNodeColor,
-                    highCoupling,
                     antiPattern,
                     colorMode,
                     selectedAntiPattern,

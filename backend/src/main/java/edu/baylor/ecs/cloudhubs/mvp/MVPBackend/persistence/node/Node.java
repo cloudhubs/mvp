@@ -38,12 +38,15 @@ public class Node {
      * @param nodeName other node name
      * @return if same
      */
-    @Deprecated
     public boolean filterByName(String nodeName) {
         return this.nodeName.equals(nodeName);
     }
 
     public void addPattern(AntiPattern pattern) {
         patterns.add(pattern);
+    }
+
+    public void clearPatterns() {
+        patterns.clear();
     }
 }

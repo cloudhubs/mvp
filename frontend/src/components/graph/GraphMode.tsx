@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Slider from "./Slider";
-import { countCyclic } from "../../utils/antipatternUtils";
+import {
+    countBottleneck,
+    countCyclic,
+    countHighCoupling,
+} from "../../utils/antipatternUtils";
 import PatternCounter from "../PatternCounter";
 
 type Props = {
     value: number;
     setValue: React.Dispatch<React.SetStateAction<number>>;
-    highCoupling: any;
-    setHighCoupling: any;
     antiPattern: any;
     setAntiPattern: any;
     selectedAntiPattern: any;
@@ -19,8 +21,6 @@ type Props = {
 const GraphMode: React.FC<Props> = ({
     value,
     setValue,
-    highCoupling,
-    setHighCoupling,
     antiPattern,
     setAntiPattern,
     selectedAntiPattern,
@@ -48,18 +48,12 @@ const GraphMode: React.FC<Props> = ({
         }
     };
 
-    const handleCoupling = (e: any) => {
-        setHighCoupling(!highCoupling);
-        setSelectedAntiPattern(e.target.value);
-    };
-
     const handleSelectPattern = (e: any) => {
-        console.log(e.target.value);
         setSelectedAntiPattern(e.target.value);
     };
 
     return (
-        <div className="absolute top-2 left-2 z-50 flex flex-col gap-2 text-sm bg-blue-300 bg-opacity-60 rounded-lg p-4 w-44">
+        <div className="absolute top-2 left-2 z-50 flex flex-col gap-2 text-sm bg-blue-300 bg-opacity-60 rounded-lg p-4 w-52 max-h-full">
             <div>
                 <button
                     type="button"
@@ -127,7 +121,7 @@ const GraphMode: React.FC<Props> = ({
             )}
             {antiPattern ? (
                 <ul className="grid w-full gap-6 md:grid-cols-1">
-                    <li>
+                    <li className="flex items-center justify-center">
                         <Slider
                             min={min}
                             max={max}
@@ -141,9 +135,9 @@ const GraphMode: React.FC<Props> = ({
                         <input
                             type="checkbox"
                             id="react-option"
-                            value="coupling"
+                            value="High Coupling"
                             className="hidden peer"
-                            onClick={handleCoupling}
+                            onClick={handleSelectPattern}
                         />
                         <label
                             htmlFor="react-option"
@@ -154,6 +148,14 @@ const GraphMode: React.FC<Props> = ({
                                 <div className="w-full text-sm font-semibold">
                                     High Coupling
                                 </div>
+                                <PatternCounter
+                                    counterFn={countHighCoupling}
+                                    graphData={graphData}
+                                    graphTimeline={graphTimeline}
+                                    currentInstance={currentInstance}
+                                    threshold={value}
+                                    prefixText={"Nodes above threshold: "}
+                                />
                             </div>
                         </label>
                     </li>
@@ -179,7 +181,7 @@ const GraphMode: React.FC<Props> = ({
                                     graphData={graphData}
                                     graphTimeline={graphTimeline}
                                     currentInstance={currentInstance}
-                                    threshold={value}
+                                    prefixText={"Cycles: "}
                                 />
                             </div>
                         </label>
@@ -188,7 +190,7 @@ const GraphMode: React.FC<Props> = ({
                         <input
                             type="checkbox"
                             id="angular-option"
-                            value="Knot"
+                            value="Bottleneck"
                             className="hidden peer"
                             onClick={handleSelectPattern}
                         />
@@ -197,10 +199,18 @@ const GraphMode: React.FC<Props> = ({
                             className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
                         >
                             <div className="flex flex-col justify-center items-center text-center">
-                                {knotSvg}
+                                {bottleneckSvg}
                                 <div className="w-full text-sm font-semibold">
-                                    Knot
+                                    Bottleneck
                                 </div>
+                                <PatternCounter
+                                    counterFn={countBottleneck}
+                                    graphData={graphData}
+                                    graphTimeline={graphTimeline}
+                                    currentInstance={currentInstance}
+                                    threshold={value}
+                                    prefixText={"Nodes above theshold: "}
+                                />
                             </div>
                         </label>
                     </li>
@@ -214,7 +224,7 @@ const GraphMode: React.FC<Props> = ({
 
 export default GraphMode;
 
-const knotSvg = (
+const bottleneckSvg = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         className="mb-2 text-sky-500 w-7 h-7"

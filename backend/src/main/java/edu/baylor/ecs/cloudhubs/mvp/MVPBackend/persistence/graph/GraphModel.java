@@ -66,19 +66,8 @@ public class GraphModel {
         return new MicroserviceGraph(nodes, links);
     }
 
-    /**
-     * Builder for the graph
-     * @param instanceId instance ID
-     * @param graphName lifelong graph identifier
-     * @param graph graph representation from Guava
-     * @return graph model
-     */
-    public static GraphModel fromGraph(Long instanceId, String graphName, MicroserviceGraph graph) {
-        return GraphModel.builder()
-                .instanceId(instanceId)
-                .graphName(graphName)
-                .nodes(graph.getNodes())
-                .links(graph.getLinks())
-                .build();
+    public void setGraph(MicroserviceGraph newGraph) {
+        this.nodes = newGraph.getNodes();
+        this.links = newGraph.getLinks();
     }
 }
