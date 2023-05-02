@@ -1,7 +1,6 @@
 import React from "react";
 import { ForceGraphProps as SharedProps } from "react-force-graph-2d";
 
-import Graph2D from "./Graph2D";
 import Graph3D from "./Graph3D";
 
 type Props = {
@@ -90,7 +89,6 @@ const VisualizationOptions: React.FC<Props> = ({
                 selectedAntiPattern={selectedAntiPattern}
                 trackNodes={trackNodes}
             />
-            {/* )} */}
         </div>
     );
 };

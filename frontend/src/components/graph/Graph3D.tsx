@@ -4,6 +4,7 @@ import { ForceGraphProps as SharedProps } from "react-force-graph-2d";
 import {
     getColor,
     getLinkColor,
+    getLinkOpacity,
     getLinkWidth,
     getNeighbors,
     getNodeOpacity,
@@ -59,9 +60,24 @@ const Graph: React.FC<Props> = ({
     const [highlightLinks, setHighlightLinks] = useState<Set<string>>(
         new Set()
     );
+
     const [hoverNode, setHoverNode] = useState(null);
     const [selectedLink, setSelectedLink] = useState(null);
     const [hideNodes, setHideNodes] = useState<any>(new Set());
+
+    // On page load
+    useEffect(() => {
+        let { x, y, z } = graphRef.current.cameraPosition();
+
+        setInitCoords({ x, y, z });
+        setInitRotation(graphRef.current.camera().quaternion);
+        graphRef.current.d3Force("charge").strength((node: any) => {
+            return -500;
+        });
+        graphRef.current.d3Force("link").distance((link: any) => {
+            return 80;
+        });
+    }, []);
 
     const handleNodeHover = (node: any) => {
         highlightNodes.clear();
@@ -74,6 +90,9 @@ const Graph: React.FC<Props> = ({
             neighbors.nodes.forEach((node: any) =>
                 highlightNodes.add(node.nodeName)
             );
+            neighbors.nodeLinks.forEach((link: any) =>
+                highlightLinks.add(link.name)
+            );
         }
         updateHighlight();
     };
@@ -83,7 +102,7 @@ const Graph: React.FC<Props> = ({
         highlightLinks.clear();
 
         if (link) {
-            highlightLinks.add(link.id);
+            highlightLinks.add(link.name);
             highlightNodes.add(link.source);
             highlightNodes.add(link.target);
         }
@@ -97,6 +116,7 @@ const Graph: React.FC<Props> = ({
         graphRef.current.refresh();
     };
 
+    // On node left click - zoom in on the node and pull up info box
     const handleNodeClick = useCallback(
         (node: any) => {
             if (node != null) {
@@ -123,19 +143,6 @@ const Graph: React.FC<Props> = ({
         [graphRef]
     );
 
-    useEffect(() => {
-        let { x, y, z } = graphRef.current.cameraPosition();
-
-        setInitCoords({ x, y, z });
-        setInitRotation(graphRef.current.camera().quaternion);
-        graphRef.current.d3Force("charge").strength((node: any) => {
-            return -220;
-        });
-        graphRef.current.d3Force("link").distance((link: any) => {
-            return 60;
-        });
-    }, []);
-
     return (
         <ForceGraph3D
             ref={graphRef}
@@ -160,34 +167,9 @@ const Graph: React.FC<Props> = ({
                 });
                 document.dispatchEvent(event);
             }}
-            nodeThreeObject={(node) => {
-                const nodes = new THREE.Mesh(
-                    new THREE.SphereGeometry(5),
-                    new THREE.MeshLambertMaterial({
-                        transparent: true,
-                        color: getColor(
-                            node,
-                            sharedProps.graphData,
-                            threshold,
-                            highlightNodes,
-                            hoverNode,
-                            defNodeColor,
-                            setDefNodeColor,
-                            highCoupling,
-                            antiPattern,
-                            colorMode,
-                            selectedAntiPattern,
-                            trackNodes
-                        ),
-                        opacity: getNodeOpacity(node, search),
-                    })
-                );
-                // @ts-ignore
-                const sprite = new SpriteText(node.nodeName);
-                sprite.material.depthWrite = false; // make sprite background transparent
-                sprite.color = getSpriteColor(
+            nodeThreeObject={(node: any) => {
+                const color = getColor(
                     node,
-                    search,
                     sharedProps.graphData,
                     threshold,
                     highlightNodes,
@@ -199,9 +181,29 @@ const Graph: React.FC<Props> = ({
                     colorMode,
                     selectedAntiPattern,
                     trackNodes
-                ) as string;
-                sprite.textHeight = 8;
-                sprite.position.set(0, 10, 0);
+                );
+
+                const nodes = new THREE.Mesh(
+                    new THREE.SphereGeometry(5),
+                    new THREE.MeshLambertMaterial({
+                        transparent: true,
+                        color: color,
+                        opacity: getNodeOpacity(node, search, highlightNodes),
+                    })
+                );
+                const sprite = new SpriteText(node.nodeName);
+                sprite.material.depthWrite = false;
+
+                // Get sprite color, have to change alpha channel as there is no other function
+                sprite.color = color
+                    .replace(
+                        ")",
+                        `,${getNodeOpacity(node, search, highlightNodes)})`
+                    )
+                    .replace("rgb", "rgba");
+
+                sprite.textHeight = 14;
+                sprite.position.set(0, 15, 0);
 
                 nodes.add(sprite);
                 return nodes;
@@ -235,10 +237,18 @@ const Graph: React.FC<Props> = ({
                     selectedAntiPattern
                 )
             }
-            linkDirectionalParticles={(link: any) =>
-                highlightLinks.has(link.id) ? 2 : 0
+            linkDirectionalParticles={(link: any) => {
+                return highlightLinks.has(link.name) ? 4 : 0;
+            }}
+            linkDirectionalParticleWidth={(link) =>
+                getLinkWidth(
+                    link,
+                    search,
+                    highlightLinks,
+                    antiPattern,
+                    selectedAntiPattern
+                )
             }
-            linkDirectionalParticleWidth={(link) => getLinkWidth(link, search)}
             linkColor={(link) =>
                 getLinkColor(
                     link,
@@ -249,6 +259,7 @@ const Graph: React.FC<Props> = ({
                     selectedAntiPattern
                 )
             }
+            linkOpacity={undefined}
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {
                     node.fx = node.x;
@@ -260,7 +271,15 @@ const Graph: React.FC<Props> = ({
             onNodeClick={handleNodeClick}
             onNodeHover={handleNodeHover}
             onLinkHover={handleLinkHover}
-            linkWidth={(link) => getLinkWidth(link, search)}
+            linkWidth={(link) =>
+                getLinkWidth(
+                    link,
+                    search,
+                    highlightLinks,
+                    antiPattern,
+                    selectedAntiPattern
+                )
+            }
         />
     );
 };

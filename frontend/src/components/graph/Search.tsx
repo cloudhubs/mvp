@@ -17,6 +17,7 @@ const Search: React.FC<Props> = ({
     );
 
     const handleInput = (e: any) => {
+        graphRef.current.refresh();
         setSearch(e.target.value);
     };
 

@@ -11,8 +11,8 @@ const DARK_GRAY = "rgb(50,50,50)";
 
 const IN_PATTERN = "rgb(235,52,192)";
 
-const LINK_FROM_HOVER = "rgb(232, 190, 39)";
-const LINK_TO_HOVER = "rgb(39,232,49)";
+const LINK_FROM_HOVER = "rgba(232, 190, 39,1)";
+const LINK_TO_HOVER = "rgba(39,232,49,1)";
 
 function getShape(type: String): number {
     if (type === "service") {
@@ -67,7 +67,7 @@ function getColor(
     antipattern: any,
     colorMode: any,
     selectedAntiPattern: any,
-    trackNodes: any,
+    trackNodes: any
 ): any {
     if (highlightNodes && highlightNodes.has(node.nodeName)) {
         if (node.nodeName === hoverNode) {
@@ -77,8 +77,8 @@ function getColor(
         }
     }
 
-    if(trackNodes.includes(node.nodeName)){
-        return "rgb(25,200,25)"
+    if (trackNodes.includes(node.nodeName)) {
+        return "rgb(25,200,25)";
     }
 
     if (antipattern && selectedAntiPattern != "none") {
@@ -272,15 +272,21 @@ function resetView(graphRef: any, initCoords: any) {
     reset(graphRef);
 }
 
-const getNodeOpacity = (node: any, search: any): number => {
+const getNodeOpacity = (
+    node: any,
+    search: any,
+    highlightNodes: Set<string>
+): number => {
     if (search === "") {
-        return 0.8;
-    }
-    if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
+        if (highlightNodes.size === 0) {
+            return 0.8;
+        }
+        return highlightNodes.has(node.nodeName) ? 1.0 : 0.4;
+    } else if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 0.9;
-    } else {
-        return 0.1;
     }
+
+    return 0.1;
 };
 
 function getSpriteColor(
@@ -296,11 +302,8 @@ function getSpriteColor(
     antipattern: any,
     colorMode: any,
     selectedAntiPattern: any,
-    trackNodes: any,
+    trackNodes: any
 ) {
-    if (!node.nodeName.toLowerCase().includes(search.toLowerCase())) {
-        return "rgba(255,255,255,0)";
-    }
     return getColor(
         node,
         graphData,
@@ -317,26 +320,27 @@ function getSpriteColor(
     );
 }
 
-function getLinkOpacity(link: any, search: any, threed: any) {
-    if (search === "") {
-        if (threed) {
-            return 0.8;
+function getLinkOpacity(link: any, search: any, threed: any): number {
+    if (search && search !== "") {
+        if (
+            link.source.nodeName.toLowerCase().includes(search.toLowerCase()) ||
+            link.target.nodeName.toLowerCase().includes(search.toLowerCase())
+        ) {
+            if (threed) {
+                return 0.9;
+            }
+        } else {
+            if (threed) {
+                return 0.2;
+            }
+            return 0.1;
         }
-        return 0.7;
     }
-    if (
-        link.source.nodeName.toLowerCase().includes(search.toLowerCase()) ||
-        link.target.nodeName.toLowerCase().includes(search.toLowerCase())
-    ) {
-        if (threed) {
-            return 0.9;
-        }
-    } else {
-        if (threed) {
-            return 0.2;
-        }
-        return 0.1;
+
+    if (threed) {
+        return 0.4;
     }
+    return 0.7;
 }
 
 function getLinkColor(
@@ -355,39 +359,62 @@ function getLinkColor(
 
     if (antiPattern) {
         if (selectedAntiPattern == "coupling") {
-            return linkColorCoupling(link, search, threed);
+            return `rgba(102,102,153, ${getLinkOpacity(link, search, threed)})`;
         } else {
-            if (
-                link.source.patterns?.find((pattern: any) =>
-                    pattern.type.toLowerCase().includes(selectedAntiPattern)
-                ) &&
-                link.target.patterns?.find((pattern: any) =>
-                    pattern.type.toLowerCase().includes(selectedAntiPattern)
-                )
-            ) {
-                return IN_PATTERN.replace(`)`, `, 1)`).replace("rgb", "rgba");
+            if (linkInAntiPattern(link, selectedAntiPattern)) {
+                const color = IN_PATTERN.replace(`)`, `,0.99)`).replace(
+                    "rgb",
+                    "rgba"
+                );
+                console.log(link.name + " color: " + color);
+
+                return color;
             }
         }
     }
-    return linkColorVisual(link, search, threed);
+    return `rgba(150,150,150,${getLinkOpacity(link, search, threed)})`;
 }
 
 function linkColorVisual(link: any, search: any, threed: any) {
     let color = link.source.color;
-    if (color && color! + -1) {
-        color = color
-            .replace(`)`, `, ${getLinkOpacity(link, search, threed)})`)
-            .replace("rgb", "rgba");
-    }
+    color = color
+        .replace(`)`, `, ${getLinkOpacity(link, search, threed)})`)
+        .replace("rgb", "rgba");
     return color;
 }
 
 function linkColorCoupling(link: any, search: any, threed: any) {
-    return `rgba(102,102,153, ${getLinkOpacity(link, search, threed)})`;
+    return;
 }
 
-function getLinkWidth(link: any, search: any) {
-    return link.requests.length;
+function getLinkWidth(
+    link: any,
+    search: any,
+    highlightLinks: Set<string>,
+    antiPattern: boolean,
+    selectedAntiPattern: string
+) {
+    let size = (link.requests?.length ?? 0) + 2;
+    if (antiPattern) {
+        if (linkInAntiPattern(link, selectedAntiPattern)) {
+            size *= 2;
+        }
+    }
+    if (highlightLinks.has(link.name)) {
+        size *= 2;
+    }
+    return size;
+}
+
+function linkInAntiPattern(link: any, selectedAntiPattern: any) {
+    return (
+        link.source.patterns?.find((pattern: any) =>
+            pattern.type.toLowerCase().includes(selectedAntiPattern)
+        ) &&
+        link.target.patterns?.find((pattern: any) =>
+            pattern.type.toLowerCase().includes(selectedAntiPattern)
+        )
+    );
 }
 
 export {
