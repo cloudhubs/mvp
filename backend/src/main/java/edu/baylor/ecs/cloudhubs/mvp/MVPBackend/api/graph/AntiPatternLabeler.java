@@ -6,6 +6,7 @@ import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Link;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.node.Node;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.Bottleneck;
 import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.CyclicDependency;
+import edu.baylor.ecs.cloudhubs.mvp.MVPBackend.persistence.patterns.Megaservice;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
@@ -57,6 +58,17 @@ public class AntiPatternLabeler {
         return this;
     }
 
+    public AntiPatternLabeler labelMegaservice() {
+        Map<String, Integer> nodeCount = new HashMap<>();
+
+        for(Link l : graph.getLinks()) {
+            nodeCount.merge(l.getSource(), 1, Integer::sum);
+        }
+
+        nodeCount.forEach((K,V) -> graph.lookup(K).addPattern(new Megaservice(V)));
+        return this;
+    }
+
     public MicroserviceGraph labelAll() {
         Set<Node> newNodes = graph.getNodes();
         newNodes.forEach(Node::clearPatterns);
@@ -64,6 +76,7 @@ public class AntiPatternLabeler {
 
         return this.labelCyclicDependencies()
                 .labelBottleneck()
+                .labelMegaservice()
                 .getGraph();
     }
 }

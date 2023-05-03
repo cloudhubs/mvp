@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CyclicDependency.class, name = "Cyclic Dependency"),
         @JsonSubTypes.Type(value = Bottleneck.class, name = "Bottleneck"),
+        @JsonSubTypes.Type(value = Megaservice.class, name = "Megaservice"),
 })
 public interface AntiPattern {
 }
