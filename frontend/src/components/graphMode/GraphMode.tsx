@@ -5,7 +5,7 @@ import {
     countCyclic,
     countHighCoupling,
 } from "../../utils/antipatternUtils";
-import PatternCounter from "../PatternCounter";
+import AntipatternOption from "./AntipatternOption";
 
 type Props = {
     value: number;
@@ -120,8 +120,8 @@ const GraphMode: React.FC<Props> = ({
                 <></>
             )}
             {antiPattern ? (
-                <ul className="grid w-full gap-6 md:grid-cols-1">
-                    <li className="flex items-center justify-center">
+                <div className="grid w-full gap-6 md:grid-cols-1">
+                    <div className="flex items-center justify-center">
                         <Slider
                             min={min}
                             max={max}
@@ -130,91 +130,47 @@ const GraphMode: React.FC<Props> = ({
                             value={value}
                             setValue={setValue}
                         />
-                    </li>
-                    <li>
-                        <input
-                            type="checkbox"
-                            id="react-option"
-                            value="High Coupling"
-                            className="hidden peer"
+                    </div>
+                    <ul
+                        className={
+                            "dark-scrollbar overflow-y-scroll -m-1 pr-2 flex flex-col gap-2 h-96"
+                        }
+                    >
+                        <AntipatternOption
+                            currentInstance={currentInstance}
+                            graphData={graphData}
+                            graphTimeline={graphTimeline}
                             onClick={handleSelectPattern}
+                            threshold={value}
+                            patternCounterFn={countHighCoupling}
+                            patternName="High Coupling"
+                            svg={couplingSvg}
+                            prefixText="Nodes above threshold: "
                         />
-                        <label
-                            htmlFor="react-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
-                        >
-                            <div className="flex flex-col justify-center items-center text-center">
-                                {couplingSvg}
-                                <div className="w-full text-sm font-semibold">
-                                    High Coupling
-                                </div>
-                                <PatternCounter
-                                    counterFn={countHighCoupling}
-                                    graphData={graphData}
-                                    graphTimeline={graphTimeline}
-                                    currentInstance={currentInstance}
-                                    threshold={value}
-                                    prefixText={"Nodes above threshold: "}
-                                />
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input
-                            type="checkbox"
-                            id="flowbite-option"
-                            value="Cyclic Dependency"
-                            className="hidden peer"
+                        <AntipatternOption
+                            currentInstance={currentInstance}
+                            graphData={graphData}
+                            graphTimeline={graphTimeline}
                             onClick={handleSelectPattern}
+                            threshold={value}
+                            patternCounterFn={countCyclic}
+                            patternName="Cyclic Dependency"
+                            svg={cyclicSvg}
+                            prefixText="Cycles: "
                         />
-                        <label
-                            htmlFor="flowbite-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
-                        >
-                            <div className="flex flex-col justify-center items-center text-center">
-                                {cyclicSvg}
-                                <div className="w-full text-sm font-semibold">
-                                    Cyclic Dependencies
-                                </div>
-                                <PatternCounter
-                                    counterFn={countCyclic}
-                                    graphData={graphData}
-                                    graphTimeline={graphTimeline}
-                                    currentInstance={currentInstance}
-                                    prefixText={"Cycles: "}
-                                />
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input
-                            type="checkbox"
-                            id="angular-option"
-                            value="Bottleneck"
-                            className="hidden peer"
+                        <AntipatternOption
+                            currentInstance={currentInstance}
+                            graphData={graphData}
+                            graphTimeline={graphTimeline}
                             onClick={handleSelectPattern}
+                            threshold={value}
+                            patternCounterFn={countBottleneck}
+                            patternName="Bottleneck"
+                            svg={bottleneckSvg}
+                            prefixText="Nodes above threshold: "
                         />
-                        <label
-                            htmlFor="angular-option"
-                            className="inline-flex items-center justify-center w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer "
-                        >
-                            <div className="flex flex-col justify-center items-center text-center">
-                                {bottleneckSvg}
-                                <div className="w-full text-sm font-semibold">
-                                    Bottleneck
-                                </div>
-                                <PatternCounter
-                                    counterFn={countBottleneck}
-                                    graphData={graphData}
-                                    graphTimeline={graphTimeline}
-                                    currentInstance={currentInstance}
-                                    threshold={value}
-                                    prefixText={"Nodes above theshold: "}
-                                />
-                            </div>
-                        </label>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             ) : (
                 <></>
             )}

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import GraphWrapper from "./components/graph/GraphWrapper";
-import GraphMenu from "./components/graph/GraphMenu";
-import Menu from "./components/graph/Menu";
-import { InfoBox } from "./components/graph/InfoBox";
+import GraphMenu from "./components/graphControlMenu/GraphMenu";
+import Menu from "./components/graph/RightClickNodeMenu";
+import { InfoBox } from "./components/graph/NodeInfoBox";
 import myData from "./data/mock5.json";
-import GraphMode from "./components/graph/GraphMode";
+import GraphMode from "./components/graphMode/GraphMode";
 import TimeSlider from "./components/graph/TimeSlider";
-import ColorSelector from "./components/graph/ColorSelector";
+import ColorSelector from "./components/graphMode/VisualModeColorSelector";
 import { setupAxios, setupLogger } from "./utils/axiosSetup";
 import axios from "axios";
 
