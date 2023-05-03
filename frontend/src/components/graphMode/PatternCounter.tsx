@@ -9,6 +9,9 @@ type Props = {
     prefixText: string;
 };
 
+/**
+ * Returns text displaying instances of patterns based on the given function
+ */
 const PatternCounter: React.FC<Props> = ({
     counterFn,
     currentInstance,

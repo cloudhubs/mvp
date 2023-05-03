@@ -1,5 +1,5 @@
 import React from "react";
-import PatternCounter from "../PatternCounter";
+import PatternCounter from "./PatternCounter";
 
 type Props = {
     onClick: React.MouseEventHandler<HTMLInputElement>;
@@ -25,16 +25,16 @@ const AntipatternOption: React.FC<Props> = ({
     prefixText,
 }) => {
     return (
-        <li>
+        <li key={patternName}>
             <input
                 type="checkbox"
-                id="react-option"
+                id={patternName}
                 value={patternName}
                 className="hidden peer"
                 onClick={onClick}
             />
             <label
-                htmlFor="react-option"
+                htmlFor={patternName}
                 className="inline-flex items-center justify-center w-full p-5 
                 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer"
             >
