@@ -9,6 +9,7 @@ import TimeSlider from "./components/graph/TimeSlider";
 import ColorSelector from "./components/graphMode/VisualModeColorSelector";
 import { setupAxios, setupLogger } from "./utils/axiosSetup";
 import axios from "axios";
+import TrackNodeMenu from "./components/TrackNodeMenu";
 
 function App() {
     const graphRef = useRef();
@@ -140,6 +141,13 @@ function App() {
                     setDefNodeColor={setDefNodeColor}
                 />
             </div>
+            <TrackNodeMenu
+                trackNodes={trackNodes}
+                setTrackNodes={setTrackNodes}
+                graphData={graphData}
+                graphTimeline={graphTimeline}
+                currentInstance={currentInstance}
+            />
         </div>
     );
 }

@@ -124,7 +124,6 @@ export const Menu: React.FC<Props> = ({ trackNodes, setTrackNodes }) => {
             trackNodes.push(node.nodeName);
             setTrackNodes(trackNodes);
         }
-        console.log(trackNodes);
     }
 
     function deleteNode() {
