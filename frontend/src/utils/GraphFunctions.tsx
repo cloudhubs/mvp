@@ -76,9 +76,16 @@ function getColor(
             return HOVER_NEIGHBOR;
         }
     }
-
-    if (focusNode === node.nodeName) {
-        return HOVER_BLUE;
+    if (focusNode) {
+        if (focusNode.node === node.nodeName) {
+            return HOVER_BLUE;
+        } else if (
+            focusNode.neighbors.find(
+                (neighbor: any) => neighbor === node.nodeName
+            )
+        ) {
+            return HOVER_NEIGHBOR;
+        }
     }
 
     if (trackNodes.includes(node.nodeName)) {
@@ -314,20 +321,37 @@ const getNodeOpacity = (
     highlightNodes: Set<string>,
     focusNode: any
 ): number => {
+    const FOCUS_ACTIVE_NOT_SELECTED = 0.05;
     if (search === "") {
-        if (focusNode === node.nodeName) {
+        if (
+            focusNode &&
+            (focusNode.node === node.nodeName ||
+                focusNode.neighbors.find(
+                    (neighbor: any) => neighbor === node.nodeName
+                ))
+        ) {
             return 0.9;
         }
         if (highlightNodes.size === 0) {
             if (focusNode) {
-                return 0.1;
+                return FOCUS_ACTIVE_NOT_SELECTED;
             }
             return 0.8;
         }
-        return highlightNodes.has(node.nodeName) ? 1.0 : focusNode ? 0.1 : 0.5;
+        return highlightNodes.has(node.nodeName)
+            ? 1.0
+            : focusNode
+            ? FOCUS_ACTIVE_NOT_SELECTED
+            : 0.5;
     } else if (node.nodeName.toLowerCase().includes(search.toLowerCase())) {
         return 0.9;
-    } else if (focusNode === node.nodeName) {
+    } else if (
+        focusNode &&
+        (focusNode.node === node.nodeName ||
+            focusNode.neighbors.find(
+                (neighbor: any) => neighbor === node.nodeName
+            ))
+    ) {
         return 0.7;
     } else if (highlightNodes.has(node.nodeName)) {
         return 0.5;
@@ -392,8 +416,8 @@ function getLinkOpacity(
 
     if (focusNode != null) {
         if (
-            link.source.nodeName === focusNode ||
-            link.target.nodeName === focusNode
+            link.source.nodeName === focusNode.node ||
+            link.target.nodeName === focusNode.node
         ) {
             return 0.9;
         } else {
@@ -418,12 +442,12 @@ function getLinkColor(
 ) {
     if (
         link.source.nodeName === hoverNode ||
-        link.source.nodeName === focusNode
+        (focusNode && link.source.nodeName === focusNode.node)
     ) {
         return LINK_FROM_HOVER;
     } else if (
         link.target.nodeName === hoverNode ||
-        link.source.nodeName === focusNode
+        (focusNode && link.source.nodeName === focusNode.node)
     ) {
         return LINK_TO_HOVER;
     }
