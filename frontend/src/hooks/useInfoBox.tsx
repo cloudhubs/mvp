@@ -1,37 +1,42 @@
 import { useEffect, useCallback, useState } from "react";
 import { getNeighbors } from "../utils/GraphFunctions";
-import myData from "../data/train_ticket_new.json";
 
-export const useInfoBox = () => {
+export const useInfoBox = (graphData: any, setFocusNode: any) => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-    const [show, setShow] = useState(false);
-    const [name, setName] = useState();
-    const [type, setType] = useState();
-    const [graphData, setGraphData] = useState<any>(myData);
-    const [depends, setDepends] = useState();
-    const [dependencies, setDependencies] = useState();
+    const [show, setShow] = useState<boolean>(false);
+    const [name, setName] = useState<string>();
+    const [type, setType] = useState<string>();
+    const [depends, setDepends] = useState<any[]>();
+    const [dependencies, setDependencies] = useState<any[]>();
 
     const handleClick = useCallback(
         (event: any) => {
             setAnchorPoint({ x: event.pageX, y: event.pageY });
+            setFocusNode(event.detail.node.nodeName);
             setName(event.detail.node.nodeName);
             setType(event.detail.node.nodeType);
+
             let neighbors = getNeighbors(
                 event.detail.node,
+                graphData.nodes,
                 graphData.links
-            ).nodes;
-            neighbors.splice(neighbors.indexOf(event.detail.node), 1);
-            let dependency = neighbors.map((data: any) => {
-                if (event.detail.node.Dependencies.includes(data.nodeName)) {
-                    neighbors.splice(neighbors.indexOf(data), 1);
-                    return <li key={data.nodeName}>{data.nodeName}</li>;
-                }
-            });
-            neighbors = neighbors.map((data: any) => {
-                return <li key={data.nodeName}>{data.nodeName}</li>;
-            });
-            setDependencies(dependency);
-            setDepends(neighbors);
+            );
+
+            const dependsOn = neighbors.nodeLinks
+                .filter(
+                    (link: any) =>
+                        event.detail.node.nodeName === link.target.nodeName
+                )
+                .map((link: any) => link.source);
+            const dependencies = neighbors.nodeLinks
+                .filter(
+                    (link: any) =>
+                        event.detail.node.nodeName === link.source.nodeName
+                )
+                .map((link: any) => link.target);
+
+            setDependencies(dependencies);
+            setDepends(dependsOn);
             setShow(true);
         },
         [setShow, setAnchorPoint]
@@ -41,6 +46,12 @@ export const useInfoBox = () => {
         () => (show ? setShow(false) : null),
         [show]
     );
+
+    useEffect(() => {
+        if (!show) {
+            setFocusNode(null);
+        }
+    }, [show]);
 
     useEffect(() => {
         document.addEventListener("nodeClick", handleClick);

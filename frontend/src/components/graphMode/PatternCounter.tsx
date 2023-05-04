@@ -11,6 +11,8 @@ type Props = {
 
 /**
  * Returns text displaying instances of patterns based on the given function
+ * Instane 0 will only display info for itself
+ * Subsequent isntances will compare to the prior version
  */
 const PatternCounter: React.FC<Props> = ({
     counterFn,

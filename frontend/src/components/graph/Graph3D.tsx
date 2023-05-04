@@ -29,6 +29,7 @@ type Props = {
     isDarkMode: any;
     selectedAntiPattern: any;
     trackNodes: any;
+    focusNode: any;
 };
 
 const Graph: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const Graph: React.FC<Props> = ({
     setGraphData,
     selectedAntiPattern,
     trackNodes,
+    focusNode,
 }) => {
     const [highlightNodes, setHighlightNodes] = useState<Set<string>>(
         new Set()
@@ -80,7 +82,11 @@ const Graph: React.FC<Props> = ({
         if (node) {
             highlightNodes.add(node.nodeName);
             setHoverNode(node.nodeName);
-            const neighbors = getNeighbors(node, sharedProps.graphData?.links);
+            const neighbors = getNeighbors(
+                node,
+                sharedProps.graphData?.nodes,
+                sharedProps.graphData?.links
+            );
             neighbors.nodes.forEach((node: any) =>
                 highlightNodes.add(node.nodeName)
             );
@@ -114,18 +120,17 @@ const Graph: React.FC<Props> = ({
     const handleNodeClick = useCallback(
         (node: any) => {
             if (node != null) {
-                const distance = 100;
-                const distRatio =
-                    1 + distance / Math.hypot(node.x, node.y, node.z);
                 if (graphRef.current) {
+                    console.log(graphRef.current.camera());
+                    const camPos = graphRef.current.camera().position;
                     graphRef.current.cameraPosition(
                         {
-                            x: node.x * distRatio,
-                            y: node.y * distRatio,
-                            z: node.z * distRatio,
+                            x: camPos.x,
+                            y: camPos.y,
+                            z: camPos.z,
                         },
                         node,
-                        1500
+                        2500
                     );
                 }
                 const event = new CustomEvent("nodeClick", {
@@ -173,7 +178,8 @@ const Graph: React.FC<Props> = ({
                     antiPattern,
                     colorMode,
                     selectedAntiPattern,
-                    trackNodes
+                    trackNodes,
+                    focusNode
                 );
 
                 const nodes = new THREE.Mesh(
@@ -181,7 +187,12 @@ const Graph: React.FC<Props> = ({
                     new THREE.MeshLambertMaterial({
                         transparent: true,
                         color: color,
-                        opacity: getNodeOpacity(node, search, highlightNodes),
+                        opacity: getNodeOpacity(
+                            node,
+                            search,
+                            highlightNodes,
+                            focusNode
+                        ),
                     })
                 );
                 const sprite = new SpriteText(node.nodeName);
@@ -191,7 +202,12 @@ const Graph: React.FC<Props> = ({
                 sprite.color = color
                     .replace(
                         ")",
-                        `,${getNodeOpacity(node, search, highlightNodes)})`
+                        `,${getNodeOpacity(
+                            node,
+                            search,
+                            highlightNodes,
+                            focusNode
+                        )})`
                     )
                     .replace("rgb", "rgba");
 
@@ -227,7 +243,8 @@ const Graph: React.FC<Props> = ({
                     hoverNode,
                     antiPattern,
                     true,
-                    selectedAntiPattern
+                    selectedAntiPattern,
+                    focusNode
                 )
             }
             linkDirectionalParticles={(link: any) => {
@@ -249,7 +266,8 @@ const Graph: React.FC<Props> = ({
                     hoverNode,
                     antiPattern,
                     true,
-                    selectedAntiPattern
+                    selectedAntiPattern,
+                    focusNode
                 )
             }
             linkOpacity={undefined}

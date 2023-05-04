@@ -29,6 +29,7 @@ function App() {
     const [currentInstance, setCurrentInstance] = useState<number>();
     const [defNodeColor, setDefNodeColor] = useState(false);
     const [trackNodes, setTrackNodes] = useState([]);
+    const [focusNode, setFocusNode] = useState();
 
     setupLogger();
     setupAxios();
@@ -36,7 +37,6 @@ function App() {
     useEffect(() => {
         const getGraphLifespan = async () => {
             const graphLifespan = await axios.get(`/graph/${graphName}`);
-            console.log(graphLifespan.data);
             setGraphTimeline(graphLifespan.data);
             setGraphData(graphLifespan.data[0] ?? null);
             setCurrentInstance(0);
@@ -106,11 +106,16 @@ function App() {
                 isDarkMode={isDark}
                 selectedAntiPattern={selectedAntiPattern}
                 trackNodes={trackNodes}
+                focusNode={focusNode}
             />
             <Menu trackNodes={trackNodes} setTrackNodes={setTrackNodes} />
 
             {/* left click node pop up box */}
-            <InfoBox />
+            <InfoBox
+                graphData={graphData}
+                focusNode={focusNode}
+                setFocusNode={setFocusNode}
+            />
             {/* Bottom left "color by" box */}
             {!antiPattern ? (
                 <ColorSelector
