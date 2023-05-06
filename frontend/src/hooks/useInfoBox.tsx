@@ -27,13 +27,13 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
                     (link: any) =>
                         event.detail.node.nodeName === link.target.nodeName
                 )
-                .map((link: any) => link.source);
+                .map((link: any) => link);
             const dependencies = neighbors.nodeLinks
                 .filter(
                     (link: any) =>
                         event.detail.node.nodeName === link.source.nodeName
                 )
-                .map((link: any) => link.target);
+                .map((link: any) => link);
 
             setDependencies(dependencies);
             setDepends(dependsOn);
