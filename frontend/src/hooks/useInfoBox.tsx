@@ -12,7 +12,6 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
     const handleClick = useCallback(
         (event: any) => {
             setAnchorPoint({ x: event.pageX, y: event.pageY });
-            setFocusNode(event.detail.node.nodeName);
             setName(event.detail.node.nodeName);
             setType(event.detail.node.nodeType);
 
@@ -21,6 +20,15 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
                 graphData.nodes,
                 graphData.links
             );
+
+            const neighborNames = neighbors.nodes.map(
+                (node: any) => node.nodeName
+            );
+
+            setFocusNode({
+                node: event.detail.node.nodeName,
+                neighbors: neighborNames,
+            });
 
             const dependsOn = neighbors.nodeLinks
                 .filter(
