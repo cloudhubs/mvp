@@ -50,10 +50,10 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
         [setShow, setAnchorPoint]
     );
 
-    const handleLClick = useCallback(
-        () => (show ? setShow(false) : null),
-        [show]
-    );
+    // const handleLClick = useCallback(
+    //     () => (show ? setShow(false) : null),
+    //     [show]
+    // );
 
     useEffect(() => {
         if (!show) {
@@ -63,12 +63,13 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
 
     useEffect(() => {
         document.addEventListener("nodeClick", handleClick);
-        document.addEventListener("click", handleLClick);
+        // document.addEventListener("click", handleLClick);
         return () => {
             document.removeEventListener("nodeClick", handleClick);
-            document.removeEventListener("click", handleLClick);
+            // document.removeEventListener("click", handleLClick);
         };
     });
+
     return {
         anchorPoint,
         name,

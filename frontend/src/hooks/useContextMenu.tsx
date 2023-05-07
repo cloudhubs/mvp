@@ -10,7 +10,7 @@ export const useContextMenu = () => {
 
     const handleContextMenu = useCallback(
         (event: any) => {
-            console.log(event.detail)
+            console.log(event.detail);
             event.preventDefault();
             setAnchorPoint(event.detail.coords);
             setShow(true);
@@ -35,5 +35,13 @@ export const useContextMenu = () => {
             document.removeEventListener("nodecontextmenu", handleContextMenu);
         };
     });
-    return { anchorPoint, show, node, graphData, setHideNodes, setGraphData, setGraphData2 };
+    return {
+        anchorPoint,
+        show,
+        node,
+        graphData,
+        setHideNodes,
+        setGraphData,
+        setGraphData2,
+    };
 };
