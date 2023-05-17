@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const InfoBox = (props: Props) => {
-    const { anchorPoint, show, name, type, depends, setShow, dependencies } =
+    const { anchorPoint, show, name, type, depends, setShow, dependencies, patterns } =
         useInfoBox(props.graphData, props.setFocusNode);
 
     return (
@@ -83,6 +83,23 @@ export const InfoBox = (props: Props) => {
                                     ) : (
                                         <div>None</div>
                                     )
+                                }
+                                initOpen={false}
+                            />
+                        ))
+                    ) : (
+                        <div>None</div>
+                    )}
+                </ul>
+                <ul className="list-disc list-inside my-2">
+                    <div className="font-medium mb-2">Anti-Patterns:</div>
+                    {patterns && patterns.length > 0 ? (
+                        patterns.map((pattern: any) => (
+                            <CollapsableBox
+                                title={pattern.type}
+                                svg={arrowSvg}
+                                body={
+                                    <p>Threshold: {pattern.threshold}</p>
                                 }
                                 initOpen={false}
                             />

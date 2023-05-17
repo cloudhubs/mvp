@@ -8,6 +8,7 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
     const [type, setType] = useState<string>();
     const [depends, setDepends] = useState<any[]>();
     const [dependencies, setDependencies] = useState<any[]>();
+    const [patterns, setAntiPatterns] = useState<any[]>();
 
     const handleClick = useCallback(
         (event: any) => {
@@ -45,6 +46,7 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
 
             setDependencies(dependencies);
             setDepends(dependsOn);
+            setAntiPatterns(event.detail.node.patterns)
             setShow(true);
         },
         [setShow, setAnchorPoint]
@@ -78,5 +80,6 @@ export const useInfoBox = (graphData: any, setFocusNode: any) => {
         depends,
         setShow,
         dependencies,
+        patterns,
     };
 };
