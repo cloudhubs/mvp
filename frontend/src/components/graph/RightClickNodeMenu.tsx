@@ -119,10 +119,10 @@ export const Menu: React.FC<Props> = ({ trackNodes, setTrackNodes }) => {
                 ),
                 1
             );
-            setTrackNodes(trackNodes);
+            setTrackNodes([...trackNodes]);
         } else {
             trackNodes.push(node.nodeName);
-            setTrackNodes(trackNodes);
+            setTrackNodes([...trackNodes]);
         }
     }
 
