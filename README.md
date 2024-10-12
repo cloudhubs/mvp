@@ -30,12 +30,9 @@ Ensure you have the following installed on your machine:
 
     ```sh
     docker-compose up --build
-	or
-	docker-compose up --build -d (for detached mode)
-
     ```
 
-    This command will build the Docker images and start the containers for both the backend and frontend services.
+    This command will build the Docker images and start the containers for both the backend and frontend services. '-d' flag can be used to run the containers in detached mode.
 
 	> The first time you run this command, it will take some time to download the required Docker images. Subsequent runs will be faster.
 
@@ -69,11 +66,11 @@ docker-compose down
 
 ## Troubleshooting
 When running the docker-compose file if you encounter the following error:
-```
+```sh
  => ERROR [frontend internal] load metadata for docker.io/library/node:18-alpine
  ```
 Please run the following command:
-```
+```sh
 docker logout
 docker login
 rm ~/.docker/config.json
