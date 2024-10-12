@@ -1,0 +1,24 @@
+# Stage 1: Build the application using Maven with Amazon Corretto 19
+FROM maven:3.8.7-amazoncorretto-19 AS build
+WORKDIR /app
+
+# Copy the pom.xml and install dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy the source code and build the application
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create a lightweight image to run the application
+FROM amazoncorretto:19
+WORKDIR /app
+
+# Copy the Spring Boot application JAR from the build stage
+COPY --from=build /app/target/MVPBackend-0.0.1-SNAPSHOT.war /app/MVPBackend.war
+
+# Expose the port your Spring Boot application is running on
+EXPOSE 8080
+
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "MVPBackend.war"]

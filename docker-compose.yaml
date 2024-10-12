@@ -1,0 +1,49 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mvp_db
+    environment:
+      MYSQL_ROOT_PASSWORD: csi3335rocks
+      MYSQL_DATABASE: msGraph
+    ports:
+      - "3306:3306"
+    # Uncomment the following line to persist data
+    # volumes:
+    #   - mariadb_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mvp_backend
+    ports:
+      - "8080:8080" # Expose Spring Boot on port 8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mvp_db:3306/msGraph
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: csi3335rocks
+    depends_on:
+      - mariadb
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mvp_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  mariadb_data:
+
+networks:
+  app_network:
+    driver: bridge
