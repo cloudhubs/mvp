@@ -56,6 +56,16 @@ Ensure you have the following installed on your machine:
 	jdbc:mariadb://mvp_db:3306/msGraph
 	```
 
+## Docker containers
+The following Docker containers are used in the MVP:
+- `mvp_frontend`: The frontend service built using React.
+- `mvp_backend`: The backend service built using Spring Boot.
+- `mvp_db`: The MariaDB database service.
+You can view the logs of the running containers using the following command:
+```sh
+docker-compose logs -f
+```
+
 ## Stopping the Application
 
 To stop the running containers, press `Ctrl+C` in the terminal where `docker-compose` is running, or run the following command from the root directory of the project:
